@@ -10,6 +10,7 @@ This monorepo contains the following components:
 - `backend/`: Python-based backend service
 - `frontend/`: Next.js React frontend application
 - `scraper/`: Web scraping tools for collecting artist data
+- `gptmemory/`: Shared memory for AI assistants in collaborative development
 
 ## Getting Started
 
@@ -19,8 +20,47 @@ This monorepo contains the following components:
 - Python (v3.9+)
 - MongoDB
 - Chrome browser (for scraper)
+- Make (optional, for Makefile approach)
+- Docker & Docker Compose (optional, for containerized approach)
 
-### Setup All Components
+### One-Click Setup & Start
+
+You have three options to start the entire project with a single command:
+
+#### Option 1: Using npm scripts (Recommended for most developers)
+
+```bash
+# Install dependencies for all components
+npm run setup:all
+
+# Start all services (backend, frontend, docs)
+npm run dev
+```
+
+#### Option 2: Using Makefile (Good for Unix/Linux/macOS users)
+
+```bash
+# Install dependencies for all components
+make setup
+
+# Start all services
+make start
+
+# Stop all services
+make stop
+```
+
+#### Option 3: Using Docker Compose (Best for consistent environments across team)
+
+```bash
+# Build and start all services
+docker-compose up
+
+# Stop all services
+docker-compose down
+```
+
+### Individual Component Setup
 
 #### 1. Clone the repository
 
