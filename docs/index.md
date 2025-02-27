@@ -1,10 +1,10 @@
-# AIAD Developer Documentation
+# AIDA Developer Documentation
 
-Welcome to the AIAD (AI Artist Database) developer documentation. This guide provides comprehensive information about the architecture, components, and development workflows for the AIAD platform.
+Welcome to the AIDA (AI Artist Database) developer documentation. This guide provides comprehensive information about the architecture, components, and development workflows for the AIDA platform.
 
 ## Overview
 
-AIAD is a comprehensive platform that combines forums, social media, and AI interaction to create an artist community. The platform features an artist database containing information about artists from ancient to modern times, and uses Large Language Models (LLMs) to power virtual artists for intelligent conversations.
+AIDA is a comprehensive platform that combines forums, social media, and AI interaction to create an artist community. The platform features an artist database containing information about artists from ancient to modern times, and uses Large Language Models (LLMs) to power virtual artists for intelligent conversations.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ AIAD is a comprehensive platform that combines forums, social media, and AI inte
 
 ## Components
 
-The AIAD platform consists of four main components:
+The AIDA platform consists of four main components:
 
 1. **Backend**: Python-based API service
 2. **Frontend**: Next.js React application

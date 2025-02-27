@@ -10,7 +10,7 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="AIAD API",
+    title="AIDA API",
     description="AI Artist Database API",
     version="0.1.0"
 )
@@ -45,7 +45,7 @@ class Artist(ArtistBase):
 # Routes
 @app.get("/")
 async def root():
-    return {"message": "Welcome to AIAD API"}
+    return {"message": "Welcome to AIDA API"}
 
 @app.get("/artists", response_model=List[Artist])
 async def get_artists():

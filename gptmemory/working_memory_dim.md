@@ -2,7 +2,7 @@
 
 ## 当前任务
 
-- [x] 创建 AIAD 项目的 monorepo 基础结构
+- [x] 创建 AIDA 项目的 monorepo 基础结构
   - [x] 设置文档组件 (VitePress, 中英双语)
   - [x] 设置后端组件 (FastAPI)
   - [x] 设置前端组件 (Next.js)
@@ -28,6 +28,11 @@
   - [x] 添加 VitePress 缓存目录 (docs/.vitepress/cache/, docs/.vitepress/.temp/)
   - [x] 添加 Next.js 环境声明文件 (next-env.d.ts)
   - [x] 添加 package-lock.json
+- [x] 项目重命名 (AIAD → AIDA)
+  - [x] 更新所有文件中的项目名称引用
+  - [x] 更新 GitHub 仓库链接
+  - [x] 更新数据库名称引用
+  - [x] 更新包名称
 
 ## 下一步计划
 

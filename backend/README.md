@@ -1,6 +1,6 @@
-# AIAD Backend
+# AIDA Backend
 
-This is the backend service for the AI Artist Database (AIAD) project. It provides RESTful APIs for managing artist data and AI artist interactions.
+This is the backend service for the AI Artist Database (AIDA) project. It provides RESTful APIs for managing artist data and AI artist interactions.
 
 ## Technology Stack
 
@@ -25,7 +25,7 @@ This is the backend service for the AI Artist Database (AIAD) project. It provid
 
 3. Create a `.env` file with the following variables:
    ```
-   DATABASE_URL=mongodb://localhost:27017/aiad
+   DATABASE_URL=mongodb://localhost:27017/aida
    OPENAI_API_KEY=your_openai_api_key
    JWT_SECRET=your_jwt_secret
    ```

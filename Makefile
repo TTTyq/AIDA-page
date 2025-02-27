@@ -1,4 +1,4 @@
-# AIAD Project Makefile
+# AIDA Project Makefile
 
 .PHONY: setup start stop dev-backend dev-frontend dev-docs help
 
@@ -11,7 +11,7 @@ NC=\033[0m # No Color
 
 # 默认目标
 help:
-	@echo "${BLUE}AIAD 项目管理命令${NC}"
+	@echo "${BLUE}AIDA 项目管理命令${NC}"
 	@echo ""
 	@echo "${GREEN}可用命令:${NC}"
 	@echo "  ${YELLOW}make setup${NC}      - 安装所有组件的依赖"

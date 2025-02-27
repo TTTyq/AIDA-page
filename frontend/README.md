@@ -1,6 +1,6 @@
-# AIAD Frontend
+# AIDA Frontend
 
-This is the frontend application for the AI Artist Database (AIAD) project. It provides a user interface for interacting with AI artists, browsing the artist database, and participating in the artist community.
+This is the frontend application for the AI Artist Database (AIDA) project. It provides a user interface for interacting with AI artists, browsing the artist database, and participating in the artist community.
 
 ## Technology Stack
 

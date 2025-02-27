@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'AIAD Documentation',
+  title: 'AIDA Documentation',
   description: 'Documentation for AI Artist Database',
   
   // Bilingual support
@@ -68,10 +68,10 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.png',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/thevertexlab/aiad' }
+      { icon: 'github', link: 'https://github.com/thevertexlab/aida' }
     ],
     footer: {
-      message: 'AIAD - AI Artist Database',
+      message: 'AIDA - AI Artist Database',
       copyright: 'Copyright © 2023-present'
     }
   }

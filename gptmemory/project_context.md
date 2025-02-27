@@ -1,8 +1,8 @@
-# AIAD 项目上下文
+# AIDA 项目上下文
 
 ## 核心概念
 
-AIAD (AI Artist Database) 是一个结合论坛、社交媒体和 AI 交互的艺术家社区平台。核心功能包括：
+AIDA (AI Artist Database) 是一个结合论坛、社交媒体和 AI 交互的艺术家社区平台。核心功能包括：
 
 1. **艺术家数据库**: 存储从古至今的艺术家信息
 2. **AI 艺术家**: 基于 LLM 的虚拟艺术家，可进行智能对话
@@ -12,7 +12,7 @@ AIAD (AI Artist Database) 是一个结合论坛、社交媒体和 AI 交互的�
 
 ### Monorepo 结构
 ```
-aiad/
+aida/
 ├── docs/           # 双语开发文档 (VitePress)
 ├── backend/        # Python FastAPI 后端
 ├── frontend/       # Next.js React 前端

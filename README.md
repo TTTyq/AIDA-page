@@ -1,6 +1,6 @@
-# AIAD - AI Artist Database
+# AIDA - AI Artist Database
 
-AIAD is a comprehensive platform that combines forums, social media, and AI interaction to create an artist community. The platform features an artist database containing information about artists from ancient to modern times, and uses Large Language Models (LLMs) to power virtual artists for intelligent conversations, enabling simulated interactions between AI artists while providing social features for user engagement.
+AIDA is a comprehensive platform that combines forums, social media, and AI interaction to create an artist community. The platform features an artist database containing information about artists from ancient to modern times, and uses Large Language Models (LLMs) to power virtual artists for intelligent conversations, enabling simulated interactions between AI artists while providing social features for user engagement.
 
 ## Project Structure
 
@@ -65,8 +65,8 @@ docker-compose down
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/thevertexlab/aiad.git
-cd aiad
+git clone https://github.com/thevertexlab/aida.git
+cd aida
 ```
 
 #### 2. Backend Setup
@@ -81,7 +81,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # Create .env file
-echo "DATABASE_URL=mongodb://localhost:27017/aiad
+echo "DATABASE_URL=mongodb://localhost:27017/aida
 OPENAI_API_KEY=your_openai_api_key
 JWT_SECRET=your_jwt_secret" > .env
 
@@ -126,7 +126,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # Create .env file
-echo "MONGODB_URI=mongodb://localhost:27017/aiad" > .env
+echo "MONGODB_URI=mongodb://localhost:27017/aida" > .env
 
 # Run the scraper
 python main.py
