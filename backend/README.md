@@ -11,6 +11,41 @@ This is the backend service for the AI Artist Database (AIDA) project. It provid
 - **OpenAI**: Integration for AI artist interactions
 - **Pandas**: Data analysis and manipulation tool for CSV processing
 
+## Project Structure
+
+```
+backend/
+├── app/                    # Main application package
+│   ├── api/                # API routes
+│   │   └── v1/             # API version 1
+│   │       ├── endpoints/  # API endpoints
+│   │       └── __init__.py # API router initialization
+│   ├── core/               # Core configuration
+│   │   ├── config.py       # Application configuration
+│   │   └── __init__.py
+│   ├── db/                 # Database related
+│   │   ├── mongodb/        # MongoDB connection and operations
+│   │   └── __init__.py
+│   ├── models/             # Data models
+│   │   ├── artist.py       # Artist model
+│   │   └── __init__.py
+│   ├── schemas/            # Pydantic schemas
+│   │   ├── artist.py       # Artist schema
+│   │   └── __init__.py
+│   ├── services/           # Business logic
+│   │   ├── artist_service.py # Artist service
+│   │   ├── ai_service.py   # AI interaction service
+│   │   └── __init__.py
+│   ├── utils/              # Utility functions
+│   │   ├── csv_handler.py  # CSV processing
+│   │   └── __init__.py
+│   └── __init__.py         # Application initialization
+├── main.py                 # Application entry point
+├── requirements.txt        # Dependencies
+├── .env.example            # Environment variables example
+└── Dockerfile.dev          # Development Docker configuration
+```
+
 ## Setup
 
 1. Create a virtual environment:
@@ -70,12 +105,38 @@ npm run show:api-docs
 
 ### Core Endpoints
 - `GET /`: Welcome message
-- `GET /artists`: List all artists
-- `GET /artists/{artist_id}`: Get a specific artist by ID
-- `POST /ai-interaction`: Interact with AI artists
+- `GET /api/v1/artists`: List all artists
+- `GET /api/v1/artists/{artist_id}`: Get a specific artist by ID
+- `POST /api/v1/artists`: Create a new artist
+- `PUT /api/v1/artists/{artist_id}`: Update an existing artist
+- `DELETE /api/v1/artists/{artist_id}`: Delete an artist
+- `GET /api/v1/artists/search`: Search artists with various filters
+- `POST /api/v1/ai-interaction`: Interact with AI artists
 
-### Test and Data Management Endpoints
-- `GET /api/test`: Test GET API with query parameters
-- `POST /api/test`: Test POST API with request body
-- `POST /api/upload-csv`: Upload a CSV file for processing
-- `GET /api/import-test-data`: Import test data from the data/test_table.csv file
+### Data Management Endpoints
+- `POST /api/v1/data/upload-csv`: Upload a CSV file for processing
+- `GET /api/v1/data/import-test-data`: Import test data from the data/test_table.csv file
+
+### Test Endpoints
+- `GET /api/v1/test`: Test GET API with query parameters
+- `POST /api/v1/test`: Test POST API with request body
+
+## Development
+
+### Adding New Endpoints
+
+1. Create a new file in `app/api/v1/endpoints/`
+2. Define your router and endpoints
+3. Register the router in `app/api/v1/__init__.py`
+
+### Adding New Models
+
+1. Create a new file in `app/models/`
+2. Define your model class
+3. Create corresponding schema in `app/schemas/`
+
+### Adding New Services
+
+1. Create a new file in `app/services/`
+2. Define your service class with business logic
+3. Use the service in your endpoints

@@ -13,6 +13,9 @@ import pymongo
 from bson import json_util
 from fastapi.responses import HTMLResponse, JSONResponse
 import sys
+import uvicorn
+from app import create_app
+from app.core.config import HOST, PORT, BASE_URL
 
 # Check if .env file exists
 env_file_path = os.path.join(os.path.dirname(__file__), ".env")
@@ -54,16 +57,15 @@ app = FastAPI(
     redoc_url=None  # Disable default redoc
 )
 
-# 输出API文档地址
-host = os.getenv("API_HOST", "0.0.0.0")
-port = int(os.getenv("API_PORT", "8000"))
-base_url = f"http://{'localhost' if host == '0.0.0.0' else host}:{port}"
+# 创建应用
+app = create_app()
 
+# 输出 API 文档地址
 print(f"\n{'='*50}")
-print(f"AIDA API is running at: {base_url}")
+print(f"AIDA API is running at: {BASE_URL}")
 print(f"API Documentation:")
-print(f"- Swagger UI: {base_url}/api/docs")
-print(f"- ReDoc: {base_url}/api/redoc")
+print(f"- Swagger UI: {BASE_URL}/api/docs")
+print(f"- ReDoc: {BASE_URL}/api/redoc")
 print(f"{'='*50}\n")
 
 # Configure CORS
@@ -333,6 +335,4 @@ async def import_test_data():
         raise HTTPException(status_code=500, detail=f"Error importing test data: {str(e)}")
 
 if __name__ == "__main__":
-    import uvicorn
-    
-    uvicorn.run("main:app", host=host, port=port, reload=True) 
+    uvicorn.run("main:app", host=HOST, port=PORT, reload=True) 
