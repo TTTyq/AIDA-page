@@ -1,0 +1,11 @@
+id,name,birth_year,death_year,nationality,primary_style,famous_works
+1,Leonardo da Vinci,1452,1519,Italian,Renaissance,"Mona Lisa,The Last Supper,Vitruvian Man"
+2,Vincent van Gogh,1853,1890,Dutch,Post-Impressionism,"Starry Night,Sunflowers,Self-Portrait"
+3,Frida Kahlo,1907,1954,Mexican,Surrealism,"The Two Fridas,Self-Portrait with Thorn Necklace and Hummingbird"
+4,Pablo Picasso,1881,1973,Spanish,Cubism,"Guernica,Les Demoiselles d'Avignon,The Weeping Woman"
+5,Claude Monet,1840,1926,French,Impressionism,"Water Lilies,Impression Sunrise,Rouen Cathedral series"
+6,Salvador Dalí,1904,1989,Spanish,Surrealism,"The Persistence of Memory,Swans Reflecting Elephants"
+7,Georgia O'Keeffe,1887,1986,American,Modernism,"Jimson Weed,Black Mesa Landscape,Ram's Head White Hollyhock and Little Hills"
+8,Rembrandt,1606,1669,Dutch,Baroque,"The Night Watch,Self-portraits,The Anatomy Lesson of Dr. Nicolaes Tulp"
+9,Michelangelo,1475,1564,Italian,Renaissance,"David,Sistine Chapel ceiling,Pietà"
+10,Yayoi Kusama,1929,,Japanese,Contemporary,"Infinity Mirror Rooms,Pumpkin sculptures,Narcissus Garden" 

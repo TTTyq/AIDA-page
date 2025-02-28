@@ -41,19 +41,37 @@ This is the frontend application for the AI Artist Database (AIDA) project. It p
 ```
 frontend/
 ├── app/                 # Next.js app directory
-│   ├── page.tsx         # Home page
+│   ├── (routes)/        # App routes (grouped for organization)
+│   │   ├── page.tsx     # Home page
+│   │   ├── artists/     # Artist routes
+│   │   ├── forum/       # Forum routes
+│   │   ├── test/        # API test page
+│   │   └── table/       # Data table page
+│   ├── api/             # API route handlers
 │   ├── layout.tsx       # Root layout
-│   ├── globals.less     # Global Less styles
-│   ├── store/           # Jotai state management
-│   │   └── atoms.ts     # Jotai atoms
-│   ├── services/        # API services
-│   │   └── api.ts       # API client
-│   ├── test/            # API test page
-│   ├── artists/         # Artist database pages
-│   ├── forum/           # Forum pages
-│   └── ai-interaction/  # AI interaction pages
+│   └── metadata.ts      # App metadata
 ├── components/          # Reusable React components
-├── lib/                 # Utility functions and hooks
+│   ├── ui/              # Basic UI components
+│   ├── layout/          # Layout components
+│   ├── forms/           # Form components
+│   └── features/        # Feature-specific components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions and constants
+│   ├── utils.ts         # General utility functions
+│   └── constants.ts     # Application constants
+├── services/            # API services
+│   ├── api.ts           # API client
+│   └── endpoints/       # API endpoint services
+├── store/               # State management
+│   ├── atoms.ts         # Jotai atoms
+│   └── selectors.ts     # Derived state selectors
+├── styles/              # Global styles
+│   ├── globals.css      # Global CSS
+│   └── globals.less     # Global Less styles
+├── types/               # TypeScript type definitions
+│   ├── api.ts           # API response types
+│   ├── models.ts        # Data model types
+│   └── common.ts        # Common type definitions
 ├── public/              # Static assets
 ├── tailwind.config.js   # Tailwind CSS configuration
 ├── postcss.config.js    # PostCSS configuration
@@ -61,19 +79,94 @@ frontend/
 └── package.json         # Project dependencies
 ```
 
-## State Management with Jotai
+## Coding Standards
+
+### Component Structure
+
+Components should follow this structure:
+
+```tsx
+// components/features/ArtistCard.tsx
+import { useState } from 'react';
+import { Card, Text } from '@mantine/core';
+import { useArtistData } from '@/hooks/useArtistData';
+import type { Artist } from '@/types/models';
+
+interface ArtistCardProps {
+  artist: Artist;
+  onSelect?: (artist: Artist) => void;
+}
+
+export function ArtistCard({ artist, onSelect }: ArtistCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(artist);
+    }
+  };
+  
+  return (
+    <Card 
+      className={`transition-all duration-200 ${isHovered ? 'shadow-lg' : 'shadow-md'}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+    >
+      <Text className="font-bold text-lg">{artist.name}</Text>
+      {/* Card content */}
+    </Card>
+  );
+}
+```
+
+### State Management with Jotai
 
 The application uses Jotai for state management. Jotai provides an atomic approach to React state management, which makes it easy to manage and update state in a predictable way.
 
 ```tsx
 // Example of using Jotai atoms
 import { useAtom } from 'jotai';
-import { artistsAtom } from '../store/atoms';
+import { artistsAtom } from '@/store/atoms';
 
 function ArtistList() {
   const [artists, setArtists] = useAtom(artistsAtom);
   // ...
 }
+```
+
+### API Services
+
+API services should be organized by domain and use the central API client:
+
+```tsx
+// services/endpoints/artistService.ts
+import api from '@/services/api';
+import type { Artist, ArtistFilter } from '@/types/models';
+
+export const artistService = {
+  getArtists: async (): Promise<Artist[]> => {
+    try {
+      const response = await api.get('/artists');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching artists:', error);
+      throw error;
+    }
+  },
+  
+  getArtistById: async (id: number): Promise<Artist> => {
+    try {
+      const response = await api.get(`/artists/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching artist with ID ${id}:`, error);
+      throw error;
+    }
+  },
+  
+  // More artist-related API methods...
+};
 ```
 
 ## Styling with Mantine, Tailwind CSS, and Less

@@ -47,7 +47,6 @@ package-lock.json
 .DS_Store
 
 # Project specific
-data/
 *.log
 .coverage
 htmlcov/
