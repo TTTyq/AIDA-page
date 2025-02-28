@@ -103,26 +103,6 @@ Make sure you've correctly switched to Agent mode! If you notice the AI is only 
      - macOS: Install using Homebrew: `brew install mongosh`
    - After installation, you can type `mongosh` in the terminal to connect to your local MongoDB
    - Cursor AI can help you execute database queries, modify data structures, etc. through mongosh
-
-7. **Using Chrome Developer Tools for frontend debugging**:
-   - Open your frontend application (http://localhost:3000) in Chrome browser
-   - Press F12 or right-click on the page and select "Inspect" to open developer tools
-   - Use the Network panel to monitor API requests:
-     - Click on the Network tab to view all network requests
-     - Click on any request to see detailed information, including request headers, response data, etc.
-     - Right-click on a request and select "Copy > Copy as cURL" to copy the curl command for the request
-     - Paste the copied curl command to Cursor AI, which can help you analyze the request or modify parameters
-   - Use the Console panel to debug JavaScript:
-     - You can execute JavaScript code directly in the Console
-     - Frontend error messages will be displayed here
-     - You can use `console.log()` to output variable values for debugging
-
-::: tip Let AI Help You
-When you encounter frontend API request issues, you can ask AI for help like this:
-
-> I copied this API request from Chrome Developer Tools: [paste curl command]. Please help me analyze this request and explain how to modify it to solve [describe your problem].
-
-AI will analyze request parameters, response data, and provide fix suggestions.
 :::
 
 ::: info 💡 Tip
@@ -441,13 +421,148 @@ Backend APIs can be understood as a set of functions that are called through HTT
 - When you visit `http://localhost:8000/api/artists`, the backend will return a list of all artists
 - When you visit `http://localhost:8000/api/artists/123`, the backend will return information about the artist with ID 123
 
-You can view all available API endpoints and their detailed descriptions by visiting the API documentation at `http://localhost:8000/api/docs`.
+You can access the API documentation by visiting `http://localhost:8000/api/docs` to view all available API endpoints and their detailed descriptions.
 
 ## Development Workflow
 
 ### Git Workflow
 
 In the AIDA project, we use Git for version control. Here's the basic Git workflow:
+
+::: info 🧙‍♂️ Magic Moment
+Git might seem a bit complex, but don't worry! Think of it as a time machine that lets you go back to any historical state of your code at any time. And with AI assistants, you don't even need to remember those complex Git commands — just tell the AI "I want to save my changes" or "I want to switch to a new branch," and the AI will tell you exactly what to do!
+:::
+
+### Creating a New Branch
+
+Before starting a new feature or fixing a bug, you should create a new branch:
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+::: tip Let AI Help You
+You can directly tell the AI assistant:
+
+> I need to work on a new branch for development. Help me create and switch to a new branch. I'm Dim, and I'm working on the artist list feature.
+
+AI might respond:
+"You can use the following command to create and switch to a new branch:
+```bash
+git checkout -b feature/dim/artist-list
+```
+This branch name follows the project's naming convention: feature/developer-name/feature-description"
+:::
+
+### Committing Changes
+
+1. Check your changes:
+   ```bash
+   git status
+   ```
+
+2. Add changed files to the staging area:
+   ```bash
+   git add .  # Add all changes
+   # or
+   git add path/to/specific/file  # Add specific file
+   ```
+
+3. **Use Cursor to generate commit messages**:
+   - In Cursor, click the Source Control icon on the left
+   - Click the "⭐⭐" icon (Generate Commit Message) next to the commit message box
+   - Cursor's AI will analyze your changes and generate an appropriate commit message
+   - You can edit this message as needed
+
+::: tip Let AI Help You
+You can also ask the AI assistant to help you generate a commit message:
+
+> I modified the following files: [list modified files], mainly implementing pagination for the artist list. Please help me generate a commit message that follows the project standards.
+
+AI will generate an appropriate commit message based on your description, such as:
+"feat(artist-list): implement pagination for artist listing page"
+:::
+
+4. Commit your changes:
+   - In Cursor's Source Control panel, click the "✓" icon (Commit)
+   - Or use the terminal:
+     ```bash
+     git commit -m "Your commit message"
+     ```
+
+### Pushing and Pulling Changes
+
+After committing changes, you need to push these changes to the remote repository or pull changes from others:
+
+1. **Push changes to the remote repository**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+2. **Pull changes from the remote repository**:
+   ```bash
+   git pull origin main  # Pull changes from the main branch
+   ```
+
+#### Using Cursor Interface for Git Operations
+
+Cursor provides a convenient graphical interface for Git operations:
+
+1. **Using the status bar**:
+   - In the status bar at the bottom left of the editor, you'll see an icon like `1↑/2↓`
+   - `↑` indicates how many local commits you need to push to the remote repository
+   - `↓` indicates how many remote commits you need to pull to your local repository
+   - Click this icon to quickly perform push or pull operations
+
+2. **Using the Source Control panel**:
+   - Click the Source Control icon in the activity bar on the left (usually a branch icon)
+   - In the panel that opens, you can see all changed files
+   - The panel has buttons like "Push", "Pull", etc. at the top; click to perform the corresponding operation
+   - You can also right-click on files to stage, unstage, or discard changes
+
+::: info 💡 Tip
+When you see `1↑` in the status bar, it means you have one local commit that needs to be pushed to the remote repository. Click it and select "Push" to do so.
+
+Similarly, when you see `2↓`, it means there are two remote commits that need to be pulled to your local repository. Click it and select "Pull" to do so.
+:::
+
+::: tip Let AI Help You
+If you're unsure how to handle Git push or pull operations, you can ask the AI assistant:
+
+> I see 2↑/3↓ in the status bar. What does this mean? What should I do?
+
+Or:
+
+> I just committed my code and now need to push it to the remote repository. Please tell me the exact steps.
+
+AI will provide detailed operational guidance to help you complete Git operations.
+:::
+
+### Resolving Merge Conflicts
+
+- When you pull remote changes, you may encounter merge conflicts
+- Cursor will display conflict areas in the file and provide options for resolving conflicts
+- You can choose to keep your changes, keep others' changes, or manually edit the conflict area
+- After resolving all conflicts, you need to commit these changes
+
+::: warning 🚨 Tips to Avoid Conflicts
+To reduce merge conflicts, develop good habits:
+1. Pull the latest code before starting work (`git pull`)
+2. Commit and push your changes frequently
+3. Develop different features on different branches
+4. Communicate and coordinate in advance if multiple people are modifying the same file
+:::
+
+### Creating Pull Requests
+
+When you've completed feature development, you can create a pull request:
+
+1. Visit the project repository on GitHub
+2. Click the "Pull requests" tab
+3. Click the "New pull request" button
+4. Select your branch and the target branch (usually main or master)
+5. Fill in the title and description of the pull request
+6. Click the "Create pull request" button
 
 ### Using GPT Memory
 
@@ -711,6 +826,80 @@ AI will analyze the cause of the error and provide fix suggestions, sometimes ev
    ```
    Your solution looks good. Please help me modify the code to implement this fix
    ```
+
+### Using Chrome DevTools for Debugging
+
+Chrome DevTools is a powerful set of web developer tools built directly into the Chrome browser. It's essential for debugging frontend issues, especially network-related problems. Here's how to use the Network panel effectively:
+
+#### Opening Chrome DevTools Network Panel
+
+1. Open your frontend application (http://localhost:3000) in Chrome browser
+2. Press F12 or right-click on the page and select "Inspect" to open DevTools
+3. Click on the "Network" tab to access the Network panel
+
+#### Monitoring API Requests
+
+The Network panel shows all network requests made by your application:
+
+1. **Viewing requests**: Each row represents a network request (API calls, images, scripts, etc.)
+2. **Request details**: Click on any request to see detailed information in the right panel
+3. **Filter requests**: Use the filter bar to show only specific types of requests:
+   - Type "fetch" or "xhr" to see only API requests
+   - Type the endpoint path to find specific requests
+
+#### Analyzing Request and Response Data
+
+When you click on a request, you can examine:
+
+1. **Headers**: View request and response headers, including authentication tokens
+2. **Preview**: See a formatted view of the response data
+3. **Response**: View the raw response data
+4. **Timing**: Analyze how long different parts of the request took
+
+#### Useful Debugging Techniques
+
+1. **Copy as cURL**: Right-click on a request and select "Copy > Copy as cURL" to get a command you can:
+   - Share with backend developers to reproduce issues
+   - Run in terminal to test the API directly
+   - Use in AI debugging by pasting the cURL command to the AI assistant
+
+2. **Copy as fetch**: Right-click and select "Copy > Copy as fetch" to get JavaScript code that reproduces the request:
+   - Paste in the Console tab to test the request
+   - Use in your code to implement the same request
+
+3. **Copy response**: Right-click and select "Copy > Copy response" to copy the API response data:
+   - Analyze the data structure
+   - Compare with what your application is displaying
+
+4. **Copy as JSON**: For JSON responses, in the Preview tab, right-click on the object and select "Copy object" to get the JSON data:
+   - Paste into your code for testing
+   - Share with team members to analyze data issues
+
+::: tip Let AI Help You
+When debugging API issues, you can use Chrome DevTools with AI assistance:
+
+> I copied this API request from Chrome DevTools: [paste cURL command]. The response shows [describe issue], but I expected [expected behavior]. Please help me understand what's wrong.
+
+AI can analyze the request parameters, headers, and response data to identify issues in your API calls.
+:::
+
+#### Network Conditions Testing
+
+You can simulate different network conditions to test how your app behaves:
+
+1. Click the "Network conditions" tab (⚙️ icon or in the three-dot menu)
+2. Disable cache to always get fresh responses
+3. Select different connection speeds (3G, 4G, etc.) to test performance on slower connections
+
+#### Best Practices for Beginners
+
+1. **Always check the Network panel first** when API data isn't displaying correctly
+2. **Look for red requests** (4xx or 5xx status codes) which indicate errors
+3. **Compare request parameters** with what you expect to be sending
+4. **Verify response data** matches what your application is trying to display
+5. **Use the Preserve log option** (checkbox in Network panel) to keep requests visible when navigating between pages
+
+These Chrome DevTools techniques will help you quickly identify and fix many common frontend issues without having to add console.log statements throughout your code.
 
 ### Refactoring Code
 
