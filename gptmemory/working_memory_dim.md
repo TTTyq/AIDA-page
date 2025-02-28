@@ -33,12 +33,27 @@
   - [x] 更新 GitHub 仓库链接
   - [x] 更新数据库名称引用
   - [x] 更新包名称
+- [x] 后端功能增强
+  - [x] 添加 API 文档端点 (Swagger UI 在 /api/docs, ReDoc 在 /api/redoc)
+  - [x] 创建测试 API 端点 (支持 GET 和 POST 请求)
+  - [x] 添加 CSV 数据导入 MongoDB 的功能
+- [x] 数据管理优化
+  - [x] 在根目录创建 data 文件夹
+  - [x] 添加示例 test_table.csv 文件
+  - [x] 配置爬虫组件将数据输出到 data 文件夹
+- [x] 配置文件更新
+  - [x] 创建 .env.example 文件，包含 MongoDB 连接设置
+  - [x] 更新 README.md 添加 MongoDB 安装指南
+  - [x] 更新 setup 脚本处理 MongoDB 数据导入
 
 ## 下一步计划
 
 - 实现艺术家数据 API 端点
 - 开发前端艺术家列表和详情页面
 - 配置爬虫采集初始数据集
+- 实现 MongoDB 数据导入/导出功能
+- 添加用户认证和授权系统
+- 开发 AI 艺术家交互功能
 
 ## 注意事项
 
@@ -46,4 +61,6 @@
 - 保持代码提交信息符合规范
 - 更新文档时保持中英文同步
 - VitePress 使用 ESM 模块，确保配置文件使用 ES 模块语法
-- 定期检查 .gitignore 文件，确保不会提交不必要的文件 
+- 定期检查 .gitignore 文件，确保不会提交不必要的文件
+- MongoDB 连接配置统一使用 .env 文件管理
+- 爬虫组件输出数据统一保存到根目录的 data 文件夹 

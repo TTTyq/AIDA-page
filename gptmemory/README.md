@@ -1,5 +1,7 @@
 # GPT Memory
 
+!! 重要 !! 每次执行前后必须读和更新 project_standards.md 和 project_context.md !! 
+
 这个目录用于存储 AI 助手（如 Cursor、Windsurf 等 LLM IDE）在多人协作环境中共享的记忆和上下文信息。通过维护这些共享记忆文件，可以确保不同开发者使用的 AI 助手能够保持一致的理解和行为。
 
 ## 目录结构

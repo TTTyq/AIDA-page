@@ -17,7 +17,8 @@ import pandas as pd
 load_dotenv()
 
 # Configuration
-OUTPUT_DIR = "data"
+# Use the data directory in the project root
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 class ArtistScraper:
@@ -34,7 +35,13 @@ class ArtistScraper:
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument(f"user-agent={ua.random}")
         
-        service = Service(ChromeDriverManager().install())
+        # Use ChromeDriver path from environment variable if available
+        chrome_driver_path = os.getenv("CHROME_DRIVER_PATH")
+        if chrome_driver_path and os.path.exists(chrome_driver_path):
+            service = Service(chrome_driver_path)
+        else:
+            service = Service(ChromeDriverManager().install())
+            
         self.browser = webdriver.Chrome(service=service, options=chrome_options)
     
     def scrape_wikiart(self, num_artists=10):
@@ -114,17 +121,26 @@ class ArtistScraper:
     
     def save_data(self):
         """Save the scraped data to JSON and CSV files."""
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        
         # Save to JSON
-        json_path = os.path.join(OUTPUT_DIR, "artists.json")
+        json_path = os.path.join(OUTPUT_DIR, f"artists_{timestamp}.json")
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(self.artists, f, ensure_ascii=False, indent=2)
         
         # Save to CSV
-        csv_path = os.path.join(OUTPUT_DIR, "artists.csv")
+        csv_path = os.path.join(OUTPUT_DIR, f"artists_{timestamp}.csv")
         df = pd.DataFrame(self.artists)
         df.to_csv(csv_path, index=False, encoding="utf-8")
         
-        print(f"Saved {len(self.artists)} artists to {json_path} and {csv_path}")
+        # Also save to a standard filename for easy access
+        standard_csv_path = os.path.join(OUTPUT_DIR, "artists.csv")
+        df.to_csv(standard_csv_path, index=False, encoding="utf-8")
+        
+        print(f"Saved {len(self.artists)} artists to:")
+        print(f"  - {json_path}")
+        print(f"  - {csv_path}")
+        print(f"  - {standard_csv_path}")
     
     def close(self):
         """Close the browser."""
@@ -134,7 +150,9 @@ class ArtistScraper:
 def main():
     scraper = ArtistScraper()
     try:
-        scraper.scrape_wikiart(num_artists=20)
+        # Get number of artists from environment variable or use default
+        num_artists = int(os.getenv("SCRAPER_NUM_ARTISTS", "20"))
+        scraper.scrape_wikiart(num_artists=num_artists)
         scraper.save_data()
     finally:
         scraper.close()

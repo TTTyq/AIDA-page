@@ -11,6 +11,7 @@ This monorepo contains the following components:
 - `frontend/`: Next.js React frontend application
 - `scraper/`: Web scraping tools for collecting artist data
 - `gptmemory/`: Shared memory for AI assistants in collaborative development
+- `data/`: CSV data files for artist information
 
 ## Getting Started
 
@@ -23,6 +24,59 @@ This monorepo contains the following components:
 - Make (optional, for Makefile approach)
 - Docker & Docker Compose (optional, for containerized approach)
 
+### MongoDB Installation
+
+#### macOS (using Homebrew)
+
+```bash
+# Install MongoDB
+brew tap mongodb/brew
+brew install mongodb-community
+
+# Start MongoDB service
+brew services start mongodb-community
+```
+
+#### Windows
+
+1. Download the MongoDB Community Server installer from the [MongoDB Download Center](https://www.mongodb.com/try/download/community)
+2. Run the installer and follow the installation wizard
+3. Choose "Complete" setup type
+4. Check "Install MongoDB as a Service"
+5. Complete the installation
+
+#### Linux (Ubuntu/Debian)
+
+```bash
+# Import MongoDB public GPG key
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+
+# Create a list file for MongoDB
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+# Reload local package database
+sudo apt-get update
+
+# Install MongoDB packages
+sudo apt-get install -y mongodb-org
+
+# Start MongoDB service
+sudo systemctl start mongod
+
+# Enable MongoDB to start on boot
+sudo systemctl enable mongod
+```
+
+#### Docker
+
+```bash
+# Pull MongoDB image
+docker pull mongo
+
+# Run MongoDB container
+docker run -d -p 27017:27017 --name mongodb mongo
+```
+
 ### One-Click Setup & Start
 
 You have three options to start the entire project with a single command:
@@ -32,6 +86,12 @@ You have three options to start the entire project with a single command:
 ```bash
 # Install dependencies for all components
 npm run setup:all
+
+# Import test data into MongoDB
+npm run setup:mongodb
+
+# Or do everything in one command
+npm run setup:complete
 
 # Start all services (backend, frontend, docs)
 npm run dev
@@ -80,10 +140,8 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file
-echo "DATABASE_URL=mongodb://localhost:27017/aida
-OPENAI_API_KEY=your_openai_api_key
-JWT_SECRET=your_jwt_secret" > .env
+# Create .env file (copy from .env.example)
+cp ../.env.example backend/.env
 
 # Start the backend server
 uvicorn main:app --reload
@@ -125,12 +183,19 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file
-echo "MONGODB_URI=mongodb://localhost:27017/aida" > .env
+# Create .env file (copy from .env.example)
+cp ../.env.example scraper/.env
 
 # Run the scraper
 python main.py
 ```
+
+## API Documentation
+
+The backend API provides interactive documentation:
+
+- Swagger UI: [http://localhost:8000/api/docs](http://localhost:8000/api/docs)
+- ReDoc: [http://localhost:8000/api/redoc](http://localhost:8000/api/redoc)
 
 ## Development Workflow
 

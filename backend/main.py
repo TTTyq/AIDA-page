@@ -1,18 +1,37 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, File, UploadFile, Form, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Optional
+from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any
 import os
+import csv
+import json
+import pandas as pd
 from dotenv import load_dotenv
+import pymongo
+from bson import json_util
 
 # Load environment variables
 load_dotenv()
+
+# MongoDB connection
+def get_mongo_client():
+    mongo_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017/aida")
+    client = pymongo.MongoClient(mongo_uri)
+    return client
+
+def get_database():
+    client = get_mongo_client()
+    return client.get_database()
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AIDA API",
     description="AI Artist Database API",
-    version="0.1.0"
+    version="0.1.0",
+    docs_url=None,  # Disable default docs
+    redoc_url=None  # Disable default redoc
 )
 
 # Configure CORS
@@ -41,6 +60,37 @@ class Artist(ArtistBase):
     
     class Config:
         orm_mode = True
+
+class CSVUploadResponse(BaseModel):
+    filename: str
+    rows_processed: int
+    status: str
+
+class QueryParams(BaseModel):
+    name: Optional[str] = None
+    nationality: Optional[str] = None
+    style: Optional[str] = None
+    min_year: Optional[int] = None
+    max_year: Optional[int] = None
+
+# Custom API documentation routes
+@app.get("/api/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js",
+        swagger_css_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css",
+    )
+
+@app.get("/api/redoc", include_in_schema=False)
+async def redoc_html():
+    return get_redoc_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - ReDoc",
+        redoc_js_url="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js",
+    )
 
 # Routes
 @app.get("/")
@@ -109,6 +159,111 @@ async def ai_interaction(message: str):
         "response": f"AI Artist response to: {message}",
         "artist_name": "AI Leonardo da Vinci"
     }
+
+# New test API endpoints
+@app.get("/api/test", summary="Test GET API with query parameters")
+async def test_get_api(
+    name: Optional[str] = Query(None, description="Filter by name"),
+    nationality: Optional[str] = Query(None, description="Filter by nationality"),
+    style: Optional[str] = Query(None, description="Filter by art style"),
+    min_year: Optional[int] = Query(None, description="Minimum birth year"),
+    max_year: Optional[int] = Query(None, description="Maximum birth year")
+):
+    """
+    Test GET API endpoint that accepts various query parameters.
+    
+    This endpoint demonstrates how to use query parameters in a GET request.
+    """
+    filters = {k: v for k, v in locals().items() if v is not None and k not in ['request']}
+    
+    return {
+        "message": "Test GET API",
+        "filters_applied": filters,
+        "result": "This is a test response from the GET API"
+    }
+
+@app.post("/api/test", summary="Test POST API with request body")
+async def test_post_api(query_params: QueryParams = Body(...)):
+    """
+    Test POST API endpoint that accepts a JSON body.
+    
+    This endpoint demonstrates how to use a request body in a POST request.
+    """
+    filters = {k: v for k, v in query_params.dict().items() if v is not None}
+    
+    return {
+        "message": "Test POST API",
+        "filters_applied": filters,
+        "result": "This is a test response from the POST API"
+    }
+
+@app.post("/api/upload-csv", response_model=CSVUploadResponse)
+async def upload_csv(file: UploadFile = File(...)):
+    """
+    Upload a CSV file to be processed and stored in the database.
+    
+    The CSV file should have headers matching the expected fields.
+    """
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="Only CSV files are allowed")
+    
+    content = await file.read()
+    
+    # Save the file temporarily
+    temp_file_path = f"temp_{file.filename}"
+    with open(temp_file_path, "wb") as f:
+        f.write(content)
+    
+    try:
+        # Process the CSV file
+        df = pd.read_csv(temp_file_path)
+        rows_count = len(df)
+        
+        # Here you would typically save to MongoDB
+        # For now, we'll just return the success response
+        
+        return {
+            "filename": file.filename,
+            "rows_processed": rows_count,
+            "status": "success"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing CSV: {str(e)}")
+    finally:
+        # Clean up the temporary file
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
+@app.get("/api/import-test-data")
+async def import_test_data():
+    """
+    Import test data from the test_table.csv file into MongoDB.
+    
+    This endpoint is for development and testing purposes.
+    """
+    try:
+        # Path to the test data file
+        test_data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "test_table.csv")
+        
+        if not os.path.exists(test_data_path):
+            raise HTTPException(status_code=404, detail="Test data file not found")
+        
+        # Read the CSV file
+        df = pd.read_csv(test_data_path)
+        
+        # Convert to list of dictionaries
+        records = df.to_dict('records')
+        
+        # Here you would typically save to MongoDB
+        # For demonstration, we'll just return the records
+        
+        return {
+            "message": "Test data import simulation successful",
+            "records_count": len(records),
+            "sample_records": records[:3] if len(records) > 3 else records
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error importing test data: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn

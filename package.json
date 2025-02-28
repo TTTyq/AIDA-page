@@ -16,7 +16,10 @@
     "setup:backend": "cd backend && python -m venv venv && venv/bin/pip install -r requirements.txt",
     "setup:frontend": "cd frontend && npm install",
     "setup:docs": "cd docs && npm install",
-    "setup:all": "npm install && npm run setup"
+    "setup:all": "npm install && npm run setup",
+    "import:data": "cd backend && python -c \"import requests; requests.get('http://localhost:8000/api/import-test-data')\"",
+    "setup:mongodb": "echo 'Importing test data into MongoDB...' && npm run dev:backend & sleep 5 && npm run import:data && pkill -f 'uvicorn main:app'",
+    "setup:complete": "npm run setup:all && npm run setup:mongodb"
   },
   "engines": {
     "node": ">=18.0.0",
