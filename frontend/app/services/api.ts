@@ -55,6 +55,17 @@ export const artistService = {
     }
   },
 
+  // Get all test data
+  getAllTestData: async (): Promise<any> => {
+    try {
+      const response = await api.get('/api/test');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching all test data:', error);
+      throw error;
+    }
+  },
+
   // AI artist interaction
   interactWithAI: async (message: string): Promise<any> => {
     try {

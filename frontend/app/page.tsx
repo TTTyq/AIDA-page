@@ -95,7 +95,7 @@ export default function Home() {
       </Paper>
       
       <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography variant="h5" component="h2" gutterBottom>
@@ -111,7 +111,7 @@ export default function Home() {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography variant="h5" component="h2" gutterBottom>
@@ -127,7 +127,7 @@ export default function Home() {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography variant="h5" component="h2" gutterBottom>
@@ -138,6 +138,22 @@ export default function Home() {
               </Typography>
               <Button component={Link} href="/test" variant="outlined" color="primary">
                 Test API
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+        
+        <Grid item xs={12} md={3}>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" component="h2" gutterBottom>
+                数据表格
+              </Typography>
+              <Typography variant="body1" paragraph>
+                查看后端测试表格的全部内容，以表格形式展示。
+              </Typography>
+              <Button component={Link} href="/table" variant="outlined" color="primary">
+                查看表格
               </Button>
             </CardContent>
           </Card>
