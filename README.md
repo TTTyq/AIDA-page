@@ -219,14 +219,14 @@ We follow a standardized commit message format to maintain a clean and meaningfu
 ```
 
 #### Types:
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation changes
-- **style**: Code style changes (formatting, missing semi-colons, etc)
-- **refactor**: Code changes that neither fix a bug nor add a feature
-- **perf**: Performance improvements
-- **test**: Adding or fixing tests
-- **chore**: Changes to build process or auxiliary tools
+- **🚀 feat**: A new feature
+- **🔧 fix**: A bug fix
+- **📚 docs**: Documentation changes
+- **💎 style**: Code style changes (formatting, missing semi-colons, etc)
+- **🔨 refactor**: Code changes that neither fix a bug nor add a feature
+- **⚡ perf**: Performance improvements
+- **🧪 test**: Adding or fixing tests
+- **🔧 chore**: Changes to build process or auxiliary tools
 
 #### Scope:
 Specify the component being affected (backend, frontend, docs, scraper, etc.)

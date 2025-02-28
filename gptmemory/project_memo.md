@@ -9,6 +9,6 @@
 - 技术架构：1)Monorepo结构：docs/(VitePress文档)、backend/(FastAPI后端)、frontend/(Next.js前端)、scraper/(数据采集)、gptmemory/(AI助手记忆)；2)数据流：爬虫采集→MongoDB存储→后端API→前端展示→LLM训练；3)技术栈：后端(FastAPI+SQLAlchemy+MongoDB+LangChain)、前端(Next.js+TypeScript+Tailwind CSS)、文档(VitePress双语)、爬虫(BeautifulSoup+Selenium)、AI(OpenAI API/自定义LLM)。
 - 代码规范：1)Python：PEP 8、类型注解(Python 3.9+)、docstring、导入顺序(标准库>第三方库>本地模块)、snake_case变量函数、PascalCase类名；2)TypeScript：ESLint+Prettier、类型定义、camelCase函数变量、PascalCase组件、函数组件+React Hooks、避免直接操作DOM；3)CSS：**优先Tailwind CSS**、必要时使用Less、Mantine组件库通过Tailwind调整样式、全局样式globals.css、组件样式styles目录；4)文档：Markdown、中英同步、可运行代码示例、API文档参数说明。
 - VitePress文档：1)侧边栏只显示二级标题(##)不显示三级标题(###)；2)解决方案：重要三级标题提升为二级，二级标题可以多一些，但是不超过10-15个左右、二级目录更详细、扁平化结构；3)目录规划：主要小节独立二级标题、正常使用三四级标题、保持结构清晰。
-- Git工作流：1)分支命名：feature/short-description、fix/short-description、docs/short-description；2)提交格式：<type>(<scope>): <subject>，类型包括feat/fix/docs/style/refactor/perf/test/chore。
+- Git工作流：1)分支命名：feature/short-description、fix/short-description、docs/short-description；2)提交格式：<emoji><type>(<scope>): <subject>，类型包括🚀feat/🔧fix/📚docs/💎style/🔨refactor/⚡perf/🧪test/🔧chore。
 - 关键功能：1)艺术家数据库：基本信息、流派风格、代表作品、历史背景；2)AI艺术家：基于真实资料的AI人格、多轮对话、知识问答、虚拟互动；3)社区功能：个人主页、讨论论坛、作品分享、社交连接。
 - 开发阶段：1)当前：基础架构搭建；2)下一步：核心功能开发；3)未来：AI模型训练、社区功能、多语言支持。
