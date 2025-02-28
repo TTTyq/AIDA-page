@@ -9,11 +9,12 @@ export default defineConfig({
     root: {
       label: 'English',
       lang: 'en-US',
+      link: '/en/',
       themeConfig: {
         nav: [
-          { text: 'Home', link: '/' },
-          { text: 'Guide', link: '/guide/' },
-          { text: 'API', link: '/api/' },
+          { text: 'Home', link: '/en/' },
+          { text: 'Guide', link: '/en/guide/' },
+          { text: 'API', link: '/en/api/' },
         ],
         sidebar: [
           { text: 'Beginner-Friendly Guide', link: '/en/guide/beginners' },
@@ -77,4 +78,4 @@ export default defineConfig({
       copyright: 'Copyright © 2023-present'
     }
   }
-}) 
+})

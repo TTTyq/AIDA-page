@@ -9,10 +9,10 @@ AIDA is a comprehensive platform that combines forums, social media, and AI inte
 ## Getting Started
 
 - [Beginner-Friendly Development Guide](/en/guide/beginners) 👶 **Must-read for beginners!**
-- [Architecture Overview](/guide/architecture)
-- [Backend Development](/guide/backend)
-- [Frontend Development](/guide/frontend)
-- [Scraper Development](/guide/scraper)
+- [Architecture Overview](/en/guide/architecture)
+- [Backend Development](/en/guide/backend)
+- [Frontend Development](/en/guide/frontend)
+- [Scraper Development](/en/guide/scraper)
 
 ## Components
 
