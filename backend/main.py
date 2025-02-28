@@ -150,6 +150,11 @@ async def get_artists():
         for artist in artists:
             if "_id" in artist:
                 del artist["_id"]  # Remove MongoDB ObjectId
+            
+            # Convert NaN values to None for proper JSON serialization
+            for key, value in artist.items():
+                if isinstance(value, float) and pd.isna(value):
+                    artist[key] = None
         
         return artists
     except Exception as e:
@@ -185,6 +190,11 @@ async def get_artist(artist_id: int):
         # Remove MongoDB ObjectId for JSON serialization
         if "_id" in artist:
             del artist["_id"]
+        
+        # Convert NaN values to None for proper JSON serialization
+        for key, value in artist.items():
+            if isinstance(value, float) and pd.isna(value):
+                artist[key] = None
         
         return artist
     except Exception as e:
