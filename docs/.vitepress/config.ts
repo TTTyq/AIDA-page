@@ -16,20 +16,20 @@ export default defineConfig({
           { text: 'API', link: '/api/' },
         ],
         sidebar: [
+          { text: 'Beginner-Friendly Guide', link: '/en/guide/beginners' },
           {
             text: 'Introduction',
             items: [
-              { text: 'Getting Started', link: '/guide/' },
-              { text: 'Beginner-Friendly Guide', link: '/en/guide/beginners' },
-              { text: 'Architecture', link: '/guide/architecture' },
+              { text: 'Getting Started', link: '/en/guide/' },
+              { text: 'Architecture', link: '/en/guide/architecture' },
             ]
           },
           {
             text: 'Components',
             items: [
-              { text: 'Backend', link: '/guide/backend' },
-              { text: 'Frontend', link: '/guide/frontend' },
-              { text: 'Scraper', link: '/guide/scraper' },
+              { text: 'Backend', link: '/en/guide/backend' },
+              { text: 'Frontend', link: '/en/guide/frontend' },
+              { text: 'Scraper', link: '/en/guide/scraper' },
             ]
           }
         ]
@@ -46,11 +46,11 @@ export default defineConfig({
           { text: 'API', link: '/zh/api/' },
         ],
         sidebar: [
+          { text: '宝宝也能看懂的开发指南', link: '/zh/guide/beginners' },
           {
             text: '介绍',
             items: [
               { text: '快速开始', link: '/zh/guide/' },
-              { text: '宝宝也能看懂的开发指南', link: '/zh/guide/beginners' },
               { text: '架构', link: '/zh/guide/architecture' },
             ]
           },
