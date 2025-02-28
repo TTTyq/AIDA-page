@@ -90,6 +90,41 @@ Cursor 实际上是基于 VSCode 构建的增强版编辑器。它保留了 VSCo
    - 如果你看到 AI 在对话框中输出了代码而不是直接修改文件，请寻找并点击 "Apply" 按钮
    - 如果没有 "Apply" 按钮，你可以手动复制代码并粘贴到相应文件中
 
+5. **理解 Cursor 执行的 curl 命令**：
+   - 当你看到 Cursor AI 自动执行 `curl` 命令时，不用担心，这是 AI 在获取网络资源
+   - `curl` 是一个用于传输数据的命令行工具，Cursor 使用它来获取网络信息、检查 API 响应等
+   - 这些命令通常是安全的，是 AI 助手为了更好地帮助你而执行的网络请求
+   - 如果你对某个 curl 命令有疑问，可以直接询问 AI："你刚才执行的 curl 命令是做什么的？"
+
+6. **安装 mongosh 方便调试 MongoDB**：
+   - `mongosh` 是 MongoDB 的命令行工具，可以帮助你直接与数据库交互
+   - 安装方法：
+     - Windows：通过 [MongoDB 官网](https://www.mongodb.com/try/download/shell) 下载安装
+     - macOS：使用 Homebrew 安装：`brew install mongosh`
+   - 安装后，你可以在终端中输入 `mongosh` 连接到本地 MongoDB
+   - Cursor AI 可以通过 mongosh 帮你执行数据库查询、修改数据结构等操作
+
+7. **使用 Chrome 开发者工具调试前端**：
+   - 在 Chrome 浏览器中打开前端应用（http://localhost:3000）
+   - 按 F12 或右键点击页面选择"检查"打开开发者工具
+   - 使用 Network 面板监控 API 请求：
+     - 点击 Network 标签查看所有网络请求
+     - 点击任何一个请求可以查看详细信息，包括请求头、响应数据等
+     - 右键点击请求，选择"Copy > Copy as cURL"可以复制请求的 curl 命令
+     - 将复制的 curl 命令粘贴给 Cursor AI，它可以帮你分析请求或修改参数
+   - 使用 Console 面板调试 JavaScript：
+     - 在 Console 中可以直接执行 JavaScript 代码
+     - 前端报错信息会显示在这里
+     - 可以使用 `console.log()` 输出变量值进行调试
+
+::: tip 让 AI 帮你做
+当你遇到前端 API 请求问题时，可以这样向 AI 寻求帮助：
+
+> 我从 Chrome 开发者工具复制了这个 API 请求：[粘贴 curl 命令]。请帮我分析这个请求，并解释如何修改它来解决 [描述你的问题]。
+
+AI 会分析请求参数、响应数据，并提供修复建议。
+:::
+
 ::: info 💡 小提示
 如果 AI 似乎卡住了或者行为不正常，尝试刷新页面或重启 Cursor。有时候简单的重启就能解决大部分问题！
 :::

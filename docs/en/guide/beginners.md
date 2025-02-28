@@ -90,6 +90,41 @@ Make sure you've correctly switched to Agent mode! If you notice the AI is only 
    - If you see AI outputting code in the dialog box instead of directly modifying the file, look for and click the "Apply" button
    - If there's no "Apply" button, you can manually copy the code and paste it into the appropriate file
 
+5. **Understanding curl commands executed by Cursor**:
+   - When you see Cursor AI automatically executing `curl` commands, don't worry - this is AI retrieving network resources
+   - `curl` is a command-line tool for transferring data that Cursor uses to fetch information from the web, check API responses, etc.
+   - These commands are generally safe and are executed by the AI assistant to better help you
+   - If you have questions about a curl command, you can directly ask the AI: "What was that curl command you just executed for?"
+
+6. **Installing mongosh for MongoDB debugging**:
+   - `mongosh` is MongoDB's command-line tool that helps you interact directly with the database
+   - Installation methods:
+     - Windows: Download and install from the [MongoDB website](https://www.mongodb.com/try/download/shell)
+     - macOS: Install using Homebrew: `brew install mongosh`
+   - After installation, you can type `mongosh` in the terminal to connect to your local MongoDB
+   - Cursor AI can help you execute database queries, modify data structures, etc. through mongosh
+
+7. **Using Chrome Developer Tools for frontend debugging**:
+   - Open your frontend application (http://localhost:3000) in Chrome browser
+   - Press F12 or right-click on the page and select "Inspect" to open developer tools
+   - Use the Network panel to monitor API requests:
+     - Click on the Network tab to view all network requests
+     - Click on any request to see detailed information, including request headers, response data, etc.
+     - Right-click on a request and select "Copy > Copy as cURL" to copy the curl command for the request
+     - Paste the copied curl command to Cursor AI, which can help you analyze the request or modify parameters
+   - Use the Console panel to debug JavaScript:
+     - You can execute JavaScript code directly in the Console
+     - Frontend error messages will be displayed here
+     - You can use `console.log()` to output variable values for debugging
+
+::: tip Let AI Help You
+When you encounter frontend API request issues, you can ask AI for help like this:
+
+> I copied this API request from Chrome Developer Tools: [paste curl command]. Please help me analyze this request and explain how to modify it to solve [describe your problem].
+
+AI will analyze request parameters, response data, and provide fix suggestions.
+:::
+
 ::: info 💡 Tip
 If AI seems stuck or behaving abnormally, try refreshing the page or restarting Cursor. Sometimes a simple restart can solve most problems!
 :::
