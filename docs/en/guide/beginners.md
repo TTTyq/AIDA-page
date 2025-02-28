@@ -77,6 +77,10 @@ Before you start using Cursor for development, here are some important usage tip
    - In Agent mode, AI can automatically perform multiple operations, such as searching code, reading files, editing code, etc.
    - Note: Agent mode will automatically stop after executing a maximum of 25 commands to prevent infinite loops
 
+::: warning Mode Selection Alert
+Make sure you've correctly switched to Agent mode! If you notice the AI is only answering questions but not performing any actions (like reading files, modifying code, etc.), it's likely because you're still in Ask mode. Most development tasks should be done in Agent mode unless you're just asking a simple question. Get in the habit of checking your mode every time you start a new conversation.
+:::
+
 3. **About command execution**:
    - When AI suggests executing command line commands, it will display a "Run Command" button
    - You need to manually click this button to execute the command; AI will not automatically execute command line operations
