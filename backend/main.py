@@ -11,6 +11,26 @@ import pandas as pd
 from dotenv import load_dotenv
 import pymongo
 from bson import json_util
+from fastapi.responses import HTMLResponse, JSONResponse
+import sys
+
+# Check if .env file exists
+env_file_path = os.path.join(os.path.dirname(__file__), ".env")
+env_example_path = os.path.join(os.path.dirname(__file__), ".env.example")
+
+if not os.path.exists(env_file_path):
+    if os.path.exists(env_example_path):
+        print("Error: .env file not found. Please copy .env.example to .env and update the values.")
+        print("You can use the following command:")
+        print(f"cp {env_example_path} {env_file_path}")
+    else:
+        print("Error: Neither .env nor .env.example files found. Please create a .env file with the required environment variables.")
+    
+    # In production, you might want to exit here
+    # sys.exit(1)
+    
+    # For development, we'll continue with default values but log a warning
+    print("Warning: Continuing with default configuration values.")
 
 # Load environment variables
 load_dotenv()
@@ -18,11 +38,11 @@ load_dotenv()
 # MongoDB connection
 def get_mongo_client():
     mongo_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017/aida")
-    client = pymongo.MongoClient(mongo_uri)
-    return client
+    return pymongo.MongoClient(mongo_uri)
+
+client = get_mongo_client()
 
 def get_database():
-    client = get_mongo_client()
     return client.get_database()
 
 # Initialize FastAPI app
@@ -33,6 +53,18 @@ app = FastAPI(
     docs_url=None,  # Disable default docs
     redoc_url=None  # Disable default redoc
 )
+
+# 输出API文档地址
+host = os.getenv("API_HOST", "0.0.0.0")
+port = int(os.getenv("API_PORT", "8000"))
+base_url = f"http://{'localhost' if host == '0.0.0.0' else host}:{port}"
+
+print(f"\n{'='*50}")
+print(f"AIDA API is running at: {base_url}")
+print(f"API Documentation:")
+print(f"- Swagger UI: {base_url}/api/docs")
+print(f"- ReDoc: {base_url}/api/redoc")
+print(f"{'='*50}\n")
 
 # Configure CORS
 app.add_middleware(
@@ -254,17 +286,34 @@ async def import_test_data():
         # Convert to list of dictionaries
         records = df.to_dict('records')
         
-        # Here you would typically save to MongoDB
-        # For demonstration, we'll just return the records
+        # Get the database
+        db = get_database()
         
-        return {
-            "message": "Test data import simulation successful",
+        # Create or get the collection
+        collection = db["test_table"]
+        
+        # Clear existing data (optional)
+        collection.delete_many({})
+        
+        # Insert the records
+        if records:
+            collection.insert_many(records)
+        
+        # Convert sample records to JSON-serializable format
+        sample_records = json.loads(json_util.dumps(records[:3] if len(records) > 3 else records))
+        
+        # Return a custom response that doesn't include MongoDB ObjectId objects
+        return JSONResponse(content={
+            "message": "Test data import successful",
             "records_count": len(records),
-            "sample_records": records[:3] if len(records) > 3 else records
-        }
+            "database": db.name,
+            "collection": "test_table",
+            "sample_records": sample_records
+        })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error importing test data: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True) 
+    
+    uvicorn.run("main:app", host=host, port=port, reload=True) 

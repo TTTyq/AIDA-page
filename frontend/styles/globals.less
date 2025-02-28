@@ -1,0 +1,22 @@
+// 这个文件仅包含 Tailwind 难以实现的样式
+// 大多数样式应该使用 Tailwind 类实现
+
+// 示例：自定义 Less 变量（仅在需要时使用）
+@primary-color: #1976d2;
+@secondary-color: #9c27b0;
+
+// 示例：复杂的嵌套选择器（Tailwind 难以实现的情况）
+.artist-card {
+  transition: transform 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  // 示例：深层嵌套选择器
+  .artist-details {
+    .artist-period {
+      font-style: italic;
+    }
+  }
+} 

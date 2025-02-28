@@ -22,6 +22,14 @@
 - 使用函数组件和 React Hooks
 - 避免直接操作 DOM
 
+### CSS 框架使用规范
+
+- **优先使用 Tailwind CSS** 进行样式开发，利用其实用工具类快速构建界面
+- 只有在 Tailwind CSS 无法满足需求时，才使用 Less 进行自定义样式开发
+- 使用 MUI 组件库时，优先通过 Tailwind 类进行样式调整，而非创建自定义 Less 样式
+- 全局样式定义在 `globals.css` 中，使用 Tailwind 指令
+- 特定组件的复杂样式可以在 `styles` 目录下使用 Less 文件定义
+
 ### 文档
 
 - 使用 Markdown 格式编写文档

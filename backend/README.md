@@ -24,14 +24,33 @@ This is the backend service for the AI Artist Database (AIDA) project. It provid
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file with the following variables (or copy from the root `.env.example`):
+3. **Important**: Create a `.env` file by copying from `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Then edit the `.env` file to set your specific configuration:
    ```
    MONGODB_URI=mongodb://localhost:27017/aida
    OPENAI_API_KEY=your_openai_api_key
    JWT_SECRET=your_jwt_secret
    ```
+   
+   > **Note**: The application will check for the existence of the `.env` file and will attempt to create it from `.env.example` if it doesn't exist. However, it's recommended to manually review and update the values.
 
-4. Run the development server:
+4. Ensure MongoDB is running:
+   ```bash
+   # macOS (with Homebrew)
+   brew services start mongodb-community
+   
+   # Linux (with systemd)
+   sudo systemctl start mongod
+   
+   # Direct command
+   mongod
+   ```
+
+5. Run the development server:
    ```bash
    uvicorn main:app --reload
    ```
@@ -41,6 +60,11 @@ This is the backend service for the AI Artist Database (AIDA) project. It provid
 Once the server is running, you can access the API documentation at:
 - Swagger UI: http://localhost:8000/api/docs
 - ReDoc: http://localhost:8000/api/redoc
+
+You can also run the following command to display the API documentation URLs:
+```bash
+npm run show:api-docs
+```
 
 ## Available Endpoints
 
@@ -55,45 +79,3 @@ Once the server is running, you can access the API documentation at:
 - `POST /api/test`: Test POST API with request body
 - `POST /api/upload-csv`: Upload a CSV file for processing
 - `GET /api/import-test-data`: Import test data from the data/test_table.csv file
-
-## MongoDB Integration
-
-The backend uses MongoDB to store artist data. During development, you can use the test data provided in the `data/test_table.csv` file at the root of the project.
-
-To import this test data into MongoDB:
-
-1. Ensure MongoDB is running
-2. Start the backend server
-3. Run the import endpoint:
-   ```bash
-   curl http://localhost:8000/api/import-test-data
-   ```
-
-Alternatively, you can use the npm script from the project root:
-```bash
-npm run setup:mongodb
-```
-
-## CSV Data Format
-
-The expected CSV format for artist data is:
-
-```
-id,name,birth_year,death_year,nationality,primary_style,famous_works
-1,Leonardo da Vinci,1452,1519,Italian,Renaissance,"Mona Lisa,The Last Supper,Vitruvian Man"
-...
-```
-
-## Project Structure
-
-```
-backend/
-├── main.py              # FastAPI application entry point
-├── requirements.txt     # Python dependencies
-├── .env                 # Environment variables (not in version control)
-├── models/              # Pydantic models for request/response
-├── database/            # Database connection and models
-├── routers/             # API route definitions
-├── services/            # Business logic
-└── ai/                  # AI integration components
-``` 

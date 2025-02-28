@@ -20,6 +20,7 @@ export default defineConfig({
             text: 'Introduction',
             items: [
               { text: 'Getting Started', link: '/guide/' },
+              { text: 'Beginner-Friendly Guide', link: '/en/guide/beginners' },
               { text: 'Architecture', link: '/guide/architecture' },
             ]
           },
@@ -49,6 +50,7 @@ export default defineConfig({
             text: '介绍',
             items: [
               { text: '快速开始', link: '/zh/guide/' },
+              { text: '宝宝也能看懂的开发指南', link: '/zh/guide/beginners' },
               { text: '架构', link: '/zh/guide/architecture' },
             ]
           },

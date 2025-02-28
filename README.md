@@ -87,15 +87,21 @@ You have three options to start the entire project with a single command:
 # Install dependencies for all components
 npm run setup:all
 
+# Create .env file from .env.example (IMPORTANT)
+cp .env.example .env
+# Edit the .env file to set your specific configuration
+
 # Import test data into MongoDB
 npm run setup:mongodb
 
-# Or do everything in one command
+# Or do everything in one command (includes environment check)
 npm run setup:complete
 
 # Start all services (backend, frontend, docs)
 npm run dev
 ```
+
+> **Note**: The `setup:mongodb` script will automatically check for the existence of the `.env` file and MongoDB's running status before attempting to import data. If the `.env` file doesn't exist, it will try to create it from `.env.example`.
 
 #### Option 2: Using Makefile (Good for Unix/Linux/macOS users)
 
@@ -140,8 +146,9 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file (copy from .env.example)
-cp ../.env.example backend/.env
+# IMPORTANT: Create .env file (copy from .env.example)
+cp .env.example .env
+# Edit the .env file to set your specific configuration
 
 # Start the backend server
 uvicorn main:app --reload
