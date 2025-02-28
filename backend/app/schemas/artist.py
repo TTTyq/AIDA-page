@@ -28,7 +28,7 @@ class Artist(ArtistBase):
     id: int
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class CSVUploadResponse(BaseModel):
     """CSV上传响应模式"""
