@@ -35,6 +35,10 @@ class ArtistService:
             for key, value in artist.items():
                 if isinstance(value, float) and pd.isna(value):
                     artist[key] = None
+            
+            # 确保返回 art_movement 字段
+            if "primary_style" in artist and "art_movement" not in artist:
+                artist["art_movement"] = artist["primary_style"]
         
         return artists
     

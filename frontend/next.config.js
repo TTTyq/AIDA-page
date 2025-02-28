@@ -4,6 +4,15 @@ const withLess = require('next-with-less');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  // 添加API代理配置
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8000/api/v1/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = withLess({

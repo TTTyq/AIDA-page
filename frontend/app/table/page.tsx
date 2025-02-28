@@ -15,7 +15,7 @@ import {
   Group,
   Stack
 } from '@mantine/core';
-import { artistService } from '../services/api';
+import axios from 'axios';
 
 // 定义艺术家数据类型
 interface Artist {
@@ -42,9 +42,9 @@ export default function TablePage() {
     setError(null);
     
     try {
-      // 调用API获取艺术家数据
-      const response = await artistService.getArtists();
-      setArtists(response);
+      // 直接调用后端API
+      const response = await axios.get('http://localhost:8000/api/v1/artists/');
+      setArtists(response.data);
     } catch (err) {
       setError('获取数据时发生错误');
       console.error(err);

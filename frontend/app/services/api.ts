@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Artist, ArtistFilter } from '../store/atoms';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// 使用前端代理路径
+const API_URL = '/api';
 
 const api = axios.create({
   baseURL: API_URL,
