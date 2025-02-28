@@ -39,32 +39,9 @@
 
 在开始开发之前，我们需要安装一些基础工具。不要担心，我们会一步一步地引导你完成这个过程！
 
-### 安装 Git
-
-Git 是一个版本控制系统，它可以帮助我们管理代码的变更。
-
-::: details Windows 用户
-1. 访问 [Git 官网](https://git-scm.com/download/win)
-2. 下载 Windows 版本的 Git 安装程序
-3. 运行安装程序，使用默认设置一路点击"下一步"即可
-4. 安装完成后，打开"命令提示符"或"PowerShell"，输入 `git --version` 确认安装成功
-:::
-
-::: details macOS 用户
-1. 如果你已经安装了 Xcode，Git 已经包含在内
-2. 如果没有 Xcode，可以通过终端安装 Git：
-   - 打开"终端"应用
-   - 输入 `xcode-select --install` 并按回车
-   - 按照提示完成安装
-3. 或者，你可以使用 Homebrew 安装 Git：
-   - 安装 Homebrew（如果尚未安装）：`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-   - 安装 Git：`brew install git`
-4. 安装完成后，在终端中输入 `git --version` 确认安装成功
-:::
-
 ### 安装 Cursor 编辑器
 
-Cursor 是一个基于 AI 的代码编辑器，它可以帮助你更高效地编写代码。
+Cursor 是一个基于 AI 的代码编辑器，它可以帮助你更高效地编写代码。这是我们要安装的第一个工具，因为安装好 Cursor 后，你就可以利用它的 AI 助手来帮助你安装和配置其他工具！
 
 1. 访问 [Cursor 官网](https://cursor.sh/)
 2. 下载适合你操作系统的版本
@@ -85,14 +62,6 @@ Cursor 实际上是基于 VSCode 构建的增强版编辑器。它保留了 VSCo
 
 ::: warning 🎉 编程新时代！
 做完这一步后，你就可以告别冷冰冰的代码和繁琐的命令行了！只需要记住少数几个命令，大部分时间你只需要用自然语言和 AI 对话就能完成编程工作。想象一下，你只需说"帮我实现一个登录页面"，AI 就能为你生成代码！这是不是超酷？！这就是 AI 辅助编程带来的革命性变化！
-:::
-
-::: tip 让 AI 帮你做
-如果你在安装或登录 Cursor 时遇到问题，可以询问 AI 助手：
-
-> 我在安装/登录 Cursor 时遇到了[描述问题]，请帮我解决
-
-AI 会提供针对性的解决方案，帮助你快速解决问题。
 :::
 
 ### Cursor 使用小技巧
@@ -121,12 +90,80 @@ AI 会提供针对性的解决方案，帮助你快速解决问题。
 如果 AI 似乎卡住了或者行为不正常，尝试刷新页面或重启 Cursor。有时候简单的重启就能解决大部分问题！
 :::
 
+::: warning 重要提示
+请注意，在安装 Cursor 的过程中，你还没有 AI 助手可以询问。但是一旦安装并登录成功，你就可以使用 Cursor 的 AI 助手来帮助你安装和配置后续的所有工具！这就是为什么我们把安装 Cursor 放在第一步。
+:::
+
+### 使用 Cursor AI 联网搜索
+
+Cursor AI 具有强大的联网搜索功能，可以帮助你获取最新信息：
+
+1. **触发联网搜索**：在聊天框中输入 `@` 并选择 `Web` 选项，或直接输入 `@Web`
+2. **搜索语法**：`@Web 你的搜索问题`，例如：`@Web 如何在 Next.js 中实现 SSR?`
+3. **搜索优势**：
+   - 获取最新的技术文档和教程
+   - 解决特定版本的依赖问题
+   - 查找社区中的最佳实践
+   - 了解技术趋势和更新
+
+4. **联网搜索使用场景**：
+   - **学习新框架或库**：`@Web React Server Components 最佳实践`
+   - **解决特定错误**：`@Web Next.js 14 TypeError: Cannot read properties of undefined`
+   - **查找API文档**：`@Web MongoDB 聚合管道操作符文档`
+   - **了解技术动态**：`@Web 2024年前端开发趋势`
+
+5. **搜索结果处理**：
+   - Cursor会返回多个相关网页的摘要
+   - 结果中通常包含原始链接，可以进一步查看完整内容
+   - AI会基于搜索结果为你提供综合回答
+
 ::: tip 让 AI 帮你做
-如果你在安装或登录 Cursor 时遇到问题，可以询问 AI 助手：
+当你需要了解最新的技术信息时，可以使用联网搜索功能：
 
-> 我在安装/登录 Cursor 时遇到了[描述问题]，请帮我解决
+> @Web 请查找 Next.js 14 的新特性和迁移指南
 
-AI 会提供针对性的解决方案，帮助你快速解决问题。
+AI 会搜索网络并提供最新的 Next.js 14 相关信息。
+:::
+
+::: warning 注意事项
+联网搜索功能在以下情况特别有用：
+1. 查询最新发布的技术或版本
+2. 寻找特定错误的解决方案
+3. 了解社区最新动态和最佳实践
+4. 获取官方文档中的最新API变更
+
+但请记住，搜索结果的质量取决于你的查询描述，尽量使用准确、具体的关键词。
+:::
+
+### 安装 Git
+
+Git 是一个版本控制系统，它可以帮助我们管理代码的变更。
+
+::: details Windows 用户
+1. 访问 [Git 官网](https://git-scm.com/download/win)
+2. 下载 Windows 版本的 Git 安装程序
+3. 运行安装程序，使用默认设置一路点击"下一步"即可
+4. 安装完成后，打开"命令提示符"或"PowerShell"，输入 `git --version` 确认安装成功
+:::
+
+::: details macOS 用户
+1. 如果你已经安装了 Xcode，Git 已经包含在内
+2. 如果没有 Xcode，可以通过终端安装 Git：
+   - 打开"终端"应用
+   - 输入 `xcode-select --install` 并按回车
+   - 按照提示完成安装
+3. 或者，你可以使用 Homebrew 安装 Git：
+   - 安装 Homebrew（如果尚未安装）：`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+   - 安装 Git：`brew install git`
+4. 安装完成后，在终端中输入 `git --version` 确认安装成功
+:::
+
+::: tip 让 AI 帮你做
+现在你已经安装好了 Cursor，可以利用它的 AI 助手来帮你安装 Git：
+
+> 我需要在我的电脑上安装 Git，请指导我完成安装过程。我使用的是 [你的操作系统]。
+
+AI 会根据你的操作系统提供详细的安装步骤，甚至可以生成所需的命令。
 :::
 
 ### 安装 Node.js 和 npm
@@ -157,6 +194,14 @@ Node.js 是一个 JavaScript 运行环境，npm 是 Node.js 的包管理器，�
 3. 安装完成后，在终端中输入 `node --version` 和 `npm --version` 确认安装成功
 :::
 
+::: tip 让 AI 帮你做
+使用 Cursor 的 AI 助手来帮你安装 Node.js 和 npm：
+
+> 请帮我在 [你的操作系统] 上安装 Node.js 和 npm，并确保它们正确配置。
+
+AI 会提供详细的安装指南，包括下载链接、安装命令和验证步骤。
+:::
+
 ### 安装 Python
 
 Python 是一种编程语言，我们的后端使用 Python 开发。
@@ -176,6 +221,14 @@ Python 是一种编程语言，我们的后端使用 Python 开发。
    brew install python
    ```
 3. 安装完成后，在终端中输入 `python3 --version` 确认安装成功
+:::
+
+::: tip 让 AI 帮你做
+让 Cursor 的 AI 助手帮你安装和配置 Python：
+
+> 我需要为 AIDA 项目安装 Python 环境。请指导我如何在 [你的操作系统] 上安装 Python 3.9 或更高版本，并确保它正确添加到 PATH 中。
+
+AI 会提供针对你操作系统的详细安装步骤，并帮助你解决可能遇到的问题。
 :::
 
 ### 安装 MongoDB
@@ -205,6 +258,14 @@ MongoDB 是一个文档数据库，我们用它来存储项目数据。
    ```bash
    brew install --cask mongodb-compass
    ```
+:::
+
+::: tip 让 AI 帮你做
+MongoDB 的安装和配置可能比较复杂，让 Cursor 的 AI 助手帮你完成这个过程：
+
+> 请帮我在 [你的操作系统] 上安装和配置 MongoDB，包括如何启动服务和验证安装是否成功。
+
+AI 会提供详细的安装指南，包括可能遇到的常见问题和解决方案。
 :::
 
 ### 获取项目代码
