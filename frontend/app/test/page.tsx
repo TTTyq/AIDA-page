@@ -4,21 +4,23 @@ import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { 
   Container, 
-  Typography, 
+  Title, 
   Box, 
   Paper, 
-  TextField, 
+  TextInput, 
   Button, 
   Grid, 
   Card, 
-  CardContent, 
-  CardActions,
+  Text,
   Divider,
-  CircularProgress,
+  Loader,
   Alert,
   Tabs,
-  Tab
-} from '@mui/material';
+  NumberInput,
+  Code,
+  Group,
+  Stack
+} from '@mantine/core';
 import { artistFilterAtom, ArtistFilter } from '../store/atoms';
 import { artistService } from '../services/api';
 
@@ -30,7 +32,7 @@ export default function TestPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<any>(null);
-  const [tabValue, setTabValue] = useState(0);
+  const [activeTab, setActiveTab] = useState<string | null>('get');
   
   // Form state
   const [formData, setFormData] = useState<ArtistFilter>({
@@ -42,27 +44,11 @@ export default function TestPage() {
   });
   
   // Handle form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    
-    // Convert year fields to numbers if they're not empty
-    if ((name === 'min_year' || name === 'max_year') && value !== '') {
-      setFormData({
-        ...formData,
-        [name]: parseInt(value, 10)
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value
-      });
-    }
-  };
-  
-  // Handle tab change
-  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-    setResult(null);
+  const handleChange = (name: string, value: any) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
   
   // Handle form submission
@@ -77,7 +63,7 @@ export default function TestPage() {
       
       // Call the appropriate API based on the selected tab
       let response;
-      if (tabValue === 0) {
+      if (activeTab === 'get') {
         // GET request
         response = await artistService.testGetApi(formData);
       } else {
@@ -95,127 +81,110 @@ export default function TestPage() {
   };
   
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
+    <Container size="lg" py="xl">
+      <Title order={1} mb="lg">
         API Test Page
-      </Typography>
+      </Title>
       
-      <Paper sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h5" gutterBottom>
+      <Paper shadow="sm" p="lg" mb="xl" withBorder>
+        <Title order={3} mb="md">
           Test Backend API Endpoints
-        </Typography>
+        </Title>
         
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-          <Tab label="GET Request" />
-          <Tab label="POST Request" />
+        <Tabs value={activeTab} onChange={setActiveTab} mb="lg">
+          <Tabs.List>
+            <Tabs.Tab value="get">GET Request</Tabs.Tab>
+            <Tabs.Tab value="post">POST Request</Tabs.Tab>
+          </Tabs.List>
         </Tabs>
         
-        <Box component="form" onSubmit={handleSubmit} noValidate>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
+        <form onSubmit={handleSubmit}>
+          <Grid mb="md">
+            <Grid.Col span={{ base: 12, sm: 6 }}>
+              <TextInput
                 label="Artist Name"
                 name="name"
                 value={formData.name}
-                onChange={handleChange}
-                variant="outlined"
+                onChange={(e) => handleChange('name', e.target.value)}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 6 }}>
+              <TextInput
                 label="Nationality"
                 name="nationality"
                 value={formData.nationality}
-                onChange={handleChange}
-                variant="outlined"
+                onChange={(e) => handleChange('nationality', e.target.value)}
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 4 }}>
+              <TextInput
                 label="Art Style"
                 name="style"
                 value={formData.style}
-                onChange={handleChange}
-                variant="outlined"
+                onChange={(e) => handleChange('style', e.target.value)}
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 4 }}>
+              <NumberInput
                 label="Min Birth Year"
                 name="min_year"
-                type="number"
-                value={formData.min_year || ''}
-                onChange={handleChange}
-                variant="outlined"
+                value={formData.min_year}
+                onChange={(value) => handleChange('min_year', value)}
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 4 }}>
+              <NumberInput
                 label="Max Birth Year"
                 name="max_year"
-                type="number"
-                value={formData.max_year || ''}
-                onChange={handleChange}
-                variant="outlined"
+                value={formData.max_year}
+                onChange={(value) => handleChange('max_year', value)}
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Grid.Col>
+            <Grid.Col span={12}>
               <Button
                 type="submit"
-                variant="contained"
-                color="primary"
                 disabled={loading}
-                sx={{ mt: 2 }}
+                mt="md"
               >
-                {loading ? <CircularProgress size={24} /> : 'Send Request'}
+                {loading ? <Loader size="sm" /> : 'Send Request'}
               </Button>
-            </Grid>
+            </Grid.Col>
           </Grid>
-        </Box>
+        </form>
       </Paper>
       
       {error && (
-        <Alert severity="error" sx={{ mb: 4 }}>
+        <Alert color="red" title="Error" mb="lg">
           {error}
         </Alert>
       )}
       
       {result && (
-        <Card className="fade-in">
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Response from {tabValue === 0 ? 'GET' : 'POST'} API
-            </Typography>
-            <Divider sx={{ mb: 2 }} />
-            <Typography variant="body1" gutterBottom>
-              Message: {result.message}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Filters Applied:
-            </Typography>
-            <Box component="pre" sx={{ 
-              bgcolor: 'background.paper', 
-              p: 2, 
-              borderRadius: 1,
-              overflow: 'auto',
-              maxHeight: '200px'
-            }}>
+        <Card shadow="sm" padding="lg" radius="md" withBorder className="fade-in">
+          <Title order={4} mb="md">
+            Response from {activeTab === 'get' ? 'GET' : 'POST'} API
+          </Title>
+          <Divider mb="md" />
+          <Text mb="md">
+            Message: {result.message}
+          </Text>
+          <Text size="sm" c="dimmed" mb="xs">
+            Filters Applied:
+          </Text>
+          <Box mb="md">
+            <Code block>
               {JSON.stringify(result.filters_applied, null, 2)}
-            </Box>
-            <Typography variant="body1" sx={{ mt: 2 }}>
-              Result: {result.result}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={() => setResult(null)}>
+            </Code>
+          </Box>
+          <Text mt="md">
+            Result: {result.result}
+          </Text>
+          
+          <Group mt="lg">
+            <Button variant="subtle" onClick={() => setResult(null)}>
               Clear Result
             </Button>
-          </CardActions>
+          </Group>
         </Card>
       )}
     </Container>

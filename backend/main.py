@@ -131,57 +131,66 @@ async def root():
 
 @app.get("/artists", response_model=List[Artist])
 async def get_artists():
-    # Mock data - replace with database query
-    artists = [
-        {
-            "id": 1,
-            "name": "Leonardo da Vinci",
-            "birth_year": 1452,
-            "death_year": 1519,
-            "nationality": "Italian",
-            "bio": "Italian polymath of the Renaissance",
-            "art_movement": "High Renaissance"
-        },
-        {
-            "id": 2,
-            "name": "Vincent van Gogh",
-            "birth_year": 1853,
-            "death_year": 1890,
-            "nationality": "Dutch",
-            "bio": "Dutch post-impressionist painter",
-            "art_movement": "Post-Impressionism"
-        }
-    ]
-    return artists
+    """
+    Get all artists from the database.
+    
+    Returns a list of all artists in the test_table collection.
+    """
+    try:
+        # Get the database
+        db = get_database()
+        
+        # Get the collection
+        collection = db["test_table"]
+        
+        # Find all artists
+        artists = list(collection.find())
+        
+        # Convert MongoDB ObjectId to string for JSON serialization
+        for artist in artists:
+            if "_id" in artist:
+                del artist["_id"]  # Remove MongoDB ObjectId
+        
+        return artists
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching artists: {str(e)}")
 
 @app.get("/artists/{artist_id}", response_model=Artist)
 async def get_artist(artist_id: int):
-    # Mock data - replace with database query
-    artists = {
-        1: {
-            "id": 1,
-            "name": "Leonardo da Vinci",
-            "birth_year": 1452,
-            "death_year": 1519,
-            "nationality": "Italian",
-            "bio": "Italian polymath of the Renaissance",
-            "art_movement": "High Renaissance"
-        },
-        2: {
-            "id": 2,
-            "name": "Vincent van Gogh",
-            "birth_year": 1853,
-            "death_year": 1890,
-            "nationality": "Dutch",
-            "bio": "Dutch post-impressionist painter",
-            "art_movement": "Post-Impressionism"
-        }
-    }
+    """
+    Get a specific artist by ID from the database.
     
-    if artist_id not in artists:
-        raise HTTPException(status_code=404, detail="Artist not found")
-    
-    return artists[artist_id]
+    Args:
+        artist_id: The ID of the artist to retrieve
+        
+    Returns:
+        The artist data if found
+        
+    Raises:
+        HTTPException: If the artist is not found
+    """
+    try:
+        # Get the database
+        db = get_database()
+        
+        # Get the collection
+        collection = db["test_table"]
+        
+        # Find the artist by ID
+        artist = collection.find_one({"id": artist_id})
+        
+        if not artist:
+            raise HTTPException(status_code=404, detail="Artist not found")
+        
+        # Remove MongoDB ObjectId for JSON serialization
+        if "_id" in artist:
+            del artist["_id"]
+        
+        return artist
+    except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
+        raise HTTPException(status_code=500, detail=f"Error fetching artist: {str(e)}")
 
 # AI Artist Interaction endpoint
 @app.post("/ai-interaction")

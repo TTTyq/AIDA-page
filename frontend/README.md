@@ -5,10 +5,10 @@ This is the frontend application for the AI Artist Database (AIDA) project. It p
 ## Technology Stack
 
 - **Next.js**: React framework for server-rendered applications
-- **TypeScript**: Type-safe JavaScript
-- **MUI (Material-UI)**: React UI component library
+- **TypeScript**: Typed JavaScript for better developer experience
+- **Mantine**: React UI component library
 - **Tailwind CSS**: Utility-first CSS framework
-- **Less**: CSS preprocessor for advanced styling
+- **Less**: CSS preprocessor for custom styling
 - **Jotai**: Atomic state management for React
 - **SWR**: React Hooks for data fetching
 - **Axios**: Promise-based HTTP client
@@ -76,25 +76,25 @@ function ArtistList() {
 }
 ```
 
-## Styling with MUI, Tailwind CSS, and Less
+## Styling with Mantine, Tailwind CSS, and Less
 
-The application uses a combination of MUI components, Tailwind CSS utilities, and Less for styling, with the following priority:
+The application uses a combination of Mantine components, Tailwind CSS utilities, and Less for styling, with the following priority:
 
-1. **Tailwind CSS**: Primary styling approach. Use Tailwind's utility classes for most styling needs.
-2. **MUI**: Use MUI components for complex UI elements, customizing them with Tailwind classes when possible.
-3. **Less**: Use Less only when Tailwind CSS cannot achieve the desired styling, such as for complex animations, mixins, or component-specific styles that would be verbose with utility classes.
+1. **Tailwind CSS**: Use Tailwind utility classes for most styling needs.
+2. **Mantine**: Use Mantine components for complex UI elements, customizing them with Tailwind classes when possible.
+3. **Less**: Use Less for custom components or global styles that can't be easily achieved with Tailwind.
 
 ```tsx
-// Example of using MUI with Tailwind CSS (preferred approach)
-<Button 
-  variant="contained" 
-  color="primary"
-  className="hover:shadow-lg transition-shadow"
->
-  Click Me
-</Button>
+// Example of using Mantine with Tailwind CSS (preferred approach)
+import { Button } from '@mantine/core';
 
-// Less should only be used for complex styling that Tailwind can't handle efficiently
+function MyComponent() {
+  return (
+    <Button className="mt-4 bg-gradient-to-r from-blue-500 to-purple-600">
+      Click Me
+    </Button>
+  );
+}
 ```
 
 This approach ensures consistent styling while leveraging the strengths of each technology.

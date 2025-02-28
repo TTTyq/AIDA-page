@@ -18,7 +18,7 @@ AIDA 是一个综合平台，结合论坛、社交媒体和 AI 交互，创建�
 
 AIDA 平台由四个主要组件组成：
 
-1. **后端**：基于 Python 的 API 服务
-2. **前端**：Next.js React 应用，使用 MUI、Jotai 和 Less
+1. **后端**：FastAPI Python 应用，使用 MongoDB
+2. **前端**：Next.js React 应用，使用 Mantine、Jotai 和 Less
 3. **文档**：双语开发者文档（本站）
 4. **爬虫**：用于收集艺术家信息的数据采集工具 

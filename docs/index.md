@@ -18,7 +18,7 @@ AIDA is a comprehensive platform that combines forums, social media, and AI inte
 
 The AIDA platform consists of four main components:
 
-1. **Backend**: Python-based API service
-2. **Frontend**: Next.js React application with MUI, Jotai, and Less
+1. **Backend**: FastAPI Python application with MongoDB
+2. **Frontend**: Next.js React application with Mantine, Jotai, and Less
 3. **Documentation**: Bilingual developer documentation (this site)
 4. **Scraper**: Data collection tools for artist information 

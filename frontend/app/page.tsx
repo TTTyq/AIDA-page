@@ -4,16 +4,19 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { 
   Container, 
-  Typography, 
+  Title, 
   Box, 
-  TextField, 
+  TextInput, 
   Button, 
   Grid, 
   Card, 
-  CardContent,
-  CircularProgress,
-  Paper
-} from '@mui/material';
+  Text,
+  Loader,
+  Paper,
+  Textarea,
+  Group,
+  Stack
+} from '@mantine/core';
 import { artistService } from './services/api';
 
 export default function Home() {
@@ -48,116 +51,122 @@ export default function Home() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
-        <Typography variant="h2" component="h1" gutterBottom>
+    <Container size="lg" py="xl">
+      <Box ta="center" mb="xl">
+        <Title order={1} mb="sm">
           AI Artist Database
-        </Typography>
-        <Typography variant="h5" color="text.secondary">
+        </Title>
+        <Text size="lg" c="dimmed">
           Explore artists from throughout history and interact with AI-powered virtual artists
-        </Typography>
+        </Text>
       </Box>
       
-      <Paper elevation={3} sx={{ p: 4, mb: 6 }}>
-        <Typography variant="h4" component="h2" gutterBottom>
+      <Paper shadow="sm" p="xl" mb="xl" withBorder>
+        <Title order={2} mb="lg">
           Interact with AI Artists
-        </Typography>
+        </Title>
         
-        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
-          <TextField
-            fullWidth
-            label="Send a message to AI Leonardo da Vinci"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            multiline
-            rows={4}
-            placeholder="Ask about art, history, or creative process..."
-            variant="outlined"
-            required
-            sx={{ mb: 2 }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            size="large"
-          >
-            {loading ? <CircularProgress size={24} /> : 'Send Message'}
-          </Button>
-        </Box>
+        <form onSubmit={handleSubmit}>
+          <Stack gap="md" mb="lg">
+            <Textarea
+              label="Send a message to AI Leonardo da Vinci"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              minRows={4}
+              placeholder="Ask about art, history, or creative process..."
+              required
+            />
+            <Group justify="flex-start">
+              <Button
+                type="submit"
+                disabled={loading}
+                size="md"
+              >
+                {loading ? <Loader size="sm" /> : 'Send Message'}
+              </Button>
+            </Group>
+          </Stack>
+        </form>
         
         {aiResponse && (
-          <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }} className="fade-in">
-            <Typography variant="body1">{aiResponse}</Typography>
+          <Paper shadow="xs" p="md" withBorder className="fade-in">
+            <Text>{aiResponse}</Text>
           </Paper>
         )}
       </Paper>
       
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h5" component="h2" gutterBottom>
-                Artist Database
-              </Typography>
-              <Typography variant="body1" paragraph>
-                Explore our comprehensive database of artists from throughout history.
-              </Typography>
-              <Button component={Link} href="/artists" variant="outlined" color="primary">
+      <Grid>
+        <Grid.Col span={{ base: 12, md: 3 }}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+            <Stack gap="md" justify="space-between" h="100%">
+              <div>
+                <Title order={4} mb="xs">
+                  Artist Database
+                </Title>
+                <Text size="sm" mb="lg">
+                  Explore our comprehensive database of artists from throughout history.
+                </Text>
+              </div>
+              <Button component={Link} href="/artists" variant="outline">
                 Browse Artists
               </Button>
-            </CardContent>
+            </Stack>
           </Card>
-        </Grid>
+        </Grid.Col>
         
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h5" component="h2" gutterBottom>
-                Artist Forum
-              </Typography>
-              <Typography variant="body1" paragraph>
-                Join discussions with other art enthusiasts and AI artists.
-              </Typography>
-              <Button component={Link} href="/forum" variant="outlined" color="primary">
+        <Grid.Col span={{ base: 12, md: 3 }}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+            <Stack gap="md" justify="space-between" h="100%">
+              <div>
+                <Title order={4} mb="xs">
+                  Artist Forum
+                </Title>
+                <Text size="sm" mb="lg">
+                  Join discussions with other art enthusiasts and AI artists.
+                </Text>
+              </div>
+              <Button component={Link} href="/forum" variant="outline">
                 Visit Forum
               </Button>
-            </CardContent>
+            </Stack>
           </Card>
-        </Grid>
+        </Grid.Col>
         
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h5" component="h2" gutterBottom>
-                API Test Page
-              </Typography>
-              <Typography variant="body1" paragraph>
-                Test the backend API endpoints with GET and POST requests.
-              </Typography>
-              <Button component={Link} href="/test" variant="outlined" color="primary">
+        <Grid.Col span={{ base: 12, md: 3 }}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+            <Stack gap="md" justify="space-between" h="100%">
+              <div>
+                <Title order={4} mb="xs">
+                  API Test Page
+                </Title>
+                <Text size="sm" mb="lg">
+                  Test the backend API endpoints with GET and POST requests.
+                </Text>
+              </div>
+              <Button component={Link} href="/test" variant="outline">
                 Test API
               </Button>
-            </CardContent>
+            </Stack>
           </Card>
-        </Grid>
+        </Grid.Col>
         
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h5" component="h2" gutterBottom>
-                数据表格
-              </Typography>
-              <Typography variant="body1" paragraph>
-                查看后端测试表格的全部内容，以表格形式展示。
-              </Typography>
-              <Button component={Link} href="/table" variant="outlined" color="primary">
+        <Grid.Col span={{ base: 12, md: 3 }}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+            <Stack gap="md" justify="space-between" h="100%">
+              <div>
+                <Title order={4} mb="xs">
+                  数据表格
+                </Title>
+                <Text size="sm" mb="lg">
+                  查看艺术家数据表格，以表格形式展示MongoDB中的数据。
+                </Text>
+              </div>
+              <Button component={Link} href="/table" variant="outline">
                 查看表格
               </Button>
-            </CardContent>
+            </Stack>
           </Card>
-        </Grid>
+        </Grid.Col>
       </Grid>
     </Container>
   );

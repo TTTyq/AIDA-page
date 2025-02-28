@@ -8,7 +8,7 @@ AIDA 前端使用以下技术构建：
 
 - **Next.js**：用于服务器渲染应用的 React 框架
 - **TypeScript**：类型安全的 JavaScript
-- **MUI (Material-UI)**：React UI 组件库
+- **Mantine**：React UI 组件库
 - **Tailwind CSS**：实用优先的 CSS 框架
 - **Less**：用于高级样式的 CSS 预处理器
 - **Jotai**：React 原子状态管理
@@ -57,21 +57,23 @@ function ArtistList() {
 
 ## 样式
 
-应用使用 MUI 组件、Tailwind CSS 工具类和 Less 的组合进行样式设计：
+应用使用 Mantine 组件、Tailwind CSS 工具类和 Less 的组合进行样式设计：
 
-- **MUI**：提供预构建的 React 组件
-- **Tailwind CSS**：提供用于快速样式设计的工具类
-- **Less**：提供具有变量、混合和嵌套功能的高级样式能力
+- **Tailwind CSS**：主要的样式设计方法，使用工具类
+- **Mantine**：提供预构建的 React 组件
+- **Less**：用于 Tailwind 无法实现的复杂样式
 
 ```tsx
-// 使用 MUI 和 Tailwind CSS 的示例
-<Button 
-  variant="contained" 
-  color="primary"
-  className="hover:shadow-lg transition-shadow"
->
-  点击我
-</Button>
+// 使用 Mantine 和 Tailwind CSS 的示例
+import { Button } from '@mantine/core';
+
+function MyComponent() {
+  return (
+    <Button className="mt-4 hover:shadow-lg">
+      点击我
+    </Button>
+  );
+}
 ```
 
 ## API 集成

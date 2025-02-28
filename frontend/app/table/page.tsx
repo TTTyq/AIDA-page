@@ -3,33 +3,38 @@
 import { useState, useEffect } from 'react';
 import { 
   Container, 
-  Typography, 
+  Title, 
   Box, 
   Paper, 
   Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  CircularProgress,
+  Loader,
   Alert,
-  Button
-} from '@mui/material';
+  Button,
+  Text,
+  Code,
+  Group,
+  Stack
+} from '@mantine/core';
 import { artistService } from '../services/api';
 
-// 定义表格数据类型
-interface TestData {
-  message: string;
-  filters_applied: Record<string, any>;
-  result: string;
+// 定义艺术家数据类型
+interface Artist {
+  id: number;
+  name: string;
+  birth_year?: number;
+  death_year?: number;
+  nationality?: string;
+  bio?: string;
+  art_movement?: string;
+  primary_style?: string;
+  famous_works?: string;
 }
 
 export default function TablePage() {
   // 状态
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [testData, setTestData] = useState<TestData | null>(null);
+  const [artists, setArtists] = useState<Artist[]>([]);
   
   // 加载数据
   const fetchData = async () => {
@@ -37,9 +42,9 @@ export default function TablePage() {
     setError(null);
     
     try {
-      // 调用测试API获取数据
-      const response = await artistService.getAllTestData();
-      setTestData(response);
+      // 调用API获取艺术家数据
+      const response = await artistService.getArtists();
+      setArtists(response);
     } catch (err) {
       setError('获取数据时发生错误');
       console.error(err);
@@ -54,78 +59,77 @@ export default function TablePage() {
   }, []);
   
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
-        测试数据表格
-      </Typography>
-      
-      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={fetchData}
-          disabled={loading}
-        >
-          刷新数据
-        </Button>
-      </Box>
-      
-      {loading && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
-          <CircularProgress />
-        </Box>
-      )}
-      
-      {error && (
-        <Alert severity="error" sx={{ mb: 4 }}>
-          {error}
-        </Alert>
-      )}
-      
-      {testData && (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="测试数据表格">
-              <TableHead>
-                <TableRow>
-                  <TableCell>属性</TableCell>
-                  <TableCell>值</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>消息</TableCell>
-                  <TableCell>{testData.message}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>应用的过滤器</TableCell>
-                  <TableCell>
-                    <pre>{JSON.stringify(testData.filters_applied, null, 2)}</pre>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>结果</TableCell>
-                  <TableCell>{testData.result}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
-      )}
-      
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          API 响应详情
-        </Typography>
+    <Container size="lg" py="xl">
+      <Stack gap="md">
+        <Title order={1}>艺术家数据表格</Title>
         
-        {testData && (
-          <Paper sx={{ p: 3, bgcolor: 'background.paper' }}>
-            <pre style={{ overflow: 'auto', maxHeight: '400px' }}>
-              {JSON.stringify(testData, null, 2)}
-            </pre>
+        <Group justify="flex-end" mb="md">
+          <Button 
+            onClick={fetchData}
+            disabled={loading}
+            variant="filled"
+          >
+            刷新数据
+          </Button>
+        </Group>
+        
+        {loading && (
+          <Box style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+            <Loader size="lg" />
+          </Box>
+        )}
+        
+        {error && (
+          <Alert color="red" title="错误" variant="filled">
+            {error}
+          </Alert>
+        )}
+        
+        {artists.length > 0 ? (
+          <Paper shadow="xs" p="md" withBorder>
+            <Table striped highlightOnHover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>姓名</th>
+                  <th>出生年份</th>
+                  <th>逝世年份</th>
+                  <th>国籍</th>
+                  <th>艺术流派</th>
+                  <th>代表作品</th>
+                </tr>
+              </thead>
+              <tbody>
+                {artists.map((artist) => (
+                  <tr key={artist.id}>
+                    <td>{artist.id}</td>
+                    <td>{artist.name}</td>
+                    <td>{artist.birth_year}</td>
+                    <td>{artist.death_year}</td>
+                    <td>{artist.nationality}</td>
+                    <td>{artist.art_movement || artist.primary_style}</td>
+                    <td>{artist.famous_works}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Paper>
+        ) : !loading && (
+          <Paper shadow="xs" p="md" withBorder>
+            <Text ta="center" c="dimmed">暂无数据</Text>
           </Paper>
         )}
-      </Box>
+        
+        <Title order={3} mt="lg">API 响应详情</Title>
+        
+        {artists.length > 0 && (
+          <Paper shadow="xs" p="md" withBorder>
+            <Code block style={{ maxHeight: '400px', overflow: 'auto' }}>
+              {JSON.stringify(artists, null, 2)}
+            </Code>
+          </Paper>
+        )}
+      </Stack>
     </Container>
   );
 } 

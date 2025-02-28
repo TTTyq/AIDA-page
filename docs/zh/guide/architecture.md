@@ -25,7 +25,7 @@ AIDA 项目采用现代全栈架构，由以下主要组件构成：
 
 AIDA 项目使用以下技术栈：
 
-- **前端**：Next.js + React + Jotai + MUI + Tailwind CSS
+- **前端**：Next.js + React + Jotai + Mantine + Tailwind CSS
 - **后端**：FastAPI + Python
 - **数据库**：MongoDB
 - **爬虫**：Python + BeautifulSoup + Selenium

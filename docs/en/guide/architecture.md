@@ -25,7 +25,7 @@ AIDA uses a modern full-stack architecture, consisting of the following main com
 
 AIDA uses the following technology stack:
 
-- **Frontend**: Next.js + React + Jotai + MUI + Tailwind CSS
+- **Frontend**: Next.js + React + Jotai + Mantine + Tailwind CSS
 - **Backend**: FastAPI + Python
 - **Database**: MongoDB
 - **Scraper**: Python + BeautifulSoup + Selenium

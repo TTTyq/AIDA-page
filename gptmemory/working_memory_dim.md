@@ -49,7 +49,7 @@
   - [x] 更新 setup 脚本处理 MongoDB 数据导入
 - [x] 前端技术栈增强
   - [x] 添加 Jotai 状态管理
-  - [x] 集成 MUI 组件库
+  - [x] 集成 Mantine 组件库
   - [x] 配置 Tailwind CSS
   - [x] 添加 Less 支持
   - [x] 创建与后端 API 交互的测试页面

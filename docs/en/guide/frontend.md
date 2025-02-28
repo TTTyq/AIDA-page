@@ -7,10 +7,10 @@ This guide provides information about the frontend architecture, technology stac
 The AIDA frontend is built using the following technologies:
 
 - **Next.js**: React framework for server-rendered applications
-- **TypeScript**: Type-safe JavaScript
-- **MUI (Material-UI)**: React UI component library
+- **TypeScript**: Typed JavaScript for better developer experience
+- **Mantine**: React UI component library
 - **Tailwind CSS**: Utility-first CSS framework
-- **Less**: CSS preprocessor for advanced styling
+- **Less**: CSS preprocessor for custom styling
 - **Jotai**: Atomic state management for React
 - **SWR**: React Hooks for data fetching
 - **Axios**: Promise-based HTTP client
@@ -57,21 +57,23 @@ function ArtistList() {
 
 ## Styling
 
-The application uses a combination of MUI components, Tailwind CSS utility classes, and Less for styling:
+The application uses a combination of Mantine components, Tailwind CSS utility classes, and Less for styling:
 
-- **MUI**: Provides pre-built React components
-- **Tailwind CSS**: Provides utility classes for rapid styling
-- **Less**: Provides advanced styling capabilities with variables, mixins, and nesting
+- **Tailwind CSS**: Primary approach for styling with utility classes
+- **Mantine**: Provides pre-built React components
+- **Less**: Used for complex styling that can't be achieved with Tailwind
 
 ```tsx
-// Example of using MUI and Tailwind CSS
-<Button 
-  variant="contained" 
-  color="primary"
-  className="hover:shadow-lg transition-shadow"
->
-  Click Me
-</Button>
+// Example of using Mantine and Tailwind CSS
+import { Button } from '@mantine/core';
+
+function MyComponent() {
+  return (
+    <Button className="mt-4 hover:shadow-lg">
+      Click Me
+    </Button>
+  );
+}
 ```
 
 ## API Integration

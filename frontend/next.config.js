@@ -4,7 +4,6 @@ const withLess = require('next-with-less');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  transpilePackages: ['@mui/material', '@mui/icons-material'],
 };
 
 module.exports = withLess({
