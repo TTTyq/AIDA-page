@@ -20,19 +20,39 @@ AIDA 前端使用以下技术构建：
 ```
 frontend/
 ├── app/                 # Next.js 应用目录
-│   ├── page.tsx         # 首页
+│   ├── (routes)/        # 应用路由（分组组织）
+│   │   ├── page.tsx     # 首页
+│   │   ├── table/       # 数据表格页面
+│   │   └── test/        # API 测试页面
+│   ├── api/             # API 路由处理器
 │   ├── layout.tsx       # 根布局
-│   ├── globals.less     # 全局 Less 样式
-│   ├── store/           # Jotai 状态管理
-│   │   └── atoms.ts     # Jotai 原子
+│   ├── globals.css      # 全局 CSS 样式
+│   ├── metadata.ts      # 应用元数据
+│   ├── page.tsx         # 根页面
 │   ├── services/        # API 服务
-│   │   └── api.ts       # API 客户端
-│   ├── test/            # API 测试页面
-│   ├── artists/         # 艺术家数据库页面
-│   ├── forum/           # 论坛页面
-│   └── ai-interaction/  # AI 交互页面
+│   └── store/           # 状态管理
 ├── components/          # 可复用的 React 组件
-├── lib/                 # 实用函数和钩子
+│   ├── ui/              # 基础 UI 组件
+│   ├── layout/          # 布局组件
+│   ├── forms/           # 表单组件
+│   └── features/        # 特定功能组件
+├── hooks/               # 自定义 React 钩子
+├── lib/                 # 实用函数和常量
+│   ├── utils.ts         # 通用实用函数
+│   └── constants.ts     # 应用常量
+├── services/            # API 服务
+│   ├── api.ts           # API 客户端
+│   └── endpoints/       # API 端点服务
+├── store/               # 状态管理
+│   ├── atoms.ts         # Jotai 原子
+│   └── selectors.ts     # 派生状态选择器
+├── styles/              # 全局样式
+│   ├── globals.css      # 全局 CSS
+│   └── globals.less     # 全局 Less 样式
+├── types/               # TypeScript 类型定义
+│   ├── api.ts           # API 响应类型
+│   ├── models.ts        # 数据模型类型
+│   └── common.ts        # 通用类型定义
 ├── public/              # 静态资源
 ├── tailwind.config.js   # Tailwind CSS 配置
 ├── postcss.config.js    # PostCSS 配置

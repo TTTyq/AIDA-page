@@ -19,20 +19,40 @@ The AIDA frontend is built using the following technologies:
 
 ```
 frontend/
-├── app/                 # Next.js application directory
-│   ├── page.tsx         # Home page
+├── app/                 # Next.js app directory
+│   ├── (routes)/        # App routes (grouped for organization)
+│   │   ├── page.tsx     # Home page
+│   │   ├── table/       # Data table page
+│   │   └── test/        # API test page
+│   ├── api/             # API route handlers
 │   ├── layout.tsx       # Root layout
-│   ├── globals.less     # Global Less styles
-│   ├── store/           # Jotai state management
-│   │   └── atoms.ts     # Jotai atoms
+│   ├── globals.css      # Global CSS styles
+│   ├── metadata.ts      # App metadata
+│   ├── page.tsx         # Root page
 │   ├── services/        # API services
-│   │   └── api.ts       # API client
-│   ├── test/            # API test page
-│   ├── artists/         # Artist database pages
-│   ├── forum/           # Forum pages
-│   └── ai-interaction/  # AI interaction pages
+│   └── store/           # State management
 ├── components/          # Reusable React components
-├── lib/                 # Utility functions and hooks
+│   ├── ui/              # Basic UI components
+│   ├── layout/          # Layout components
+│   ├── forms/           # Form components
+│   └── features/        # Feature-specific components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions and constants
+│   ├── utils.ts         # General utility functions
+│   └── constants.ts     # Application constants
+├── services/            # API services
+│   ├── api.ts           # API client
+│   └── endpoints/       # API endpoint services
+├── store/               # State management
+│   ├── atoms.ts         # Jotai atoms
+│   └── selectors.ts     # Derived state selectors
+├── styles/              # Global styles
+│   ├── globals.css      # Global CSS
+│   └── globals.less     # Global Less styles
+├── types/               # TypeScript type definitions
+│   ├── api.ts           # API response types
+│   ├── models.ts        # Data model types
+│   └── common.ts        # Common type definitions
 ├── public/              # Static assets
 ├── tailwind.config.js   # Tailwind CSS configuration
 ├── postcss.config.js    # PostCSS configuration

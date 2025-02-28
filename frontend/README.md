@@ -43,13 +43,15 @@ frontend/
 ├── app/                 # Next.js app directory
 │   ├── (routes)/        # App routes (grouped for organization)
 │   │   ├── page.tsx     # Home page
-│   │   ├── artists/     # Artist routes
-│   │   ├── forum/       # Forum routes
-│   │   ├── test/        # API test page
-│   │   └── table/       # Data table page
+│   │   ├── table/       # Data table page
+│   │   └── test/        # API test page
 │   ├── api/             # API route handlers
 │   ├── layout.tsx       # Root layout
-│   └── metadata.ts      # App metadata
+│   ├── globals.css      # Global CSS styles
+│   ├── metadata.ts      # App metadata
+│   ├── page.tsx         # Root page
+│   ├── services/        # API services
+│   └── store/           # State management
 ├── components/          # Reusable React components
 │   ├── ui/              # Basic UI components
 │   ├── layout/          # Layout components
