@@ -38,7 +38,7 @@ export default function TablePage() {
     
     try {
       // 调用测试API获取数据
-      const response = await artistService.testGetApi({});
+      const response = await artistService.getAllTestData();
       setTestData(response);
     } catch (err) {
       setError('获取数据时发生错误');
