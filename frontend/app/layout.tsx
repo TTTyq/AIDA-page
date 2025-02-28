@@ -1,15 +1,9 @@
 'use client';
 
 import { MantineProvider } from '@mantine/core';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import '../styles/globals.less';
 import '@mantine/core/styles.css';
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export default function RootLayout({
   children,
@@ -18,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-50 min-h-screen`}>
+      <body className="bg-gray-50 min-h-screen font-sans">
         <MantineProvider>
           {children}
         </MantineProvider>
