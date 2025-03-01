@@ -69,7 +69,7 @@ After completing this step, you can say goodbye to cold code and complicated com
 Before you start using Cursor for development, here are some important usage tips:
 
 1. **Open the AI chat interface**:
-   - Use the shortcut `Cmd+L` (macOS) or `Ctrl+L` (Windows) to open the chat interface at the bottom
+   - Use the shortcut `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open the chat interface at the bottom
    - Or click the chat icon in the bottom right corner of the editor
 
 2. **Switch to Agent mode**:
@@ -619,7 +619,7 @@ This might be the most important part of this guide! Once you master how to effi
 
 ### Tips for Efficient Collaboration with AI
 
-1. **Use shortcuts to open chat**: Press `Cmd+L` (macOS) or `Ctrl+L` (Windows) anytime to open the AI chat interface
+1. **Use shortcuts to open chat**: Press `Cmd+I` (macOS) or `Ctrl+I` (Windows) anytime to open the AI chat interface
 2. **Ensure you're in Agent mode**: For complex tasks, it's recommended to use Agent mode, which can automatically execute multiple steps
 3. **Handle code application issues**: If AI-generated code isn't automatically applied, look for and click the "Apply" button
 4. **Manually confirm command execution**: When AI suggests executing commands, remember to click the "Run Command" button
