@@ -26,6 +26,9 @@
   - [高级 AI 辅助开发实践](#高级-ai-辅助开发实践)
   - [实现新需求](#实现新需求)
   - [调试问题](#调试问题)
+  - [使用 Chrome DevTools 进行调试](#使用-chrome-devtools-进行调试)
+  - [使用 Swagger UI 和 ReDoc 理解 API](#使用-swagger-ui-和-redoc-理解-api)
+  - [理解 HTTP 请求方法](#理解-http-请求方法)
   - [重构代码](#重构代码)
   - [学习新技术](#学习新技术)
   - [生成测试](#生成测试)
@@ -906,6 +909,219 @@ AI 可以分析请求参数、标头和响应数据，帮你找出 API 调用中
 5. **使用 Preserve log 选项**（网络面板中的复选框）在页面之间导航时保持请求可见
 
 这些 Chrome DevTools 技巧将帮助你快速识别和修复许多常见的前端问题，而无需在代码中添加大量的 console.log 语句。
+
+### 使用 Swagger UI 和 ReDoc 理解 API
+
+在开发过程中，理解后端 API 是前端开发的关键。AIDA 项目提供了两种 API 文档工具：Swagger UI 和 ReDoc，它们可以帮助你探索和测试 API。
+
+#### Swagger UI 基础
+
+Swagger UI 是一个交互式 API 文档工具，它不仅展示 API 的结构，还允许你直接测试 API 调用。
+
+1. **访问 Swagger UI**：
+   - 启动项目后，访问 http://localhost:8000/api/docs
+   - 你会看到一个完整的 API 列表，按功能分组（如艺术家、作品、用户等）
+
+2. **探索 API 端点**：
+   - 点击任何 API 端点（如 GET /api/artists）展开详细信息
+   - 你可以看到：
+     - 请求参数（路径参数、查询参数、请求体等）
+     - 响应模式（可能的响应状态码和数据结构）
+     - 认证要求（如果需要）
+
+3. **测试 API 调用**：
+   - 点击"Try it out"按钮
+   - 填写必要的参数（如果有）
+   - 点击"Execute"执行请求
+   - 查看实际响应，包括状态码、响应头和响应体
+
+4. **使用 Swagger UI 进行开发**：
+   - **理解数据结构**：查看请求和响应的 JSON 模式，了解数据格式
+   - **复制请求 URL**：执行请求后，你可以复制完整的 curl 命令或请求 URL
+   - **调试问题**：当前端遇到 API 问题时，可以在 Swagger UI 中测试相同的请求
+
+#### ReDoc 文档
+
+ReDoc 提供了一个更清晰、更易读的 API 文档视图，特别适合学习和参考。
+
+1. **访问 ReDoc**：
+   - 启动项目后，访问 http://localhost:8000/api/redoc
+   - ReDoc 提供了一个三栏视图：左侧导航、中间 API 描述、右侧请求/响应示例
+
+2. **ReDoc 的优势**：
+   - 更清晰的视觉层次结构
+   - 更好的长文档阅读体验
+   - 响应示例和模式并排显示
+   - 可搜索的 API 文档
+
+3. **何时使用 ReDoc vs Swagger UI**：
+   - 使用 **ReDoc** 当你需要：
+     - 学习和理解 API 结构
+     - 查找详细的参数描述
+     - 阅读长篇 API 文档
+   - 使用 **Swagger UI** 当你需要：
+     - 测试 API 调用
+     - 调试前端-后端集成问题
+     - 探索 API 的实际行为
+
+#### 前端与 API 的关系
+
+理解前端如何与后端 API 交互是全栈开发的关键：
+
+1. **数据流程**：
+   - 前端组件需要数据时，会调用 API
+   - API 返回 JSON 数据
+   - 前端解析并显示这些数据
+
+2. **前端 API 调用示例**：
+   ```typescript
+   // 使用 fetch API 获取艺术家列表
+   async function fetchArtists() {
+     const response = await fetch('http://localhost:8000/api/artists');
+     const data = await response.json();
+     return data;
+   }
+   ```
+
+3. **API 与前端组件的映射**：
+   - 艺术家列表页面 → GET /api/artists
+   - 艺术家详情页面 → GET /api/artists/{id}
+   - 创建新艺术家 → POST /api/artists
+   - 更新艺术家信息 → PUT /api/artists/{id}
+
+### 理解 HTTP 请求方法
+
+在使用 API 时，理解不同的 HTTP 请求方法（也称为 HTTP 动词）非常重要。每种方法都有特定的用途：
+
+#### 常用 HTTP 方法
+
+1. **GET**：获取资源
+   - 用于读取数据，不应修改任何数据
+   - 示例：`GET /api/artists` 获取所有艺术家
+   - 参数通常在 URL 查询字符串中传递：`GET /api/artists?page=1&limit=10`
+   - 前端示例：
+     ```javascript
+     fetch('http://localhost:8000/api/artists?page=1&limit=10')
+       .then(response => response.json())
+       .then(data => console.log(data));
+     ```
+
+2. **POST**：创建资源
+   - 用于创建新数据
+   - 示例：`POST /api/artists` 创建新艺术家
+   - 数据在请求体中传递（通常是 JSON 格式）
+   - 前端示例：
+     ```javascript
+     fetch('http://localhost:8000/api/artists', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: '毕加索',
+         birthYear: 1881,
+         nationality: '西班牙'
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+3. **PUT**：更新资源（完全替换）
+   - 用于完全替换现有资源
+   - 示例：`PUT /api/artists/123` 更新 ID 为 123 的艺术家的所有信息
+   - 需要提供资源的完整数据
+   - 前端示例：
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'PUT',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: '巴勃罗·毕加索',
+         birthYear: 1881,
+         deathYear: 1973,
+         nationality: '西班牙',
+         movements: ['立体主义', '超现实主义']
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+4. **PATCH**：部分更新资源
+   - 用于部分更新现有资源
+   - 示例：`PATCH /api/artists/123` 只更新艺术家的某些字段
+   - 只需提供要更新的字段
+   - 前端示例：
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'PATCH',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: '巴勃罗·毕加索' // 只更新名字
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+5. **DELETE**：删除资源
+   - 用于删除现有资源
+   - 示例：`DELETE /api/artists/123` 删除 ID 为 123 的艺术家
+   - 通常不需要请求体
+   - 前端示例：
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'DELETE'
+     })
+     .then(response => {
+       if (response.ok) {
+         console.log('艺术家已删除');
+       }
+     });
+     ```
+
+#### 在 Swagger UI 中测试不同的 HTTP 方法
+
+Swagger UI 允许你测试所有这些 HTTP 方法：
+
+1. 找到相应的 API 端点（例如 POST /api/artists）
+2. 点击"Try it out"
+3. 填写必要的请求体或参数
+4. 点击"Execute"
+5. 查看响应
+
+#### 在 Chrome DevTools 中观察 HTTP 请求
+
+你可以在 Chrome DevTools 的 Network 面板中观察这些 HTTP 请求：
+
+1. 打开 Chrome DevTools（F12 或右键 > 检查）
+2. 切换到 Network 标签
+3. 在前端应用中执行操作（如点击"创建艺术家"按钮）
+4. 在 Network 面板中观察发送的请求
+5. 点击请求查看详细信息，包括请求方法、URL、请求头、请求体和响应
+
+::: tip 让 AI 帮你做
+如果你不确定应该使用哪种 HTTP 方法，可以询问 AI 助手：
+
+> 我需要实现一个功能，允许用户更新艺术家的部分信息，应该使用什么 HTTP 方法？如何在前端实现这个请求？
+
+AI 会解释应该使用 PATCH 方法，并提供前端实现代码示例。
+:::
+
+::: warning 常见错误
+使用错误的 HTTP 方法是常见的 API 问题来源：
+1. 使用 GET 方法发送请求体（不推荐，某些服务器可能不接受）
+2. 使用 POST 而不是 PUT/PATCH 进行更新（可能导致创建重复资源）
+3. 使用 PUT 而不是 PATCH 进行部分更新（需要发送完整资源数据）
+4. 忘记在 POST/PUT/PATCH 请求中设置 Content-Type 头
+
+当 API 调用失败时，首先检查你是否使用了正确的 HTTP 方法和正确的数据格式！
+:::
 
 ### 重构代码
 
