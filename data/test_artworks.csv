@@ -1,0 +1,11 @@
+id,title,artist_id,year,medium,dimensions,location,description,image_url
+1,"Mona Lisa",1,1503,"Oil on poplar panel","77 cm × 53 cm","Louvre Museum, Paris","One of the most famous paintings in the world, known for the subject's enigmatic smile","https://example.com/mona_lisa.jpg"
+2,"The Last Supper",1,1498,"Tempera and oil on plaster","460 cm × 880 cm","Santa Maria delle Grazie, Milan","Depicts the scene of the Last Supper of Jesus with the Twelve Apostles","https://example.com/last_supper.jpg"
+3,"Vitruvian Man",1,1490,"Pen and ink on paper","34.4 cm × 25.5 cm","Gallerie dell'Accademia, Venice","Famous drawing depicting ideal human body proportions","https://example.com/vitruvian_man.jpg"
+4,"Starry Night",2,1889,"Oil on canvas","73.7 cm × 92.1 cm","Museum of Modern Art, New York","Depicts a night scene with swirling clouds, stars, and a crescent moon","https://example.com/starry_night.jpg"
+5,"Sunflowers",2,1888,"Oil on canvas","92.1 cm × 73 cm","National Gallery, London","Part of a series of still life paintings featuring sunflowers","https://example.com/sunflowers.jpg"
+6,"Self-Portrait with Bandaged Ear",2,1889,"Oil on canvas","60 cm × 49 cm","Courtauld Gallery, London","Self-portrait after the artist cut off part of his ear","https://example.com/self_portrait_ear.jpg"
+7,"The Two Fridas",3,1939,"Oil on canvas","173.5 cm × 173 cm","Museo de Arte Moderno, Mexico City","Double self-portrait showing two versions of Frida Kahlo","https://example.com/two_fridas.jpg"
+8,"Self-Portrait with Thorn Necklace and Hummingbird",3,1940,"Oil on canvas","61.25 cm × 47 cm","Harry Ransom Center, Austin","Self-portrait with symbolic elements","https://example.com/thorn_necklace.jpg"
+9,"Guernica",4,1937,"Oil on canvas","349.3 cm × 776.6 cm","Museo Reina Sofía, Madrid","Powerful anti-war statement depicting the bombing of Guernica","https://example.com/guernica.jpg"
+10,"Les Demoiselles d'Avignon",4,1907,"Oil on canvas","243.9 cm × 233.7 cm","Museum of Modern Art, New York","Revolutionary painting that influenced the development of Cubism","https://example.com/demoiselles.jpg" 

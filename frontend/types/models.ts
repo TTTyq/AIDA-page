@@ -14,6 +14,21 @@ export interface Artist {
 }
 
 /**
+ * Artwork model interface
+ */
+export interface Artwork {
+  id: number;
+  title: string;
+  artist_id: number;
+  year?: number;
+  medium?: string;
+  dimensions?: string;
+  location?: string;
+  description?: string;
+  image_url?: string;
+}
+
+/**
  * Artist filter interface for search and filtering
  */
 export interface ArtistFilter {
@@ -22,6 +37,17 @@ export interface ArtistFilter {
   style?: string;
   min_year?: number;
   max_year?: number;
+}
+
+/**
+ * Artwork filter interface for search and filtering
+ */
+export interface ArtworkFilter {
+  title?: string;
+  artist_id?: number;
+  min_year?: number;
+  max_year?: number;
+  medium?: string;
 }
 
 /**

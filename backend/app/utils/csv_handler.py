@@ -96,14 +96,17 @@ class CSVHandler:
         return cleaned_df
     
     @staticmethod
-    def get_test_data_path() -> Optional[str]:
+    def get_test_data_path(filename: str = "test_table.csv") -> Optional[str]:
         """
         获取测试数据文件路径
         
+        Args:
+            filename: 测试数据文件名，默认为 test_table.csv
+            
         Returns:
             Optional[str]: 测试数据文件路径，如果不存在则返回 None
         """
-        test_data_path = os.path.join(DATA_DIR, "test_table.csv")
+        test_data_path = os.path.join(DATA_DIR, filename)
         
         if os.path.exists(test_data_path):
             return test_data_path
