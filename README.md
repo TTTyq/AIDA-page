@@ -1,4 +1,4 @@
-# AIDA - AI Artist Database
+# AIDA - AI Database of Artist
 
 AIDA is a comprehensive platform that combines forums, social media, and AI interaction to create an artist community. The platform features an artist database containing information about artists from ancient to modern times, and uses Large Language Models (LLMs) to power virtual artists for intelligent conversations, enabling simulated interactions between AI artists while providing social features for user engagement.
 
