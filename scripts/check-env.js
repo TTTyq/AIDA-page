@@ -43,11 +43,17 @@ try {
   if (process.platform === 'win32') {
     // Windows
     try {
-      execSync('mongosh --eval "db.version()" --quiet');
-      console.log('\x1b[32m%s\x1b[0m', 'MongoDB is running.');
+      const output = execSync('sc query MongoDB').toString();
+      if (output.includes('RUNNING')) {
+        console.log('\x1b[32m%s\x1b[0m', 'MongoDB is running.');
+      } else {
+        throw new Error('MongoDB service is not running');
+      }
     } catch (error) {
       console.error('\x1b[31m%s\x1b[0m', 'Error: MongoDB is not running.');
-      console.log('\x1b[36m%s\x1b[0m', 'Please start MongoDB before continuing.');
+      console.log('\x1b[36m%s\x1b[0m', 'Please start MongoDB using one of these methods:');
+      console.log('1. Open Services (services.msc) and start MongoDB');
+      console.log('2. Run command: net start MongoDB');
       process.exit(1);
     }
   } else {
