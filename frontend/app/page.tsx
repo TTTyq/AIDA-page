@@ -119,6 +119,24 @@ export default function Home() {
             <Stack gap="md" justify="space-between" h="100%">
               <div>
                 <Title order={4} mb="xs">
+                  Artwork Collection
+                </Title>
+                <Text size="sm" mb="lg">
+                  Browse our collection of famous artworks from renowned artists.
+                </Text>
+              </div>
+              <Button component={Link} href="/artworks" variant="outline">
+                View Artworks
+              </Button>
+            </Stack>
+          </Card>
+        </Grid.Col>
+        
+        <Grid.Col span={{ base: 12, md: 3 }}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+            <Stack gap="md" justify="space-between" h="100%">
+              <div>
+                <Title order={4} mb="xs">
                   Artist Forum
                 </Title>
                 <Text size="sm" mb="lg">

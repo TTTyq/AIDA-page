@@ -12,6 +12,7 @@ export function Header() {
   const links = [
     { label: 'Home', href: '/' },
     { label: 'Artists', href: '/artists' },
+    { label: 'Artworks', href: '/artworks' },
     { label: 'Forum', href: '/forum' },
     { label: 'API Test', href: '/test' },
     { label: 'Data Table', href: '/table' },

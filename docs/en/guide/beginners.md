@@ -26,6 +26,9 @@ Throughout this guide, you'll see many "Let AI Help You" tip boxes. The AIDA pro
   - [Advanced AI-Assisted Development Practices](#advanced-ai-assisted-development-practices)
   - [Implementing New Requirements](#implementing-new-requirements)
   - [Debugging Issues](#debugging-issues)
+  - [Using Chrome DevTools for Debugging](#using-chrome-devtools-for-debugging)
+  - [Using Swagger UI and ReDoc to Understand APIs](#using-swagger-ui-and-redoc-to-understand-apis)
+  - [Understanding HTTP Request Methods](#understanding-http-request-methods)
   - [Refactoring Code](#refactoring-code)
   - [Learning New Technologies](#learning-new-technologies)
   - [Generating Tests](#generating-tests)
@@ -69,7 +72,7 @@ After completing this step, you can say goodbye to cold code and complicated com
 Before you start using Cursor for development, here are some important usage tips:
 
 1. **Open the AI chat interface**:
-   - Use the shortcut `Cmd+L` (macOS) or `Ctrl+L` (Windows) to open the chat interface at the bottom
+   - Use the shortcut `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open the chat interface at the bottom
    - Or click the chat icon in the bottom right corner of the editor
 
 2. **Switch to Agent mode**:
@@ -619,7 +622,7 @@ This might be the most important part of this guide! Once you master how to effi
 
 ### Tips for Efficient Collaboration with AI
 
-1. **Use shortcuts to open chat**: Press `Cmd+L` (macOS) or `Ctrl+L` (Windows) anytime to open the AI chat interface
+1. **Use shortcuts to open chat**: Press `Cmd+I` (macOS) or `Ctrl+I` (Windows) anytime to open the AI chat interface
 2. **Ensure you're in Agent mode**: For complex tasks, it's recommended to use Agent mode, which can automatically execute multiple steps
 3. **Handle code application issues**: If AI-generated code isn't automatically applied, look for and click the "Apply" button
 4. **Manually confirm command execution**: When AI suggests executing commands, remember to click the "Run Command" button
@@ -829,7 +832,7 @@ AI will analyze the cause of the error and provide fix suggestions, sometimes ev
 
 ### Using Chrome DevTools for Debugging
 
-Chrome DevTools is a powerful set of web developer tools built directly into the Chrome browser. It's essential for debugging frontend issues, especially network-related problems. Here's how to use the Network panel effectively:
+Chrome DevTools is a powerful set of web development tools built into the Chrome browser. It's essential for debugging frontend issues, especially network-related ones. Here's how to effectively use the Network panel:
 
 #### Opening Chrome DevTools Network Panel
 
@@ -899,7 +902,220 @@ You can simulate different network conditions to test how your app behaves:
 4. **Verify response data** matches what your application is trying to display
 5. **Use the Preserve log option** (checkbox in Network panel) to keep requests visible when navigating between pages
 
-These Chrome DevTools techniques will help you quickly identify and fix many common frontend issues without having to add console.log statements throughout your code.
+These Chrome DevTools techniques will help you quickly identify and fix many common frontend issues without having to add numerous console.log statements to your code.
+
+### Using Swagger UI and ReDoc to Understand APIs
+
+During development, understanding backend APIs is key to frontend development. The AIDA project provides two API documentation tools: Swagger UI and ReDoc, which help you explore and test APIs.
+
+#### Swagger UI Basics
+
+Swagger UI is an interactive API documentation tool that not only displays the structure of APIs but also allows you to directly test API calls.
+
+1. **Accessing Swagger UI**:
+   - After starting the project, visit http://localhost:8000/api/docs
+   - You'll see a complete list of APIs, grouped by functionality (such as artists, artworks, users, etc.)
+
+2. **Exploring API Endpoints**:
+   - Click on any API endpoint (like GET /api/artists) to expand detailed information
+   - You can see:
+     - Request parameters (path parameters, query parameters, request body, etc.)
+     - Response schemas (possible response status codes and data structures)
+     - Authentication requirements (if needed)
+
+3. **Testing API Calls**:
+   - Click the "Try it out" button
+   - Fill in necessary parameters (if any)
+   - Click "Execute" to make the request
+   - View the actual response, including status code, response headers, and response body
+
+4. **Using Swagger UI for Development**:
+   - **Understanding Data Structures**: View JSON schemas for requests and responses to understand data formats
+   - **Copying Request URLs**: After executing a request, you can copy the complete curl command or request URL
+   - **Debugging Issues**: When the frontend encounters API problems, you can test the same request in Swagger UI
+
+#### ReDoc Documentation
+
+ReDoc provides a clearer, more readable view of API documentation, particularly suitable for learning and reference.
+
+1. **Accessing ReDoc**:
+   - After starting the project, visit http://localhost:8000/api/redoc
+   - ReDoc provides a three-column view: left navigation, middle API description, right request/response examples
+
+2. **Advantages of ReDoc**:
+   - Clearer visual hierarchy
+   - Better reading experience for long documentation
+   - Response examples and schemas displayed side by side
+   - Searchable API documentation
+
+3. **When to Use ReDoc vs Swagger UI**:
+   - Use **ReDoc** when you need to:
+     - Learn and understand API structure
+     - Find detailed parameter descriptions
+     - Read lengthy API documentation
+   - Use **Swagger UI** when you need to:
+     - Test API calls
+     - Debug frontend-backend integration issues
+     - Explore actual API behavior
+
+#### Relationship Between Frontend and APIs
+
+Understanding how the frontend interacts with backend APIs is key to full-stack development:
+
+1. **Data Flow**:
+   - Frontend components call APIs when they need data
+   - APIs return JSON data
+   - Frontend parses and displays this data
+
+2. **Frontend API Call Example**:
+   ```typescript
+   // Using fetch API to get a list of artists
+   async function fetchArtists() {
+     const response = await fetch('http://localhost:8000/api/artists');
+     const data = await response.json();
+     return data;
+   }
+   ```
+
+3. **Mapping Between APIs and Frontend Components**:
+   - Artist list page → GET /api/artists
+   - Artist detail page → GET /api/artists/{id}
+   - Create new artist → POST /api/artists
+   - Update artist information → PUT /api/artists/{id}
+
+### Understanding HTTP Request Methods
+
+When using APIs, it's important to understand different HTTP request methods (also known as HTTP verbs). Each method has a specific purpose:
+
+#### Common HTTP Methods
+
+1. **GET**: Retrieve a resource
+   - Used for reading data, should not modify any data
+   - Example: `GET /api/artists` to get all artists
+   - Parameters are typically passed in the URL query string: `GET /api/artists?page=1&limit=10`
+   - Frontend example:
+     ```javascript
+     fetch('http://localhost:8000/api/artists?page=1&limit=10')
+       .then(response => response.json())
+       .then(data => console.log(data));
+     ```
+
+2. **POST**: Create a resource
+   - Used for creating new data
+   - Example: `POST /api/artists` to create a new artist
+   - Data is passed in the request body (typically in JSON format)
+   - Frontend example:
+     ```javascript
+     fetch('http://localhost:8000/api/artists', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: 'Picasso',
+         birthYear: 1881,
+         nationality: 'Spanish'
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+3. **PUT**: Update a resource (complete replacement)
+   - Used to completely replace an existing resource
+   - Example: `PUT /api/artists/123` to update all information for the artist with ID 123
+   - Requires providing the complete data for the resource
+   - Frontend example:
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'PUT',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: 'Pablo Picasso',
+         birthYear: 1881,
+         deathYear: 1973,
+         nationality: 'Spanish',
+         movements: ['Cubism', 'Surrealism']
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+4. **PATCH**: Partially update a resource
+   - Used for partially updating an existing resource
+   - Example: `PATCH /api/artists/123` to update only certain fields of an artist
+   - Only requires providing the fields to be updated
+   - Frontend example:
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'PATCH',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         name: 'Pablo Picasso' // Only updating the name
+       })
+     })
+     .then(response => response.json())
+     .then(data => console.log(data));
+     ```
+
+5. **DELETE**: Delete a resource
+   - Used for deleting an existing resource
+   - Example: `DELETE /api/artists/123` to delete the artist with ID 123
+   - Typically doesn't require a request body
+   - Frontend example:
+     ```javascript
+     fetch('http://localhost:8000/api/artists/123', {
+       method: 'DELETE'
+     })
+     .then(response => {
+       if (response.ok) {
+         console.log('Artist deleted');
+       }
+     });
+     ```
+
+#### Testing Different HTTP Methods in Swagger UI
+
+Swagger UI allows you to test all these HTTP methods:
+
+1. Find the corresponding API endpoint (e.g., POST /api/artists)
+2. Click "Try it out"
+3. Fill in the necessary request body or parameters
+4. Click "Execute"
+5. View the response
+
+#### Observing HTTP Requests in Chrome DevTools
+
+You can observe these HTTP requests in the Network panel of Chrome DevTools:
+
+1. Open Chrome DevTools (F12 or right-click > Inspect)
+2. Switch to the Network tab
+3. Perform an action in the frontend application (such as clicking a "Create Artist" button)
+4. Observe the request sent in the Network panel
+5. Click on the request to view detailed information, including request method, URL, headers, body, and response
+
+::: tip Let AI Help You
+If you're unsure which HTTP method to use, you can ask the AI assistant:
+
+> I need to implement a feature that allows users to update part of an artist's information. Which HTTP method should I use? How do I implement this request in the frontend?
+
+AI will explain that you should use the PATCH method and provide frontend implementation code examples.
+:::
+
+::: warning Common Errors
+Using incorrect HTTP methods is a common source of API issues:
+1. Using GET method to send a request body (not recommended, some servers may not accept it)
+2. Using POST instead of PUT/PATCH for updates (may lead to creating duplicate resources)
+3. Using PUT instead of PATCH for partial updates (requires sending complete resource data)
+4. Forgetting to set the Content-Type header in POST/PUT/PATCH requests
+
+When API calls fail, first check if you're using the correct HTTP method and data format!
+:::
 
 ### Refactoring Code
 
