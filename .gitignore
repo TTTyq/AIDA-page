@@ -21,7 +21,9 @@ var/
 *.egg
 venv/
 .env
-
+data/artsy/images
+data/artsy/checkpoints
+data/logs
 # Node.js
 node_modules/
 npm-debug.log

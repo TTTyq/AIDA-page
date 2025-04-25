@@ -194,7 +194,7 @@ pip install -r requirements.txt
 cp ../.env.example scraper/.env
 
 # Run the scraper
-python main.py
+python aida_art_scraper.py
 ```
 
 ## API Documentation
@@ -247,3 +247,49 @@ docs(readme): update installation instructions
 ## License
 
 Proprietary and Confidential. This is a closed-source commercial project. All rights reserved.
+
+# AIDA 艺术数据爬虫工具
+
+这是AIDA项目的艺术数据爬虫工具，用于从Artsy网站采集艺术家和艺术品数据。
+
+## 快速启动
+
+只需要运行根目录下的批处理文件即可启动图形界面：
+
+```
+run_artsy_tools.bat
+```
+
+## 功能介绍
+
+爬虫工具提供了直观的图形界面，包含以下功能：
+
+1. **爬取艺术家数据** - 可以指定艺术家数量和每位艺术家的作品数量
+2. **清理图片数据** - 自动识别并处理低质量和重复的图片
+3. **数据统计与管理** - 查看采集的数据统计信息
+4. **断点续传** - 支持从上次中断的地方继续爬取
+
+## 数据输出
+
+所有爬取的数据将保存在 `data/artsy` 目录下：
+
+- 艺术家数据：`artsy_artists.csv`
+- 艺术品数据：`artsy_artworks.csv`
+- 图片数据：`images/` 目录（按艺术家姓名分类）
+
+## 系统要求
+
+- Python 3.7+
+- 必要的Python依赖项（自动安装）
+
+## 常见问题
+
+如果启动失败，请确保已安装所需依赖：
+
+```
+pip install -r scraper/requirements.txt
+```
+
+## 注意事项
+
+本工具仅供学术研究使用，请遵守数据源网站的使用条款。

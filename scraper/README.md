@@ -1,54 +1,38 @@
 # AIDA 艺术数据爬虫模块
 
-这个目录包含了AIDA项目的艺术数据爬虫组件，主要用于从各大艺术网站采集艺术家和艺术品信息。
+这个目录包含了AIDA项目的艺术数据爬虫组件，用于从Artsy网站采集艺术家和艺术品数据。
+
+## 快速启动
+
+使用以下命令启动图形界面爬虫：
+
+```
+run_gui_scraper.bat    # Windows
+```
+
+或直接运行Python脚本：
+
+```
+python aida_art_scraper.py
+```
+
+## 功能特点
+
+- **现代化图形界面**：直观易用的操作界面
+- **多种爬取模式**：
+  - 简单模式：快速获取少量数据
+  - 大规模模式：长时间运行，获取大量数据
+- **分类爬取**：按艺术家分类抓取相关数据
+- **数据清理**：清理低质量和重复图片，优化数据结构
+- **数据统计**：展示采集数据的统计分析
+- **断点续传**：支持中断恢复，避免数据丢失
 
 ## 主要文件
 
-- `artsy_scraper_app.py`: 爬虫GUI应用程序，整合了所有爬虫功能
-- `artsy_scraper.py`: 核心爬虫类，提供基础爬取功能
-- `simple_artsy_scraper.py`: 简单爬虫脚本，适合少量数据测试
-- `mass_artsy_scraper.py`: 大规模爬虫脚本，适合大量数据采集
-- `cleanup.py`: 数据清理工具，处理低质量和重复图片
-
-## 使用方法
-
-### 图形界面（推荐）
-
-使用图形界面是最简单的方法，它整合了所有功能：
-
-```bash
-python scraper/artsy_scraper_app.py
-```
-
-或者使用项目根目录下的批处理文件：
-
-```
-run_artsy_tools.bat
-```
-
-然后选择 "启动GUI工具"。
-
-### 命令行使用
-
-如果需要命令行使用，可以直接调用相应的脚本：
-
-#### 简单爬虫
-
-```bash
-python scraper/simple_artsy_scraper.py --num-artists 100 --max-artworks 10 --use-categories
-```
-
-#### 大规模爬虫
-
-```bash
-python scraper/mass_artsy_scraper.py --num-artists 2000 --max-artworks 30 --checkpoint-interval 10
-```
-
-#### 数据清理
-
-```bash
-python cleanup_data.py --min-size 15 --min-width 400 --min-height 400
-```
+- `aida_art_scraper.py`: 主GUI应用程序
+- `run_gui_scraper.bat`: Windows启动脚本
+- `artsy_scraper.py`: 核心爬虫类
+- `artsy_scraper_optimizer.py`: 数据优化工具
 
 ## 输出数据
 
@@ -57,31 +41,28 @@ python cleanup_data.py --min-size 15 --min-width 400 --min-height 400
 - `artsy_artists.csv`: 艺术家数据
 - `artsy_artworks.csv`: 艺术品数据
 - `images/`: 艺术品图片，按艺术家名称分类
-- `images/low_quality/`: 低质量图片
-- `images/duplicates/`: 重复图片
-- `checkpoints/`: 检查点数据
 
-## 开发说明
+## 依赖安装
 
-### 依赖安装
+如需手动安装依赖：
 
 ```bash
-pip install -r scraper/requirements.txt
+pip install -r requirements.txt
 ```
-
-### 添加新爬虫源
-
-如需添加新的数据源，建议继承 `ArtsyScraper` 类并实现相应的方法。
-
-### 性能优化
-
-- 对于大规模爬取，建议增加随机延迟避免被封禁
-- 定期使用检查点保存进度
-- 使用多线程可以提高图片下载速度
 
 ## 注意事项
 
-- 请遵守数据源的使用条款和robots.txt规则
-- 避免频繁高速爬取同一网站，以免IP被封
-- 大规模爬取建议使用代理IP
-- 定期备份重要数据 
+1. 首次运行可能需要下载Chrome驱动程序
+2. 爬取大量数据时请确保网络稳定
+3. 爬取过程可能需要较长时间，请耐心等待
+4. 本工具仅供学术研究使用，请遵守数据源网站的使用条款
+
+## 使用方法
+
+1. **启动应用**：运行 `run_gui_scraper.bat`
+2. **选择模式**：在爬虫标签页选择简单模式或大规模模式
+3. **设置参数**：调整艺术家数量、作品数量等参数
+4. **开始爬取**：点击"开始爬取"按钮
+5. **查看日志**：在日志区域查看爬取进度
+6. **清理数据**：爬取完成后在数据清理标签页进行优化
+7. **查看统计**：在统计数据标签页查看结果 
