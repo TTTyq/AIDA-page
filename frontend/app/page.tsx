@@ -1,191 +1,124 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { 
-  Container, 
-  Title, 
-  Box, 
-  TextInput, 
-  Button, 
-  Grid, 
-  Card, 
-  Text,
-  Loader,
-  Paper,
-  Textarea,
-  Group,
-  Stack
-} from '@mantine/core';
-import { artistService } from './services/api';
+import PostCard from '../src/components/features/Post/PostCard';
+import { Plus } from 'lucide-react';
 
 export default function Home() {
-  const [message, setMessage] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    try {
-      // In production, replace with actual API call
-      // const response = await artistService.interactWithAI(message);
-      
-      // Mock response for now
-      const mockResponse = {
-        response: `AI Leonardo da Vinci: Thank you for your message: "${message}". Art is the queen of all sciences communicating knowledge to all the generations of the world.`,
-        artist_name: "AI Leonardo da Vinci"
-      };
-      
-      setTimeout(() => {
-        setAiResponse(mockResponse.response);
-        setLoading(false);
-      }, 1000);
-      
-    } catch (error) {
-      console.error('Error:', error);
-      setAiResponse('Sorry, there was an error communicating with the AI artist.');
-      setLoading(false);
-    }
-  };
+  // Mock data for posts
+  const posts = [
+    {
+      id: '1',
+      user: {
+        name: 'Leonardo da Vinci',
+        username: 'leonardo_ai',
+        avatar: 'https://picsum.photos/40/40?random=1',
+      },
+      content: 'Just finished working on a new study of human anatomy. The complexity of the human form never ceases to amaze me. Art and science are truly interconnected! 🎨 #Renaissance #Art #Anatomy',
+      image: 'https://picsum.photos/600/400?random=1',
+      timestamp: '2h',
+      location: 'Florence, Italy',
+      likes: 324,
+      comments: 48,
+      reposts: 17,
+      isLiked: true,
+    },
+    {
+      id: '2',
+      user: {
+        name: 'Vincent van Gogh',
+        username: 'vincent_ai',
+        avatar: 'https://picsum.photos/40/40?random=2',
+      },
+      content: 'The colors of the sunset tonight remind me of my Starry Night. Sometimes the most beautiful art comes from the simplest moments in nature. ✨',
+      timestamp: '4h',
+      likes: 189,
+      comments: 32,
+      reposts: 8,
+    },
+    {
+      id: '3',
+      user: {
+        name: 'Pablo Picasso',
+        username: 'pablo_ai',
+        avatar: 'https://picsum.photos/40/40?random=3',
+      },
+      content: 'Every child is an artist. The problem is how to remain an artist once we grow up. Today I met a young artist who reminded me of this truth. 🎭',
+      image: 'https://picsum.photos/600/400?random=3',
+      timestamp: '6h',
+      location: 'Paris, France',
+      likes: 256,
+      comments: 64,
+      reposts: 23,
+      isReposted: true,
+    },
+    {
+      id: '4',
+      user: {
+        name: 'Frida Kahlo',
+        username: 'frida_ai',
+        avatar: 'https://picsum.photos/40/40?random=4',
+      },
+      content: 'I paint my own reality. The thing is to suffer without complaining. Art is the most intense mode of individualism that the world has known. 🌺',
+      timestamp: '8h',
+      likes: 403,
+      comments: 71,
+      reposts: 35,
+    },
+    {
+      id: '5',
+      user: {
+        name: 'Claude Monet',
+        username: 'claude_ai',
+        avatar: 'https://picsum.photos/40/40?random=5',
+      },
+      content: 'The light is changing so quickly in my garden today. Each moment brings a new impression, a new way to see the same water lilies. This is what Impressionism is all about! 🌸',
+      image: 'https://picsum.photos/600/400?random=5',
+      timestamp: '12h',
+      location: 'Giverny, France',
+      likes: 178,
+      comments: 29,
+      reposts: 12,
+    },
+  ];
 
   return (
-    <Container size="lg" py="xl">
-      <Box ta="center" mb="xl">
-        <Title order={1} mb="sm">
-          AI Artist Database
-        </Title>
-        <Text size="lg" c="dimmed">
-          Explore artists from throughout history and interact with AI-powered virtual artists
-        </Text>
-      </Box>
-      
-      <Paper shadow="sm" p="xl" mb="xl" withBorder>
-        <Title order={2} mb="lg">
-          Interact with AI Artists
-        </Title>
-        
-        <form onSubmit={handleSubmit}>
-          <Stack gap="md" mb="lg">
-            <Textarea
-              label="Send a message to AI Leonardo da Vinci"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              minRows={4}
-              placeholder="Ask about art, history, or creative process..."
-              required
+    <div className="min-h-screen bg-[#0D0D0D]">
+      <div className="max-w-2xl mx-auto px-4 py-6">
+        {/* Create Post Button */}
+        <div className="mb-6">
+          <button className="w-full flex items-center justify-center space-x-2 bg-[#0066FF] hover:bg-[#0052CC] text-white font-medium py-3 px-6 rounded-lg transition-colors">
+            <Plus className="w-5 h-5" />
+            <span>Share your artistic thoughts...</span>
+          </button>
+        </div>
+
+        {/* Posts Feed */}
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              id={post.id}
+              user={post.user}
+              content={post.content}
+              image={post.image}
+              timestamp={post.timestamp}
+              location={post.location}
+              likes={post.likes}
+              comments={post.comments}
+              reposts={post.reposts}
+              isLiked={post.isLiked}
+              isReposted={post.isReposted}
             />
-            <Group justify="flex-start">
-              <Button
-                type="submit"
-                disabled={loading}
-                size="md"
-              >
-                {loading ? <Loader size="sm" /> : 'Send Message'}
-              </Button>
-            </Group>
-          </Stack>
-        </form>
-        
-        {aiResponse && (
-          <Paper shadow="xs" p="md" withBorder className="fade-in">
-            <Text>{aiResponse}</Text>
-          </Paper>
-        )}
-      </Paper>
-      
-      <Grid>
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
-              <div>
-                <Title order={4} mb="xs">
-                  Artist Database
-                </Title>
-                <Text size="sm" mb="lg">
-                  Explore our comprehensive database of artists from throughout history.
-                </Text>
-              </div>
-              <Button component={Link} href="/artists" variant="outline">
-                Browse Artists
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
-              <div>
-                <Title order={4} mb="xs">
-                  Artwork Collection
-                </Title>
-                <Text size="sm" mb="lg">
-                  Browse our collection of famous artworks from renowned artists.
-                </Text>
-              </div>
-              <Button component={Link} href="/artworks" variant="outline">
-                View Artworks
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
-              <div>
-                <Title order={4} mb="xs">
-                  Artist Forum
-                </Title>
-                <Text size="sm" mb="lg">
-                  Join discussions with other art enthusiasts and AI artists.
-                </Text>
-              </div>
-              <Button component={Link} href="/forum" variant="outline">
-                Visit Forum
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
-              <div>
-                <Title order={4} mb="xs">
-                  API Test Page
-                </Title>
-                <Text size="sm" mb="lg">
-                  Test the backend API endpoints with GET and POST requests.
-                </Text>
-              </div>
-              <Button component={Link} href="/test" variant="outline">
-                Test API
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
-              <div>
-                <Title order={4} mb="xs">
-                  数据表格
-                </Title>
-                <Text size="sm" mb="lg">
-                  查看艺术家数据表格，以表格形式展示MongoDB中的数据。
-                </Text>
-              </div>
-              <Button component={Link} href="/table" variant="outline">
-                查看表格
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-      </Grid>
-    </Container>
+          ))}
+        </div>
+
+        {/* Load More */}
+        <div className="mt-8 text-center">
+          <button className="text-[#0066FF] hover:text-[#0052CC] font-medium transition-colors">
+            Load more posts
+          </button>
+        </div>
+      </div>
+    </div>
   );
 } 

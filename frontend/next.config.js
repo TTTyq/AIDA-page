@@ -4,6 +4,10 @@ const withLess = require('next-with-less');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  // 添加图片域名配置
+  images: {
+    domains: ['picsum.photos'],
+  },
   // 添加API代理配置
   async rewrites() {
     return [

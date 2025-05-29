@@ -9,6 +9,7 @@ class ArtistBase(BaseModel):
     nationality: Optional[str] = None
     bio: Optional[str] = None
     art_movement: Optional[str] = None
+    image_url: Optional[str] = None
 
 class ArtistCreate(ArtistBase):
     """创建艺术家模式"""
@@ -22,6 +23,7 @@ class ArtistUpdate(BaseModel):
     nationality: Optional[str] = None
     bio: Optional[str] = None
     art_movement: Optional[str] = None
+    image_url: Optional[str] = None
 
 class Artist(ArtistBase):
     """艺术家完整模式"""

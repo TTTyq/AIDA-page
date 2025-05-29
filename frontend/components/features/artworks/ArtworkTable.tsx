@@ -26,7 +26,7 @@ export function ArtworkTable({ artworks, loading = false }: ArtworkTableProps) {
 
   return (
     <div className="overflow-x-auto">
-      <Table striped highlightOnHover withBorder withColumnBorders>
+      <Table striped highlightOnHover>
         <Table.Thead>
           <Table.Tr>
             <Table.Th>ID</Table.Th>

@@ -13,6 +13,7 @@ export default function ArtistsPage() {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [debugInfo, setDebugInfo] = useState<string>('');
   const [filters, setFilters] = useState<ArtistFilterType>({});
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
@@ -22,11 +23,18 @@ export default function ArtistsPage() {
   const loadArtists = async () => {
     setLoading(true);
     setError(null);
+    setDebugInfo('Starting API call...');
     
     try {
+      setDebugInfo('Calling artistService.getArtists()...');
+      console.log('API call starting...');
+      
       // 目前后端API不支持完整的筛选功能，所以我们先获取所有艺术家
       // 然后在前端进行筛选
       const allArtists = await artistService.getArtists();
+      
+      setDebugInfo(`API call successful! Received ${allArtists.length} artists`);
+      console.log('API Response:', allArtists);
       
       // 应用筛选
       let filteredArtists = allArtists;
@@ -69,9 +77,12 @@ export default function ArtistsPage() {
       const paginatedArtists = filteredArtists.slice(start, start + pageSize);
       
       setArtists(paginatedArtists);
+      setDebugInfo(`Filtered and paginated: showing ${paginatedArtists.length} of ${filteredArtists.length} artists`);
     } catch (err) {
       console.error('Error loading artists:', err);
-      setError('Failed to load artists. Please try again later.');
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      setError(`Failed to load artists. Error: ${errorMessage}`);
+      setDebugInfo(`API call failed: ${errorMessage}`);
       setArtists([]);
     } finally {
       setLoading(false);
@@ -108,6 +119,18 @@ export default function ArtistsPage() {
           Explore our comprehensive collection of artists from throughout history
         </Text>
       </Box>
+
+      {/* Debug Information */}
+      {debugInfo && (
+        <Alert 
+          icon={<IconInfoCircle size={16} />} 
+          title="Debug Info" 
+          color="blue"
+          className="mb-6"
+        >
+          {debugInfo}
+        </Alert>
+      )}
 
       {error && (
         <Alert 

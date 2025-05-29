@@ -4,8 +4,9 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  important: '#__next',
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -47,9 +48,6 @@ module.exports = {
         },
       },
     },
-  },
-  corePlugins: {
-    preflight: false,
   },
   plugins: [],
 } 

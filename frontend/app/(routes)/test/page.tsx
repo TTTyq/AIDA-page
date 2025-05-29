@@ -21,8 +21,8 @@ import {
   Group,
   Stack
 } from '@mantine/core';
-import { artistFilterAtom, ArtistFilter } from '../store/atoms';
-import { artistService } from '../services/api';
+import { artistFilterAtom, ArtistFilter } from '../../store/atoms';
+import { artistService } from '../../services/api';
 
 export default function TestPage() {
   // Jotai state

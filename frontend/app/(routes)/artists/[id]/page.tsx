@@ -117,7 +117,9 @@ export default function ArtistDetailPage() {
           <Grid.Col span={{ base: 12, md: 8 }}>
             <Skeleton height={50} width="70%" radius="md" className="mb-4" />
             <Skeleton height={30} width="40%" radius="md" className="mb-4" />
-            <Skeleton height={20} count={3} radius="md" className="mb-4" />
+            <Skeleton height={20} radius="md" className="mb-2" />
+            <Skeleton height={20} radius="md" className="mb-2" />
+            <Skeleton height={20} radius="md" className="mb-4" />
             <Skeleton height={100} radius="md" className="mb-4" />
           </Grid.Col>
         </Grid>

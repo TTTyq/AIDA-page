@@ -4,7 +4,12 @@ import { useState } from 'react';
 import { Card, Text, Image, Badge, Group } from '@mantine/core';
 import Link from 'next/link';
 import type { Artist } from '@/types/models';
-import { truncateText } from '@/lib/utils';
+
+// 工具函数：截断文本
+const truncateText = (text: string, maxLength: number): string => {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + '...';
+};
 
 interface ArtistCardProps {
   artist: Artist;
