@@ -6,7 +6,7 @@ const nextConfig = {
   swcMinify: true,
   // 添加图片域名配置
   images: {
-    domains: ['picsum.photos'],
+    domains: ['picsum.photos', 'images.unsplash.com'],
   },
   // 添加API代理配置
   async rewrites() {

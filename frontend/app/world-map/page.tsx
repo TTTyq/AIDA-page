@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import L from 'leaflet';
 
 // 动态导入地图组件以避免SSR问题
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -25,6 +26,56 @@ interface User {
   artStyle: string;
 }
 
+// 创建自定义头像图标
+const createAvatarIcon = (avatarUrl: string, isOnline: boolean) => {
+  const iconHtml = `
+    <div style="
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid ${isOnline ? '#10B981' : '#6B7280'};
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      position: relative;
+    ">
+      <img 
+        src="${avatarUrl}" 
+        alt="Avatar"
+        style="
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        "
+        onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTggMTJDMTAuMjA5MSAxMiAxMiAxMC4yMDkxIDEyIDhDMTIgNS43OTA5IDEwLjIwOTEgNCA4IDRDNS43OTA5IDQgNCA1Ljc5MDkgNCA4QzQgMTAuMjA5MSA1Ljc5MDkgMTIgOCAxMloiIGZpbGw9IiM5Q0E0QUYiLz4KPC9zdmc+Cjwvc3ZnPgo='"
+      />
+      ${isOnline ? `
+        <div style="
+          position: absolute;
+          bottom: -2px;
+          right: -2px;
+          width: 12px;
+          height: 12px;
+          background: #10B981;
+          border: 2px solid white;
+          border-radius: 50%;
+        "></div>
+      ` : ''}
+    </div>
+  `;
+
+  return L.divIcon({
+    html: iconHtml,
+    className: 'custom-avatar-marker',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -20]
+  });
+};
+
 export default function WorldMapPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [isClient, setIsClient] = useState(false);
@@ -32,13 +83,13 @@ export default function WorldMapPage() {
   useEffect(() => {
     setIsClient(true);
     
-    // Mock data for users around the world
+    // Mock data for users around the world - 使用更稳定的头像图片
     const mockUsers: User[] = [
       {
         id: '1',
         name: 'Leonardo da Vinci',
         username: 'leonardo_ai',
-        avatar: 'https://picsum.photos/40/40?random=1',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
         location: { lat: 43.7696, lng: 11.2558, city: 'Florence', country: 'Italy' },
         isOnline: true,
         lastSeen: 'now',
@@ -48,7 +99,7 @@ export default function WorldMapPage() {
         id: '2',
         name: 'Vincent van Gogh',
         username: 'vincent_ai',
-        avatar: 'https://picsum.photos/40/40?random=2',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
         location: { lat: 52.3676, lng: 4.9041, city: 'Amsterdam', country: 'Netherlands' },
         isOnline: false,
         lastSeen: '2h ago',
@@ -58,7 +109,7 @@ export default function WorldMapPage() {
         id: '3',
         name: 'Pablo Picasso',
         username: 'pablo_ai',
-        avatar: 'https://picsum.photos/40/40?random=3',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
         location: { lat: 48.8566, lng: 2.3522, city: 'Paris', country: 'France' },
         isOnline: true,
         lastSeen: 'now',
@@ -68,7 +119,7 @@ export default function WorldMapPage() {
         id: '4',
         name: 'Frida Kahlo',
         username: 'frida_ai',
-        avatar: 'https://picsum.photos/40/40?random=4',
+        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
         location: { lat: 19.4326, lng: -99.1332, city: 'Mexico City', country: 'Mexico' },
         isOnline: true,
         lastSeen: 'now',
@@ -78,7 +129,7 @@ export default function WorldMapPage() {
         id: '5',
         name: 'Claude Monet',
         username: 'claude_ai',
-        avatar: 'https://picsum.photos/40/40?random=5',
+        avatar: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&h=100&fit=crop&crop=face',
         location: { lat: 49.0758, lng: 1.5339, city: 'Giverny', country: 'France' },
         isOnline: false,
         lastSeen: '1h ago',
@@ -88,7 +139,7 @@ export default function WorldMapPage() {
         id: '6',
         name: 'Hokusai',
         username: 'hokusai_ai',
-        avatar: 'https://picsum.photos/40/40?random=6',
+        avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=face',
         location: { lat: 35.6762, lng: 139.6503, city: 'Tokyo', country: 'Japan' },
         isOnline: true,
         lastSeen: 'now',
@@ -131,6 +182,7 @@ export default function WorldMapPage() {
               <Marker
                 key={user.id}
                 position={[user.location.lat, user.location.lng]}
+                icon={createAvatarIcon(user.avatar, user.isOnline)}
               >
                 <Popup>
                   <div className="user-popup p-4 bg-white rounded-lg">
@@ -141,6 +193,9 @@ export default function WorldMapPage() {
                         className={`w-12 h-12 rounded-full border-2 ${
                           user.isOnline ? 'border-green-500' : 'border-gray-400'
                         }`}
+                        onError={(e) => {
+                          e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNGM0Y0RjYiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMiIgeT0iMTIiPgo8cGF0aCBkPSJNMTIgMTJDMTQuMjA5MSAxMiAxNiAxMC4yMDkxIDE2IDhDMTYgNS43OTA5IDE0LjIwOTEgNCAxMiA0QzkuNzkwOSA0IDggNS43OTA5IDggOEM4IDEwLjIwOTEgOS43OTA5IDEyIDEyIDEyWiIgZmlsbD0iIzlDQTRBRiIvPgo8cGF0aCBkPSJNMTIgMTRDOC4xMzQwMSAxNCA1IDE3LjEzNCA1IDIxSDMuNUMzLjUgMTYuMzA1NiA3LjMwNTU4IDEyLjUgMTIgMTIuNUMxNi42OTQ0IDEyLjUgMjAuNSAxNi4zMDU2IDIwLjUgMjFIMTlDMTkgMTcuMTM0IDE1Ljg2NiAxNCAxMiAxNFoiIGZpbGw9IiM5Q0E0QUYiLz4KPC9zdmc+Cjwvc3ZnPgo=';
+                        }}
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900">{user.name}</h3>

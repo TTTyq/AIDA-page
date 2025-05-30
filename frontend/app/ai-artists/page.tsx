@@ -3,23 +3,40 @@
 import { useState, useEffect } from 'react';
 import { Container, Title, Text, Grid, Card, Image, Badge, Button, Group, Box, Alert, Loader } from '@mantine/core';
 import { IconMessageCircle, IconInfoCircle, IconRobot, IconPalette } from '@tabler/icons-react';
-import { artistService } from '@/services/endpoints/artistService';
 import { Artist } from '@/types/models';
 
+// 扩展Artist类型以包含可能的MongoDB字段
+interface ExtendedArtist extends Artist {
+  _id?: string;
+  description?: string;
+}
+
 export default function AIArtistsPage() {
-  const [artists, setArtists] = useState<Artist[]>([]);
+  const [artists, setArtists] = useState<ExtendedArtist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [interacting, setInteracting] = useState<number | null>(null);
+  const [interacting, setInteracting] = useState<string | number | null>(null);
 
   // 加载艺术家数据
   useEffect(() => {
     const loadArtists = async () => {
       try {
-        const data = await artistService.getArtists();
+        console.log('开始加载AI艺术家数据...');
+        
+        // 直接调用后端API，与Artists Database页面保持一致
+        const response = await fetch('http://localhost:8000/api/v1/artists/');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('AI艺术家数据加载成功:', data);
+        
         setArtists(data);
+        setError(null);
       } catch (err) {
-        console.error('Error loading artists:', err);
+        console.error('Error loading AI artists:', err);
         setError('Failed to load AI artists. Please try again later.');
       } finally {
         setLoading(false);
@@ -30,16 +47,31 @@ export default function AIArtistsPage() {
   }, []);
 
   // 与AI艺术家交互
-  const handleInteract = async (artistId: number, artistName: string) => {
+  const handleInteract = async (artistId: string | number, artistName: string) => {
     setInteracting(artistId);
     try {
-      const response = await artistService.interactWithAI(
-        `Hello ${artistName}, tell me about your artistic philosophy and what inspires your work.`,
-        artistId
-      );
+      console.log(`开始与AI艺术家 ${artistName} 交互...`);
+      
+      // 直接调用AI交互API
+      const response = await fetch('http://localhost:8000/api/v1/ai-interaction/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: `Hello ${artistName}, tell me about your artistic philosophy and what inspires your work.`,
+          artist_id: artistId
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const result = await response.json();
       
       // 这里可以打开一个对话框或导航到聊天页面
-      alert(`${artistName} says: ${response.response || 'Hello! I would love to discuss art with you.'}`);
+      alert(`${artistName} says: ${result.response || 'Hello! I would love to discuss art with you.'}`);
     } catch (err) {
       console.error('Error interacting with AI:', err);
       alert('Sorry, I could not connect with the AI artist at this time.');
@@ -93,71 +125,76 @@ export default function AIArtistsPage() {
       )}
 
       <Grid>
-        {artists.map((artist) => (
-          <Grid.Col key={artist.id} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
-            <Card 
-              shadow="md" 
-              padding="lg" 
-              radius="md" 
-              withBorder
-              className="h-full flex flex-col hover:shadow-lg transition-shadow"
-            >
-              {artist.image_url && (
-                <Card.Section>
-                  <Image
-                    src={artist.image_url}
-                    height={200}
-                    alt={artist.name}
-                    className="object-cover"
-                  />
-                </Card.Section>
-              )}
-
-              <Group justify="space-between" mt="md" mb="xs">
-                <Text className="font-bold text-lg">{artist.name}</Text>
-                <Badge color="violet" variant="light" leftSection={<IconRobot size={12} />}>
-                  AI
-                </Badge>
-              </Group>
-
-              {artist.birth_year && (
-                <Text size="sm" c="dimmed" mb="xs">
-                  {artist.birth_year} - {artist.death_year || 'Present'}
-                </Text>
-              )}
-
-              {artist.nationality && (
-                <Badge color="blue" variant="light" mb="md">
-                  {artist.nationality}
-                </Badge>
-              )}
-
-              {artist.art_movement && (
-                <Badge color="grape" variant="light" mb="md">
-                  {artist.art_movement}
-                </Badge>
-              )}
-
-              {artist.bio && (
-                <Text size="sm" lineClamp={3} className="flex-1 mb-4">
-                  {artist.bio}
-                </Text>
-              )}
-
-              <Button
-                fullWidth
-                leftSection={<IconMessageCircle size={16} />}
-                color="indigo"
-                variant="light"
-                loading={interacting === artist.id}
-                onClick={() => handleInteract(artist.id, artist.name)}
-                className="mt-auto"
+        {artists.map((artist) => {
+          const artistId = artist.id || artist._id || 'unknown';
+          const artistDescription = artist.bio || artist.description;
+          
+          return (
+            <Grid.Col key={artistId} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
+              <Card 
+                shadow="md" 
+                padding="lg" 
+                radius="md" 
+                withBorder
+                className="h-full flex flex-col hover:shadow-lg transition-shadow"
               >
-                {interacting === artist.id ? 'Connecting...' : 'Chat with AI'}
-              </Button>
-            </Card>
-          </Grid.Col>
-        ))}
+                {artist.image_url && (
+                  <Card.Section>
+                    <Image
+                      src={artist.image_url}
+                      height={200}
+                      alt={artist.name}
+                      className="object-cover"
+                    />
+                  </Card.Section>
+                )}
+
+                <Group justify="space-between" mt="md" mb="xs">
+                  <Text className="font-bold text-lg">{artist.name}</Text>
+                  <Badge color="violet" variant="light" leftSection={<IconRobot size={12} />}>
+                    AI
+                  </Badge>
+                </Group>
+
+                {artist.birth_year && (
+                  <Text size="sm" c="dimmed" mb="xs">
+                    {artist.birth_year} - {artist.death_year || 'Present'}
+                  </Text>
+                )}
+
+                {artist.nationality && (
+                  <Badge color="blue" variant="light" mb="md">
+                    {artist.nationality}
+                  </Badge>
+                )}
+
+                {artist.art_movement && (
+                  <Badge color="grape" variant="light" mb="md">
+                    {artist.art_movement}
+                  </Badge>
+                )}
+
+                {artistDescription && (
+                  <Text size="sm" lineClamp={3} className="flex-1 mb-4">
+                    {artistDescription}
+                  </Text>
+                )}
+
+                <Button
+                  fullWidth
+                  leftSection={<IconMessageCircle size={16} />}
+                  color="indigo"
+                  variant="light"
+                  loading={interacting === artistId}
+                  onClick={() => handleInteract(artistId, artist.name)}
+                  className="mt-auto"
+                >
+                  {interacting === artistId ? 'Connecting...' : 'Chat with AI'}
+                </Button>
+              </Card>
+            </Grid.Col>
+          );
+        })}
       </Grid>
 
       {artists.length > 0 && (

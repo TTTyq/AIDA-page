@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Container, Title, Text, Box, Button, Group, Alert } from '@mantine/core';
 import { IconInfoCircle, IconDownload } from '@tabler/icons-react';
 import { ArtworkTable } from '@/components/features/artworks/ArtworkTable';
-import { artworkService } from '@/services/endpoints/artworkService';
 import { Artwork } from '@/types/models';
 
 export default function ArtworksPage() {
@@ -19,8 +18,20 @@ export default function ArtworksPage() {
     setError(null);
     
     try {
-      const data = await artworkService.getArtworks();
+      console.log('开始加载艺术品数据...');
+      
+      // 直接调用后端API
+      const response = await fetch('http://localhost:8000/api/v1/artworks/');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('艺术品数据加载成功:', data);
+      
       setArtworks(data);
+      setError(null);
     } catch (err) {
       console.error('Error loading artworks:', err);
       setError('Failed to load artworks. Please try again later.');
@@ -36,7 +47,16 @@ export default function ArtworksPage() {
     setImportSuccess(false);
     
     try {
-      const result = await artworkService.importTestData();
+      console.log('开始导入测试数据...');
+      
+      // 直接调用后端API
+      const response = await fetch('http://localhost:8000/api/v1/artworks/import-test-data');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const result = await response.json();
       console.log('Import result:', result);
       setImportSuccess(true);
       
@@ -45,7 +65,6 @@ export default function ArtworksPage() {
     } catch (err) {
       console.error('Error importing test data:', err);
       setError('Failed to import test data. Please try again later.');
-    } finally {
       setLoading(false);
     }
   };

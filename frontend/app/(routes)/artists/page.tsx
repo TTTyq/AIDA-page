@@ -1,161 +1,146 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Container, Title, Text, Box, Alert } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
-import { ArtistGrid } from '@/components/features/artists/ArtistGrid';
-import { ArtistFilter } from '@/components/features/artists/ArtistFilter';
-import { ArtistPagination } from '@/components/features/artists/ArtistPagination';
-import { artistService } from '@/services/endpoints/artistService';
-import { Artist, ArtistFilter as ArtistFilterType } from '@/types/models';
 
 export default function ArtistsPage() {
-  const [artists, setArtists] = useState<Artist[]>([]);
+  const [artists, setArtists] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [debugInfo, setDebugInfo] = useState<string>('');
-  const [filters, setFilters] = useState<ArtistFilterType>({});
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(12);
-  const [total, setTotal] = useState(0);
+  const [debugInfo, setDebugInfo] = useState<string>('页面初始化中...');
 
   // 加载艺术家数据
   const loadArtists = async () => {
     setLoading(true);
     setError(null);
-    setDebugInfo('Starting API call...');
+    setDebugInfo('开始API调用...');
     
     try {
-      setDebugInfo('Calling artistService.getArtists()...');
-      console.log('API call starting...');
+      setDebugInfo('正在调用后端API...');
+      console.log('开始加载艺术家数据...');
       
-      // 目前后端API不支持完整的筛选功能，所以我们先获取所有艺术家
-      // 然后在前端进行筛选
-      const allArtists = await artistService.getArtists();
+      // 直接调用后端API
+      const response = await fetch('http://localhost:8000/api/v1/artists/');
       
-      setDebugInfo(`API call successful! Received ${allArtists.length} artists`);
-      console.log('API Response:', allArtists);
+      setDebugInfo(`API响应状态: ${response.status}`);
+      console.log('API响应:', response);
       
-      // 应用筛选
-      let filteredArtists = allArtists;
-      
-      if (filters.name) {
-        filteredArtists = filteredArtists.filter(artist => 
-          artist.name.toLowerCase().includes(filters.name?.toLowerCase() || '')
-        );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      if (filters.nationality) {
-        filteredArtists = filteredArtists.filter(artist => 
-          artist.nationality?.toLowerCase() === filters.nationality?.toLowerCase()
-        );
-      }
+      const allArtists = await response.json();
       
-      if (filters.style) {
-        filteredArtists = filteredArtists.filter(artist => 
-          artist.art_movement?.toLowerCase() === filters.style?.toLowerCase()
-        );
-      }
+      setDebugInfo(`API调用成功！收到 ${allArtists.length} 个艺术家数据`);
+      console.log('艺术家数据:', allArtists);
       
-      if (filters.min_year) {
-        filteredArtists = filteredArtists.filter(artist => 
-          artist.birth_year ? artist.birth_year >= (filters.min_year || 0) : true
-        );
-      }
-      
-      if (filters.max_year) {
-        filteredArtists = filteredArtists.filter(artist => 
-          artist.birth_year ? artist.birth_year <= (filters.max_year || 3000) : true
-        );
-      }
-      
-      // 更新总数
-      setTotal(filteredArtists.length);
-      
-      // 应用分页
-      const start = (page - 1) * pageSize;
-      const paginatedArtists = filteredArtists.slice(start, start + pageSize);
-      
-      setArtists(paginatedArtists);
-      setDebugInfo(`Filtered and paginated: showing ${paginatedArtists.length} of ${filteredArtists.length} artists`);
+      setArtists(allArtists);
+      setError(null);
     } catch (err) {
-      console.error('Error loading artists:', err);
+      console.error('加载艺术家失败:', err);
       const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      setError(`Failed to load artists. Error: ${errorMessage}`);
-      setDebugInfo(`API call failed: ${errorMessage}`);
+      setError(`加载艺术家失败: ${errorMessage}`);
+      setDebugInfo(`API调用失败: ${errorMessage}`);
       setArtists([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // 初始加载和筛选/分页变化时重新加载
+  // 初始加载
   useEffect(() => {
+    console.log('艺术家页面组件挂载，开始加载数据...');
     loadArtists();
-  }, [filters, page, pageSize]);
-
-  // 处理筛选变化
-  const handleFilter = (newFilters: ArtistFilterType) => {
-    setFilters(newFilters);
-    setPage(1); // 重置到第一页
-  };
-
-  // 处理页码变化
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
-  // 处理每页数量变化
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setPage(1); // 重置到第一页
-  };
+  }, []);
 
   return (
-    <Container size="xl" className="py-10">
-      <Box className="mb-8">
-        <Title order={1} className="mb-2">Artist Database</Title>
-        <Text size="lg" c="dimmed">
-          Explore our comprehensive collection of artists from throughout history
-        </Text>
-      </Box>
+    <div className="p-8 bg-[#0D0D0D] text-white min-h-screen">
+      <h1 className="text-3xl font-bold mb-4 text-[#0066FF]">艺术家数据库</h1>
+      <p className="text-[#8899A6] mb-8">探索我们全面的艺术家收藏</p>
 
       {/* Debug Information */}
-      {debugInfo && (
-        <Alert 
-          icon={<IconInfoCircle size={16} />} 
-          title="Debug Info" 
-          color="blue"
-          className="mb-6"
-        >
-          {debugInfo}
-        </Alert>
-      )}
+      <div className="mb-6 p-4 bg-[#1A1A1A] rounded-lg border border-[#333]">
+        <h3 className="text-lg font-semibold mb-2 text-[#0066FF]">调试信息</h3>
+        <p className="text-[#8899A6]">{debugInfo}</p>
+        <p className="text-xs text-[#666] mt-2">
+          加载状态: {loading ? '加载中' : '已完成'} | 
+          艺术家数量: {artists.length} | 
+          错误状态: {error ? '有错误' : '正常'}
+        </p>
+      </div>
 
+      {/* Error Display */}
       {error && (
-        <Alert 
-          icon={<IconInfoCircle size={16} />} 
-          title="Error" 
-          color="red"
-          className="mb-6"
-        >
-          {error}
-        </Alert>
+        <div className="mb-6 p-4 bg-red-900/20 border border-red-500 rounded-lg">
+          <h3 className="text-lg font-semibold mb-2 text-red-400">错误</h3>
+          <p className="text-red-300">{error}</p>
+        </div>
       )}
 
-      <ArtistFilter onFilter={handleFilter} loading={loading} />
-      
-      <ArtistGrid artists={artists} loading={loading} />
-      
-      {!loading && artists.length > 0 && (
-        <ArtistPagination
-          total={total}
-          page={page}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-        />
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center py-20">
+          <div className="text-[#0066FF] text-xl">加载中...</div>
+        </div>
       )}
-    </Container>
+
+      {/* Artists Display */}
+      {!loading && artists.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-semibold mb-4 text-white">艺术家列表 ({artists.length})</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {artists.map((artist, index) => (
+              <div key={artist.id || artist._id || index} className="bg-[#1A1A1A] p-6 rounded-lg border border-[#333] hover:border-[#0066FF] transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-2">{artist.name}</h3>
+                <p className="text-[#8899A6] mb-2">
+                  <span className="text-[#0066FF]">国籍:</span> {artist.nationality || '未知'}
+                </p>
+                <p className="text-[#8899A6] mb-2">
+                  <span className="text-[#0066FF]">出生年份:</span> {artist.birth_year || '未知'}
+                </p>
+                <p className="text-[#8899A6] mb-2">
+                  <span className="text-[#0066FF]">艺术流派:</span> {artist.art_movement || '未知'}
+                </p>
+                {artist.description && (
+                  <p className="text-[#8899A6] text-sm mt-3 leading-relaxed">
+                    {artist.description.length > 150 
+                      ? `${artist.description.substring(0, 150)}...` 
+                      : artist.description
+                    }
+                  </p>
+                )}
+                {artist.famous_works && artist.famous_works.length > 0 && (
+                  <div className="mt-3">
+                    <p className="text-[#0066FF] text-sm font-medium">代表作品:</p>
+                    <p className="text-[#8899A6] text-sm">
+                      {artist.famous_works.slice(0, 2).join(', ')}
+                      {artist.famous_works.length > 2 && '...'}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* No Data State */}
+      {!loading && artists.length === 0 && !error && (
+        <div className="text-center py-20">
+          <p className="text-[#8899A6] text-xl">没有找到艺术家数据</p>
+          <p className="text-[#666] text-sm mt-2">请检查后端服务是否正常运行</p>
+        </div>
+      )}
+
+      {/* Manual Refresh Button */}
+      <div className="mt-8">
+        <button 
+          onClick={loadArtists}
+          disabled={loading}
+          className="bg-[#0066FF] text-white px-6 py-3 rounded-lg hover:bg-[#0052CC] disabled:opacity-50 transition-colors"
+        >
+          {loading ? '加载中...' : '重新加载'}
+        </button>
+      </div>
+    </div>
   );
 } 
