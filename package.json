@@ -2,10 +2,6 @@
   "name": "aida",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "docs"
-  ],
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:docs\" \"node scripts/cross-platform-sleep.js 3 && npm run show:api-docs\"",
     "dev:frontend": "cd frontend && npm run dev",
