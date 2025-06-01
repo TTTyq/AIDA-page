@@ -31,9 +31,11 @@ const Sidebar = () => {
     { icon: Palette, label: 'Artworks', href: '/artworks' },
     { icon: Bell, label: 'Notifications', href: '/notifications' },
     { icon: MessageCircle, label: 'My Chats', href: '/chats' },
-    { icon: Mic, label: 'My Studio', href: '/studio' },
+    // 隐藏 My Studio 功能
+    // { icon: Mic, label: 'My Studio', href: '/studio' },
     { icon: Users, label: 'AI Artists', href: '/ai-artists' },
-    { icon: UserCheck, label: 'Community', href: '/community' },
+    // 隐藏 Community 功能
+    // { icon: UserCheck, label: 'Community', href: '/community' },
   ];
 
   const primaryNavItems = [
