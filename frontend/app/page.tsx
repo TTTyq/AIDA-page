@@ -83,7 +83,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D]">
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Create Post Button */}
         <div className="mb-6">
           <button className="w-full flex items-center justify-center space-x-2 bg-[#0066FF] hover:bg-[#0052CC] text-white font-medium py-3 px-6 rounded-lg transition-colors">

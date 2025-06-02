@@ -167,12 +167,12 @@ export default function ChatsPage() {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D]">
-      <div className="container mx-auto px-4 py-6 h-[calc(100vh-64px)]">
+      <div className="p-6">
         <h1 className="text-3xl font-bold text-white mb-6">My Chats</h1>
         
-        <div className="flex h-[calc(100%-4rem)] rounded-lg overflow-hidden">
+        <div className="flex h-[calc(100vh-200px)] rounded-lg overflow-hidden">
           {/* 聊天列表 */}
-          <div className="w-1/3 bg-[#1A1A1A] border-r border-[#333] flex flex-col">
+          <div className="w-full sm:w-1/3 bg-[#1A1A1A] border-r border-[#333] flex flex-col">
             {/* 搜索框 */}
             <div className="p-4 border-b border-[#333]">
               <div className="relative">
@@ -242,7 +242,7 @@ export default function ChatsPage() {
           </div>
           
           {/* 聊天窗口 */}
-          <div className="w-2/3 bg-[#0D0D0D] flex flex-col">
+          <div className="hidden sm:flex sm:w-2/3 bg-[#0D0D0D] flex-col">
             {activeChat ? (
               <>
                 {/* 聊天头部 */}
