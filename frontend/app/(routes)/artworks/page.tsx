@@ -5,6 +5,7 @@ import { Container, Title, Text, Box, Button, Group, Alert } from '@mantine/core
 import { IconInfoCircle, IconDownload } from '@tabler/icons-react';
 import { ArtworkTable } from '@/components/features/artworks/ArtworkTable';
 import { Artwork } from '@/types/models';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 export default function ArtworksPage() {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -20,8 +21,9 @@ export default function ArtworksPage() {
     try {
       console.log('开始加载艺术品数据...');
       
-      // 直接调用后端API
-      const response = await fetch('http://localhost:8000/api/v1/artworks/');
+      // 使用新的 API 配置
+      const apiUrl = buildApiUrl(API_ENDPOINTS.ARTWORKS);
+      const response = await fetch(apiUrl);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -49,8 +51,9 @@ export default function ArtworksPage() {
     try {
       console.log('开始导入测试数据...');
       
-      // 直接调用后端API
-      const response = await fetch('http://localhost:8000/api/v1/artworks/import-test-data');
+      // 使用新的 API 配置
+      const apiUrl = buildApiUrl(API_ENDPOINTS.IMPORT_TEST_DATA);
+      const response = await fetch(apiUrl);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

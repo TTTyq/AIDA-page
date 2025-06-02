@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 export default function TestApiPage() {
   const [result, setResult] = useState<string>('');
@@ -12,7 +13,8 @@ export default function TestApiPage() {
     
     try {
       // 测试后端API
-      const response = await fetch('http://localhost:8000/api/v1/artists/');
+      const apiUrl = buildApiUrl(API_ENDPOINTS.ARTISTS);
+      const response = await fetch(apiUrl);
       const data = await response.json();
       
       setResult(`Success! Got ${data.length} artists. First artist: ${data[0]?.name || 'None'}`);

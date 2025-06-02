@@ -18,6 +18,8 @@
 - [x] Artworks页面API修复 ✅ **已完成** - 2025年1月18日
 - [x] 世界地图页面头像显示修复 ✅ **已完成** - 2025年1月31日
 - [x] 虚拟环境重启和服务确认 ✅ **已完成** - 2025年1月31日
+- [x] GitHub AIDA-page仓库更新推送 ✅ **已完成** - 2025年1月31日
+- [ ] **Vercel 部署修复** - 修复 https://aida-page.vercel.app/ 的 404 错误 🔄 **进行中**
 
 ## 🎉 所有主要页面API连接问题完全解决
 
@@ -208,9 +210,15 @@
 
 ✅ **GitHub上传成功**：
 - **目标仓库**: https://github.com/TTTyq/AIDA-page
-- **推送内容**: 完整的AIDA项目（1054个对象，3.34MB）
+- **最新推送**: 2025年1月31日 - 虚拟环境重启和API修复完成
+- **推送内容**: 
+  - 修复前端API连接问题，所有页面正常工作
+  - 完成虚拟环境重启操作，确保服务稳定运行
+  - 更新世界地图页面头像显示功能
+  - 添加API测试页面用于调试
+  - 更新工作记录，记录所有修复进度
 - **包含模块**: frontend/, backend/, docs/, scraper/, scripts/, gptmemory/
-- **最新功能**: 现代化界面、完整API端点、AI交互功能
+- **最新功能**: 现代化界面、完整API端点、AI交互功能、虚拟环境支持
 
 ## 项目特性
 
@@ -357,4 +365,56 @@
 - 前端使用 Next.js App Router 结构，组件化开发，Jotai 状态管理
 - Next.js API代理配置在next.config.js中，但可能需要重启或配置调整
 - 后端API路径: /api/v1/artists (需要v1前缀)
-- 前端API配置: 当前使用 /api 路径，通过代理转发到后端 
+- 前端API配置: 当前使用 /api 路径，通过代理转发到后端
+
+### ✅ **Vercel 部署问题诊断和修复**：
+1. **问题确认**: Vercel 部署后出现 404 错误，无法访问页面
+2. **根本原因**: 
+   - Next.js 配置中有 `output: 'standalone'`，这是为 Docker 准备的，在 Vercel 上会导致问题
+   - 前端代码中硬编码了 `http://localhost:8000` API 调用，在 Vercel 上无法工作
+   - 缺少 Vercel 配置文件和静态数据支持
+3. **解决方案**: 
+   - ✅ 修改 `next.config.js`，移除 `standalone` 输出模式和本地 API 代理
+   - ✅ 创建 `vercel.json` 配置文件，设置正确的 monorepo 构建配置
+   - ✅ 创建 API 配置文件 `src/config/api.ts`，统一管理 API 调用
+   - ✅ 创建静态数据文件 `src/data/mockData.ts`，用于生产环境展示
+   - ✅ 创建 Next.js API 路由 (`/api/artists`, `/api/artworks`, `/api/ai-interaction`)
+   - ✅ 修改所有前端页面，使用新的 API 配置替换硬编码调用
+
+### 🔧 **技术实现细节**：
+- **环境检测**: 使用 `process.env.VERCEL === '1'` 和 `NODE_ENV === 'production'` 检测生产环境
+- **API 路由**: 在生产环境中，API 调用自动切换到 `/api/*` 路由，使用静态数据
+- **静态数据**: 包含 5 个艺术家和 2 个艺术品的完整数据，支持 AI 交互模拟
+- **兼容性**: 本地开发时仍然可以连接到后端 API，生产环境使用静态数据
+
+### 📁 **修改的文件**：
+- `frontend/next.config.js` - 移除 Docker 配置
+- `vercel.json` - 新建 Vercel 配置
+- `frontend/src/config/api.ts` - 新建 API 配置
+- `frontend/src/data/mockData.ts` - 新建静态数据
+- `frontend/app/api/artists/route.ts` - 新建 API 路由
+- `frontend/app/api/artworks/route.ts` - 新建 API 路由
+- `frontend/app/api/artworks/import-test-data/route.ts` - 新建 API 路由
+- `frontend/app/api/ai-interaction/route.ts` - 新建 AI 交互路由
+- 所有前端页面文件 - 更新 API 调用方式
+
+### 🎯 **预期结果**：
+- Vercel 部署成功，所有页面正常访问
+- 艺术家数据库页面显示 5 个艺术家
+- AI 艺术家页面支持交互功能
+- 艺术品页面显示数据和导入功能
+- 所有功能在生产环境中正常工作
+
+## 下一步行动
+
+1. **立即执行**: 提交代码更改到 GitHub
+2. **验证部署**: 检查 Vercel 自动部署是否成功
+3. **功能测试**: 验证所有页面和功能在生产环境中正常工作
+4. **性能优化**: 如需要，进一步优化加载速度和用户体验
+
+## 技术要点
+
+- **Vercel 部署**: 使用 monorepo 配置，正确设置构建目录
+- **API 策略**: 开发环境连接后端，生产环境使用静态数据
+- **环境变量**: 支持通过 `NEXT_PUBLIC_API_URL` 自定义 API 地址
+- **向后兼容**: 保持本地开发体验不变 

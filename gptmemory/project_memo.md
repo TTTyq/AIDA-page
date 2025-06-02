@@ -4,7 +4,8 @@
 
 - GPT Memory使用：!! 重要 !! 每次执行前后必须读和更新 project_memo.md !!；1)目录结构：project_memo.md(项目通用要点备忘录)、working_memory_[username].md(开发者工作记忆)；2)使用流程：初次使用AI助手时阅读memo文件→开始新任务时更新个人工作记忆（如果开发者显示引用了这个文件，否则不确定开发者是谁，可以不更新）→完成任务后记录进度→项目变更时更新context文件；3)最佳实践：保持文件简洁高密度、定期更新工作记忆、提交前确保符合规范、AI行为不一致时检查记忆文件。
 - 前后端有重大更改时（新依赖，文件结构变更，重大功能变更等），都检查对应的 frontend/README.md 等对应模块根目录 README.md 和整个项目的 README.md ，另外检查 docs/zh/index.md 和相关目录看看有没有相关文档要更新，尤其是！！要求重构时，必须更新对应 docs/ 文档和 README ！！
-- 环境变量在 .env.example 和 .env （可能有），可以用 cat 命令查看（如果在 git 文件目录找不到）
+- 环境变量在 env.example 和 .env （可能有），可以用 cat 命令查看（如果在 git 文件目录找不到）
+- Docker容器化：1)已完成完整Docker容器化配置；2)文件结构：backend/Dockerfile(生产)、frontend/Dockerfile(生产)、docs/Dockerfile、docker-compose.yml(开发)、docker-compose.prod.yml(生产)、nginx/nginx.conf(反向代理)、scripts/mongo-init.js(数据库初始化)、docker-run.sh(一键启动脚本)、DOCKER_README.md(详细说明)；3)关键配置：Next.js需要output:'standalone'支持Docker、多阶段构建优化镜像大小、非root用户提升安全性、健康检查确保服务可用、数据持久化使用Docker卷；4)使用方式：开发模式docker-compose up、生产模式docker-compose -f docker-compose.prod.yml up -d、一键脚本./docker-run.sh自动处理环境变量和模式选择。
 - 项目信息：AIDA(AI Artist Database)是艺术家社区平台；核心功能：1)艺术家数据库-存储艺术家信息；2)AI艺术家-基于LLM的虚拟艺术家；3)社区互动-用户交流平台。
 - 技术架构：1)Monorepo结构：docs/(VitePress文档)、backend/(FastAPI后端)、frontend/(Next.js前端)、scraper/(数据采集)、gptmemory/(AI助手记忆)；2)数据流：爬虫采集→MongoDB存储→后端API→前端展示→LLM训练；3)技术栈：后端(FastAPI+SQLAlchemy+MongoDB+LangChain)、前端(Next.js+TypeScript+Tailwind CSS)、文档(VitePress双语)、爬虫(BeautifulSoup+Selenium)、AI(OpenAI API/自定义LLM)。
 - 代码规范：1)Python：PEP 8、类型注解(Python 3.9+)、docstring、导入顺序(标准库>第三方库>本地模块)、snake_case变量函数、PascalCase类名；2)TypeScript：ESLint+Prettier、类型定义、camelCase函数变量、PascalCase组件、函数组件+React Hooks、避免直接操作DOM；3)CSS：**优先Tailwind CSS**、必要时使用Less、Mantine组件库通过Tailwind调整样式、全局样式globals.css、组件样式styles目录；4)文档：Markdown、中英同步、可运行代码示例、API文档参数说明。

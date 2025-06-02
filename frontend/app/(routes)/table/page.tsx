@@ -16,6 +16,7 @@ import {
   Stack
 } from '@mantine/core';
 import axios from 'axios';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 // 定义艺术家数据类型
 interface Artist {
@@ -42,8 +43,9 @@ export default function TablePage() {
     setError(null);
     
     try {
-      // 直接调用后端API
-      const response = await axios.get('http://localhost:8000/api/v1/artists/');
+      // 使用新的 API 配置
+      const apiUrl = buildApiUrl(API_ENDPOINTS.ARTISTS);
+      const response = await axios.get(apiUrl);
       setArtists(response.data);
     } catch (err) {
       setError('获取数据时发生错误');

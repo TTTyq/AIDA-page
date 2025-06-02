@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 export default function ApiTestPage() {
   const [result, setResult] = useState<string>('点击按钮测试API');
@@ -12,7 +13,8 @@ export default function ApiTestPage() {
     
     try {
       console.log('开始测试直接API调用...');
-      const response = await fetch('http://localhost:8000/api/v1/artists/');
+      const apiUrl = buildApiUrl(API_ENDPOINTS.ARTISTS);
+      const response = await fetch(apiUrl);
       console.log('API响应:', response);
       
       if (!response.ok) {
@@ -83,12 +85,12 @@ export default function ApiTestPage() {
         <pre className="text-[#8899A6] whitespace-pre-wrap">{result}</pre>
       </div>
 
-      <div className="mt-8 bg-[#1A1A1A] p-6 rounded-lg border border-[#333]">
-        <h3 className="text-lg font-semibold mb-4 text-[#0066FF]">说明</h3>
-        <ul className="text-[#8899A6] space-y-2">
-          <li>• <strong>直接API</strong>: 直接调用 http://localhost:8000/api/v1/artists/</li>
-          <li>• <strong>代理API</strong>: 通过Next.js代理调用 /api/artists/</li>
-          <li>• 打开浏览器开发者工具查看详细的网络请求和错误信息</li>
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">API 测试说明</h2>
+        <ul className="space-y-2 text-sm text-gray-600">
+          <li>• <strong>直接API</strong>: 使用配置的 API URL</li>
+          <li>• <strong>代理API</strong>: 通过 Next.js API 路由代理</li>
+          <li>• 在生产环境中，两种方式都会使用静态数据</li>
         </ul>
       </div>
     </div>

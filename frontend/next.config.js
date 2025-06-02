@@ -4,19 +4,21 @@ const withLess = require('next-with-less');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  // 移除 standalone 输出配置，Vercel 不需要
+  // output: 'standalone',
   // 添加图片域名配置
   images: {
     domains: ['picsum.photos', 'images.unsplash.com'],
   },
-  // 添加API代理配置
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:8000/api/v1/:path*',
-      },
-    ];
-  },
+  // 移除本地 API 代理配置，Vercel 部署时不需要
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       destination: 'http://localhost:8000/api/v1/:path*',
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = withLess({

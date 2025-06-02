@@ -118,13 +118,30 @@ make stop
 
 #### Option 3: Using Docker Compose (Best for consistent environments across team)
 
-```bash
-# Build and start all services
-docker-compose up
+**🐳 推荐使用Docker容器化部署，确保环境一致性！**
 
-# Stop all services
+```bash
+# 一键启动（推荐）
+chmod +x docker-run.sh
+./docker-run.sh
+
+# 或手动启动开发环境
+docker-compose up --build
+
+# 或启动生产环境
+docker-compose -f docker-compose.prod.yml up --build -d
+
+# 停止服务
 docker-compose down
 ```
+
+**Docker容器化的优势：**
+- ✅ 环境一致性：无论在什么系统上都能稳定运行
+- ✅ 一键部署：朋友可以直接运行您的容器
+- ✅ 依赖隔离：不会与系统其他软件冲突
+- ✅ 生产就绪：包含Nginx反向代理和优化配置
+
+**详细的Docker使用指南请查看：[DOCKER_README.md](./DOCKER_README.md)**
 
 ### Individual Component Setup
 

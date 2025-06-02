@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 export default function ArtistsPage() {
   const [artists, setArtists] = useState<any[]>([]);
@@ -15,11 +16,12 @@ export default function ArtistsPage() {
     setDebugInfo('开始API调用...');
     
     try {
-      setDebugInfo('正在调用后端API...');
+      setDebugInfo('正在调用API...');
       console.log('开始加载艺术家数据...');
       
-      // 直接调用后端API
-      const response = await fetch('http://localhost:8000/api/v1/artists/');
+      // 使用新的 API 配置
+      const apiUrl = buildApiUrl(API_ENDPOINTS.ARTISTS);
+      const response = await fetch(apiUrl);
       
       setDebugInfo(`API响应状态: ${response.status}`);
       console.log('API响应:', response);

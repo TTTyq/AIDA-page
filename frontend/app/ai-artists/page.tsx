@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Container, Title, Text, Grid, Card, Image, Badge, Button, Group, Box, Alert, Loader } from '@mantine/core';
 import { IconMessageCircle, IconInfoCircle, IconRobot, IconPalette } from '@tabler/icons-react';
 import { Artist } from '@/types/models';
+import { buildApiUrl, API_ENDPOINTS } from '@/src/config/api';
 
 // 扩展Artist类型以包含可能的MongoDB字段
 interface ExtendedArtist extends Artist {
@@ -23,8 +24,9 @@ export default function AIArtistsPage() {
       try {
         console.log('开始加载AI艺术家数据...');
         
-        // 直接调用后端API，与Artists Database页面保持一致
-        const response = await fetch('http://localhost:8000/api/v1/artists/');
+        // 使用新的 API 配置
+        const apiUrl = buildApiUrl(API_ENDPOINTS.ARTISTS);
+        const response = await fetch(apiUrl);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -52,8 +54,9 @@ export default function AIArtistsPage() {
     try {
       console.log(`开始与AI艺术家 ${artistName} 交互...`);
       
-      // 直接调用AI交互API
-      const response = await fetch('http://localhost:8000/api/v1/ai-interaction/', {
+      // 使用新的 API 配置
+      const apiUrl = buildApiUrl(API_ENDPOINTS.AI_INTERACTION);
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
