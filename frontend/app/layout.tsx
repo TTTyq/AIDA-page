@@ -24,9 +24,9 @@ export default function RootLayout({
           withNormalizeCSS
           withGlobalStyles
         >
-          <div className="flex min-h-screen relative">
+          <div className="flex min-h-screen">
             <Sidebar />
-            <div className="flex-1 flex flex-col lg:ml-20">
+            <div className="flex-1 flex flex-col lg:ml-0">
               <TopBar />
               <main className="flex-1 overflow-y-auto">
                 {children}
