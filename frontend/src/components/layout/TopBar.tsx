@@ -5,17 +5,9 @@ import { Search, Settings, MoreHorizontal, User } from 'lucide-react';
 const TopBar = () => {
   return (
     <div className="h-16 bg-[#0D0D0D] border-b border-[#1A1A1A] flex items-center justify-between px-6">
-      {/* For You Section */}
+      {/* Title Section */}
       <div className="flex items-center space-x-6">
-        <h1 className="text-xl font-semibold text-white">For You</h1>
-        <div className="flex items-center space-x-4">
-          <button className="text-[#0066FF] font-medium hover:text-[#0052CC] transition-colors">
-            Following
-          </button>
-          <button className="text-[#8899A6] font-medium hover:text-white transition-colors">
-            Trending
-          </button>
-        </div>
+        <h1 className="text-xl font-semibold text-white">AIDA Platform</h1>
       </div>
 
       {/* Search and User Controls */}

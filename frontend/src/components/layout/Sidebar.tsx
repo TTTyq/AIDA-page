@@ -17,7 +17,8 @@ import {
   Instagram,
   Youtube,
   Palette,
-  Database
+  Database,
+  Server
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -27,15 +28,9 @@ const Sidebar = () => {
 
   const navigationItems = [
     { icon: Home, label: 'Home', href: '/' },
-    { icon: Database, label: 'Artists Database', href: '/artists' },
-    { icon: Palette, label: 'Artworks', href: '/artworks' },
     { icon: Bell, label: 'Notifications', href: '/notifications' },
     { icon: MessageCircle, label: 'My Chats', href: '/chats' },
-    // 隐藏 My Studio 功能
-    // { icon: Mic, label: 'My Studio', href: '/studio' },
-    { icon: Users, label: 'AI Artists', href: '/ai-artists' },
-    // 隐藏 Community 功能
-    // { icon: UserCheck, label: 'Community', href: '/community' },
+    { icon: Server, label: 'Database Access', href: '/database' },
   ];
 
   const primaryNavItems = [

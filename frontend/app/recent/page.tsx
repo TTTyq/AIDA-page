@@ -205,7 +205,6 @@ export default function RecentPage() {
               { id: 'like', label: 'Likes', count: recentActivities.filter(a => a.type === 'like').length },
               { id: 'comment', label: 'Comments', count: recentActivities.filter(a => a.type === 'comment').length },
               { id: 'repost', label: 'Reposts', count: recentActivities.filter(a => a.type === 'repost').length },
-              { id: 'follow', label: 'Follows', count: recentActivities.filter(a => a.type === 'follow').length },
             ].map((filterOption) => (
               <button
                 key={filterOption.id}
