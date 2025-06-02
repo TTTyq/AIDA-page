@@ -1,8 +1,8 @@
 import 'leaflet/dist/leaflet.css';
 import './globals.css';
-import Sidebar from '../src/components/layout/Sidebar';
-import TopBar from '../src/components/layout/TopBar';
-import Providers from '../src/components/layout/Providers';
+import Sidebar from '../components/layout/Sidebar';
+import TopBar from '../components/layout/TopBar';
+import Providers from '../components/layout/Providers';
 
 export const metadata = {
   title: 'AIDA - Artificial Intelligence Artist Database',

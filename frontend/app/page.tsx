@@ -1,6 +1,6 @@
 'use client';
 
-import PostCard from '../src/components/features/Post/PostCard';
+import PostCard from '../components/features/Post/PostCard';
 import { Plus } from 'lucide-react';
 
 export default function Home() {
