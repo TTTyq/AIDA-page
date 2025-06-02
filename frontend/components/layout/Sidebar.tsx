@@ -20,12 +20,19 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSidebar } from './SidebarContext';
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isExpanded, setIsExpanded] = useState(true);
+  const { isExpanded, toggleSidebar } = useSidebar();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // 确保客户端挂载后再渲染交互元素
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const navigationItems = [
     { icon: Home, label: 'Home', href: '/' },
@@ -50,21 +57,27 @@ const Sidebar = () => {
     setNotificationsEnabled(!notificationsEnabled);
   };
 
+  // 在服务端渲染时，不显示移动设备上的切换按钮和背景遮罩
+  // 这样可以确保客户端和服务端渲染的内容保持一致
+  const showMobileControls = isMounted;
+
   return (
     <>
-      {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#1A1A1A] rounded-full text-[#8899A6] hover:text-white"
-      >
-        <Menu className="w-6 h-6" />
-      </button>
+      {/* Mobile Toggle Button - 仅在客户端渲染 */}
+      {showMobileControls && (
+        <button
+          onClick={toggleSidebar}
+          className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#1A1A1A] rounded-full text-[#8899A6] hover:text-white"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+      )}
 
-      {/* Backdrop */}
-      {isExpanded && (
+      {/* Backdrop - 仅在客户端渲染 */}
+      {showMobileControls && isExpanded && (
         <div 
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsExpanded(false)}
+          onClick={toggleSidebar}
         />
       )}
 
@@ -73,17 +86,19 @@ const Sidebar = () => {
         fixed lg:sticky top-0 left-0 h-screen z-40
         ${isExpanded ? 'w-60' : 'w-20'} 
         bg-[#0D0D0D] border-r border-[#1A1A1A] 
-        transition-all duration-300 ease-in-out
-        ${isExpanded ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        ${isMounted ? 'transition-all duration-300 ease-in-out' : ''}
+        ${isMounted && !isExpanded ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}
       `}>
         <div className="flex flex-col h-full">
-          {/* Toggle Button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="hidden lg:flex absolute -right-3 top-6 w-6 h-6 bg-[#1A1A1A] rounded-full items-center justify-center text-[#8899A6] hover:text-white border border-[#333] z-10"
-          >
-            <ChevronLeft className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? '' : 'rotate-180'}`} />
-          </button>
+          {/* Toggle Button - 仅在客户端渲染 */}
+          {isMounted && (
+            <button
+              onClick={toggleSidebar}
+              className="hidden lg:flex absolute -right-3 top-6 w-6 h-6 bg-[#1A1A1A] rounded-full items-center justify-center text-[#8899A6] hover:text-white border border-[#333] z-10"
+            >
+              <ChevronLeft className={`w-4 h-4 ${isMounted ? 'transition-transform duration-300' : ''} ${isExpanded ? '' : 'rotate-180'}`} />
+            </button>
+          )}
 
           {/* Logo */}
           <div className="h-16 flex items-center justify-center border-b border-[#1A1A1A]">
@@ -108,7 +123,10 @@ const Sidebar = () => {
                     <div className="w-5 flex items-center justify-center">
                       <item.icon className="w-5 h-5 flex-shrink-0" />
                     </div>
-                    {isExpanded && <span className="font-medium ml-3 truncate">{item.label}</span>}
+                    {/* 服务端始终渲染标签文本，客户端根据状态决定 */}
+                    {(!isMounted || isExpanded) && (
+                      <span className="font-medium ml-3 truncate">{item.label}</span>
+                    )}
                   </Link>
                 ))}
               </nav>
@@ -130,7 +148,10 @@ const Sidebar = () => {
                     <div className="w-5 flex items-center justify-center">
                       <item.icon className="w-5 h-5 flex-shrink-0" />
                     </div>
-                    {isExpanded && <span className="font-medium ml-3 truncate">{item.label}</span>}
+                    {/* 服务端始终渲染标签文本，客户端根据状态决定 */}
+                    {(!isMounted || isExpanded) && (
+                      <span className="font-medium ml-3 truncate">{item.label}</span>
+                    )}
                   </Link>
                 ))}
               </nav>
@@ -141,7 +162,8 @@ const Sidebar = () => {
           <div className="border-t border-[#1A1A1A] bg-[#0D0D0D]">
             {/* Auth Buttons */}
             <div className="px-4 py-4">
-              {isExpanded ? (
+              {/* 在服务端渲染完整版，客户端根据状态决定 */}
+              {(!isMounted || isExpanded) ? (
                 <div className="space-y-2">
                   <button className="w-full flex items-center justify-center px-4 py-2 bg-[#0066FF] text-white rounded-lg hover:bg-[#0052CC] transition-colors">
                     <LogIn className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -176,7 +198,8 @@ const Sidebar = () => {
                 ) : (
                   <BellOff className="w-5 h-5 flex-shrink-0" />
                 )}
-                {isExpanded && (
+                {/* 服务端始终渲染文本，客户端根据状态决定 */}
+                {(!isMounted || isExpanded) && (
                   <span className="font-medium ml-3 truncate">
                     {notificationsEnabled ? 'Notifications On' : 'Notifications Off'}
                   </span>
@@ -185,8 +208,8 @@ const Sidebar = () => {
             </div>
 
             {/* Social Links */}
-            <div className={`px-4 py-4 border-t border-[#1A1A1A] ${isExpanded ? '' : 'flex justify-center'}`}>
-              <div className={`flex ${isExpanded ? 'justify-center space-x-4' : 'flex-col items-center space-y-4'}`}>
+            <div className={`px-4 py-4 border-t border-[#1A1A1A] ${(isMounted && !isExpanded) ? 'flex justify-center' : ''}`}>
+              <div className={`flex ${(!isMounted || isExpanded) ? 'justify-center space-x-4' : 'flex-col items-center space-y-4'}`}>
                 {socialLinks.map((social) => (
                   <a
                     key={social.label}

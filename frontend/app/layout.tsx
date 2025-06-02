@@ -3,6 +3,7 @@ import './globals.css';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import Providers from '../components/layout/Providers';
+import { SidebarProvider } from '../components/layout/SidebarContext';
 
 export const metadata = {
   title: 'AIDA - Artificial Intelligence Artist Database',
@@ -20,15 +21,17 @@ export default function RootLayout({
       <body>
         <div className="bg-[#0D0D0D] text-white min-h-screen antialiased">
           <Providers>
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="flex-1 flex flex-col lg:ml-0">
-                <TopBar />
-                <main className="flex-1 overflow-y-auto">
-                  {children}
-                </main>
+            <SidebarProvider>
+              <div className="flex min-h-screen">
+                <Sidebar />
+                <div className="flex-1 flex flex-col lg:ml-0">
+                  <TopBar />
+                  <main className="flex-1 overflow-y-auto pt-16">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
+            </SidebarProvider>
           </Providers>
         </div>
       </body>
