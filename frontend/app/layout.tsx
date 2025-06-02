@@ -2,8 +2,6 @@
 
 import { MantineProvider } from '@mantine/core';
 import 'leaflet/dist/leaflet.css';
-// 暂时移除 globals.less 引用，看看是否能解决问题
-// import '../styles/globals.less';
 import './globals.css';
 import Sidebar from '../src/components/layout/Sidebar';
 import TopBar from '../src/components/layout/TopBar';
