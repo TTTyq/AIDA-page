@@ -15,7 +15,8 @@ import {
   Youtube,
   Server,
   ChevronLeft,
-  Menu
+  Menu,
+  BellOff
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -24,10 +25,10 @@ import { useState } from 'react';
 const Sidebar = () => {
   const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   const navigationItems = [
     { icon: Home, label: 'Home', href: '/' },
-    { icon: Bell, label: 'Notifications', href: '/notifications' },
     { icon: MessageCircle, label: 'My Chats', href: '/chats' },
     { icon: Server, label: 'Database Access', href: '/database' },
   ];
@@ -44,6 +45,10 @@ const Sidebar = () => {
     { icon: Instagram, href: '#', label: 'Instagram' },
     { icon: Youtube, href: '#', label: 'YouTube' },
   ];
+
+  const toggleNotifications = () => {
+    setNotificationsEnabled(!notificationsEnabled);
+  };
 
   return (
     <>
@@ -157,6 +162,29 @@ const Sidebar = () => {
                   </button>
                 </div>
               )}
+            </div>
+
+            {/* Notifications Toggle */}
+            <div className="px-4 py-3 border-t border-[#1A1A1A]">
+              <button 
+                onClick={toggleNotifications}
+                className={`w-full flex items-center px-3 py-2 rounded-lg transition-colors ${
+                  notificationsEnabled 
+                    ? 'bg-[#0066FF] text-white' 
+                    : 'bg-[#1A1A1A] text-[#8899A6]'
+                }`}
+              >
+                {notificationsEnabled ? (
+                  <Bell className="w-5 h-5 flex-shrink-0" />
+                ) : (
+                  <BellOff className="w-5 h-5 flex-shrink-0" />
+                )}
+                {isExpanded && (
+                  <span className="font-medium ml-3 truncate">
+                    {notificationsEnabled ? 'Notifications On' : 'Notifications Off'}
+                  </span>
+                )}
+              </button>
             </div>
 
             {/* Social Links */}
