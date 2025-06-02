@@ -7,7 +7,10 @@ const TopBar = () => {
     <div className="h-16 bg-[#0D0D0D] border-b border-[#1A1A1A] flex items-center justify-between px-6">
       {/* Title Section */}
       <div className="flex items-center space-x-6">
-        <h1 className="text-xl font-semibold text-white">AIDA Platform</h1>
+        <h1 className="text-xl font-semibold text-white">
+          <span className="text-blue-500 text-2xl">AIDA</span>
+          <span className="text-gray-400 text-lg"> - Artificial Intelligence Artist Database</span>
+        </h1>
       </div>
 
       {/* Search and User Controls */}

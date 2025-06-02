@@ -17,11 +17,11 @@ export function PageLayout({
   withPadding = true,
 }: PageLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-[#0D0D0D] text-white">
       <Header />
-      <main className="flex-grow">
+      <main className="pt-16">
         {withPadding ? (
-          <Container size={containerSize} py="xl">
+          <Container size={containerSize} className="py-8">
             {children}
           </Container>
         ) : (
