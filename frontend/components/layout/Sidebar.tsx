@@ -16,7 +16,10 @@ import {
   Server,
   ChevronLeft,
   Menu,
-  BellOff
+  BellOff,
+  Settings,
+  MoreHorizontal,
+  User
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -44,6 +47,12 @@ const Sidebar = () => {
     { icon: Globe, label: 'World Map', href: '/world-map' },
     { icon: Compass, label: 'Explore', href: '/explore' },
     { icon: Clock, label: 'Recent', href: '/recent' },
+  ];
+
+  const utilityItems = [
+    { icon: Settings, label: 'Settings', action: () => console.log('Settings clicked') },
+    { icon: MoreHorizontal, label: 'More', action: () => console.log('More clicked') },
+    { icon: User, label: 'Profile', action: () => console.log('Profile clicked') },
   ];
 
   const socialLinks = [
@@ -205,6 +214,36 @@ const Sidebar = () => {
                   </span>
                 )}
               </button>
+            </div>
+
+            {/* Utility Items (从TopBar移动过来的图标) */}
+            <div className="px-4 py-3 border-t border-[#1A1A1A]">
+              {(!isMounted || isExpanded) ? (
+                <div className="space-y-1">
+                  {utilityItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={item.action}
+                      className="w-full flex items-center px-3 py-2 rounded-lg text-[#8899A6] hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <span className="font-medium ml-3 truncate">{item.label}</span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center space-y-4">
+                  {utilityItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={item.action}
+                      className="w-10 h-10 flex items-center justify-center rounded-lg text-[#8899A6] hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Social Links */}
