@@ -16,7 +16,7 @@ export function PageLayout({
   withPadding = true,
 }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D] text-gray-900 dark:text-white">
       <main>
         {withPadding ? (
           <Container size={containerSize} className="py-8">

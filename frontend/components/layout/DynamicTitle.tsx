@@ -22,7 +22,7 @@ export default function DynamicTitle() {
       <div className={`relative ${transitionClasses}`}>
         {isExpanded ? (
           // 展开状态: 只显示 AIDA 大写标题
-          <h1 className="text-xl font-semibold text-white">
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
             <span 
               className="text-blue-500 text-3xl font-bold"
             >
@@ -31,7 +31,7 @@ export default function DynamicTitle() {
           </h1>
         ) : (
           // 收起状态: 显示完整名称
-          <h1 className="text-lg font-medium text-white whitespace-nowrap">
+          <h1 className="text-lg font-medium text-gray-900 dark:text-white whitespace-nowrap">
             Artificial Intelligence Artist Database
           </h1>
         )}

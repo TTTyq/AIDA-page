@@ -82,7 +82,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D]">
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Create Post Button */}
         <div className="mb-6">

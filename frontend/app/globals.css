@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 全局过渡效果 - 添加顺滑的主题切换动画 */
+html {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+body, 
+div, 
+nav, 
+aside, 
+main, 
+section, 
+header, 
+footer, 
+button, 
+a, 
+input, 
+textarea, 
+select {
+  transition: color 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+}
+
+/* 主题过渡动画增强 */
+.theme-transitioning * {
+  transition: color 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease !important;
+}
+
+/* 特定元素的主题过渡效果 */
+.theme-transition {
+  transition: color 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+  will-change: color, background-color, border-color, box-shadow;
+}
+
+/* 禁用过渡动画的元素 */
+.no-transition,
+.no-transition * {
+  transition: none !important;
+}
+
+/* 暗色模式变量 - 默认 */
 :root {
   --background: #0D0D0D;
   --foreground: #FFFFFF;
@@ -24,6 +72,29 @@
   --ring: #0066FF;
 }
 
+/* 浅色模式变量 */
+:root:not(.dark) {
+  --background: #F9FAFB;
+  --foreground: #111827;
+  --card: #FFFFFF;
+  --card-foreground: #111827;
+  --popover: #FFFFFF;
+  --popover-foreground: #111827;
+  --primary: #0066FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #6B7280;
+  --secondary-foreground: #111827;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #1D9BF0;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #0066FF;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -37,22 +108,40 @@ body {
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - 暗色模式 */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Custom scrollbar - 浅色模式 */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D0D0D;
+  background: #F3F4F6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1A1A1A;
+  background: #D1D5DB;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #9CA3AF;
 }
 
 /* Recent页面图片优化 */
@@ -60,7 +149,7 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  background: #1A1A1A;
+  background: var(--card);
 }
 
 .recent-image-container img {

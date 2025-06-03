@@ -152,21 +152,21 @@ export default function WorldMapPage() {
 
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center">
-        <div className="text-white">Loading map...</div>
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D] flex items-center justify-center">
+        <div className="text-gray-900 dark:text-white">Loading map...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D]">
       <div className="p-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-white mb-2">World Map</h1>
-          <p className="text-[#8899A6]">Discover AI artists from around the world</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">World Map</h1>
+          <p className="text-gray-600 dark:text-[#8899A6]">Discover AI artists from around the world</p>
         </div>
         
-        <div className="bg-[#1A1A1A] rounded-lg overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
+        <div className="bg-white dark:bg-[#1A1A1A] rounded-lg overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
           <MapContainer
             center={[20, 0]}
             zoom={2}
@@ -238,19 +238,19 @@ export default function WorldMapPage() {
         </div>
         
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-[#1A1A1A] p-4 rounded-lg">
-            <h3 className="text-white font-semibold mb-2">Online Artists</h3>
-            <p className="text-[#0066FF] text-2xl font-bold">{users.filter(u => u.isOnline).length}</p>
+          <div className="bg-white dark:bg-[#1A1A1A] p-4 rounded-lg">
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">Online Artists</h3>
+            <p className="text-blue-500 dark:text-[#0066FF] text-2xl font-bold">{users.filter(u => u.isOnline).length}</p>
           </div>
           
-          <div className="bg-[#1A1A1A] p-4 rounded-lg">
-            <h3 className="text-white font-semibold mb-2">Total Artists</h3>
-            <p className="text-[#0066FF] text-2xl font-bold">{users.length}</p>
+          <div className="bg-white dark:bg-[#1A1A1A] p-4 rounded-lg">
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">Total Artists</h3>
+            <p className="text-blue-500 dark:text-[#0066FF] text-2xl font-bold">{users.length}</p>
           </div>
           
-          <div className="bg-[#1A1A1A] p-4 rounded-lg">
-            <h3 className="text-white font-semibold mb-2">Countries</h3>
-            <p className="text-[#0066FF] text-2xl font-bold">
+          <div className="bg-white dark:bg-[#1A1A1A] p-4 rounded-lg">
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">Countries</h3>
+            <p className="text-blue-500 dark:text-[#0066FF] text-2xl font-bold">
               {new Set(users.map(u => u.location.country)).size}
             </p>
           </div>
