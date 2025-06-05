@@ -1,5 +1,20 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
+from datetime import datetime
+
+class FictionalMeta(BaseModel):
+    """虚构艺术家元数据"""
+    origin_project: str
+    origin_story: Optional[str] = None
+    fictional_style: List[str] = []
+    model_prompt_seed: Optional[str] = None
+
+class Agent(BaseModel):
+    """AI代理配置"""
+    enabled: bool = False
+    personality_profile: Optional[str] = None
+    prompt_seed: Optional[str] = None
+    connected_network_ids: List[str] = []
 
 class ArtistBase(BaseModel):
     """艺术家基础模式"""
@@ -8,8 +23,13 @@ class ArtistBase(BaseModel):
     death_year: Optional[int] = None
     nationality: Optional[str] = None
     bio: Optional[str] = None
-    art_movement: Optional[str] = None
-    image_url: Optional[str] = None
+    avatar_url: Optional[str] = None
+    notable_works: List[str] = []
+    associated_movements: List[str] = []
+    tags: List[str] = []
+    is_fictional: bool = False
+    fictional_meta: Optional[FictionalMeta] = None
+    agent: Optional[Agent] = None
 
 class ArtistCreate(ArtistBase):
     """创建艺术家模式"""
@@ -27,8 +47,10 @@ class ArtistUpdate(BaseModel):
 
 class Artist(ArtistBase):
     """艺术家完整模式"""
-    id: int
-    
+    id: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
     class Config:
         from_attributes = True
 
