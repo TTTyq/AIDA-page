@@ -1,8 +1,6 @@
 'use client';
 
-import PostCard from '../src/components/features/Post/PostCard';
-import Sidebar from '../src/components/layout/Sidebar';
-import TopBar from '../src/components/layout/TopBar';
+import PostCard from '../components/features/Post/PostCard';
 import { Plus } from 'lucide-react';
 
 export default function Home() {
@@ -84,48 +82,42 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#0D0D0D]">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <TopBar />
-        <main className="flex-1 overflow-y-auto">
-          <div className="max-w-2xl mx-auto px-4 py-6">
-            {/* Create Post Button */}
-            <div className="mb-6">
-              <button className="w-full flex items-center justify-center space-x-2 bg-[#0066FF] hover:bg-[#0052CC] text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                <Plus className="w-5 h-5" />
-                <span>Share your artistic thoughts...</span>
-              </button>
-            </div>
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D]">
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        {/* Create Post Button */}
+        <div className="mb-6">
+          <button className="w-full flex items-center justify-center space-x-2 bg-[#0066FF] hover:bg-[#0052CC] text-white font-medium py-3 px-6 rounded-lg transition-colors">
+            <Plus className="w-5 h-5" />
+            <span>Share your artistic thoughts...</span>
+          </button>
+        </div>
 
-            {/* Posts Feed */}
-            <div className="space-y-6">
-              {posts.map((post) => (
-                <PostCard
-                  key={post.id}
-                  id={post.id}
-                  user={post.user}
-                  content={post.content}
-                  image={post.image}
-                  timestamp={post.timestamp}
-                  location={post.location}
-                  likes={post.likes}
-                  comments={post.comments}
-                  reposts={post.reposts}
-                  isLiked={post.isLiked}
-                  isReposted={post.isReposted}
-                />
-              ))}
-            </div>
+        {/* Posts Feed */}
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              id={post.id}
+              user={post.user}
+              content={post.content}
+              image={post.image}
+              timestamp={post.timestamp}
+              location={post.location}
+              likes={post.likes}
+              comments={post.comments}
+              reposts={post.reposts}
+              isLiked={post.isLiked}
+              isReposted={post.isReposted}
+            />
+          ))}
+        </div>
 
-            {/* Load More */}
-            <div className="mt-8 text-center">
-              <button className="text-[#0066FF] hover:text-[#0052CC] font-medium transition-colors">
-                Load more posts
-              </button>
-            </div>
-          </div>
-        </main>
+        {/* Load More */}
+        <div className="mt-8 text-center">
+          <button className="text-[#0066FF] hover:text-[#0052CC] font-medium transition-colors">
+            Load more posts
+          </button>
+        </div>
       </div>
     </div>
   );

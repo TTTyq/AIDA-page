@@ -86,15 +86,8 @@ const Sidebar = () => {
           </button>
 
           {/* Logo */}
-          <div className={`h-16 flex flex-col justify-center px-6 border-b border-[#1A1A1A] ${isExpanded ? 'items-start' : 'items-center'}`}>
-            <div className="text-2xl font-bold text-[#0066FF]">
-              AIDA
-            </div>
-            {isExpanded && (
-              <div className="text-sm text-[#8899A6]">
-                AI Artist Database
-              </div>
-            )}
+          <div className="h-16 flex items-center justify-center border-b border-[#1A1A1A]">
+            <div className="bg-blue-500 w-10 h-10 rounded-md"></div>
           </div>
 
           {/* Content Area - Scrollable */}
@@ -106,13 +99,15 @@ const Sidebar = () => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center px-3 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center h-10 px-3 rounded-lg transition-colors ${
                       pathname === item.href
                         ? 'bg-[#0066FF] text-white'
                         : 'text-[#8899A6] hover:bg-[#1A1A1A] hover:text-white'
                     }`}
                   >
-                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    <div className="w-5 flex items-center justify-center">
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                    </div>
                     {isExpanded && <span className="font-medium ml-3 truncate">{item.label}</span>}
                   </Link>
                 ))}
@@ -126,13 +121,15 @@ const Sidebar = () => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center px-3 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center h-10 px-3 rounded-lg transition-colors ${
                       pathname === item.href
                         ? 'bg-[#0066FF] text-white'
                         : 'text-[#8899A6] hover:bg-[#1A1A1A] hover:text-white'
                     }`}
                   >
-                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    <div className="w-5 flex items-center justify-center">
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                    </div>
                     {isExpanded && <span className="font-medium ml-3 truncate">{item.label}</span>}
                   </Link>
                 ))}

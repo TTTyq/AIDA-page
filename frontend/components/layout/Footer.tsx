@@ -16,22 +16,22 @@ export function Footer() {
     <Link
       key={link.label}
       href={link.href}
-      className="text-gray-600 hover:text-blue-600 transition-colors"
+      className="text-gray-600 dark:text-[#8899A6] hover:text-blue-600 dark:hover:text-[#0066FF] transition-colors"
     >
       {link.label}
     </Link>
   ));
 
   return (
-    <footer className="py-6 mt-auto border-t border-gray-200 bg-white">
+    <footer className="py-6 mt-auto border-t border-gray-100 dark:border-[#1A1A1A] bg-gray-50 dark:bg-[#0D0D0D]">
       <Container size="lg">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <Text className="text-gray-600 mb-4 md:mb-0">
+          <Text className="text-gray-600 dark:text-[#8899A6] mb-4 md:mb-0">
             © {new Date().getFullYear()} AIDA - AI Artist Database. All rights reserved.
           </Text>
-          <Group gap={16} className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             {items}
-          </Group>
+          </div>
         </div>
       </Container>
     </footer>

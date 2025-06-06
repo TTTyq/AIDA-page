@@ -1,68 +1,82 @@
-# AIDA 艺术数据爬虫模块
+# AIDA Scraper Tool
 
-这个目录包含了AIDA项目的艺术数据爬虫组件，用于从Artsy网站采集艺术家和艺术品数据。
+A lightweight web scraper tool for AIDA project data collection.
 
-## 快速启动
+## Features
 
-使用以下命令启动图形界面爬虫：
+- Web scraping with configurable settings
+- Support for both static HTML and JavaScript-rendered pages
+- Data export in various formats
+- User-friendly web interface
+- RESTful API
+
+## Quick Start
+
+### Using the Management Script
+
+We provide a comprehensive script `run_scraper.bat` that integrates all functionality in a single file:
 
 ```
-run_gui_scraper.bat    # Windows
+run_scraper.bat           # Start the scraper tool (default)
+run_scraper.bat install   # Install dependencies only
+run_scraper.bat stop      # Stop running services
+run_scraper.bat help      # Show help information
 ```
 
-或直接运行Python脚本：
+This script automatically checks the environment, installs dependencies only when necessary, and checks if services are already running to avoid duplicate starts.
 
-```
-python aida_art_scraper.py
-```
+### Manual Setup
 
-## 功能特点
+If you prefer to start the services manually:
 
-- **现代化图形界面**：直观易用的操作界面
-- **多种爬取模式**：
-  - 简单模式：快速获取少量数据
-  - 大规模模式：长时间运行，获取大量数据
-- **分类爬取**：按艺术家分类抓取相关数据
-- **数据清理**：清理低质量和重复图片，优化数据结构
-- **数据统计**：展示采集数据的统计分析
-- **断点续传**：支持中断恢复，避免数据丢失
-
-## 主要文件
-
-- `aida_art_scraper.py`: 主GUI应用程序
-- `run_gui_scraper.bat`: Windows启动脚本
-- `artsy_scraper.py`: 核心爬虫类
-- `artsy_scraper_optimizer.py`: 数据优化工具
-
-## 输出数据
-
-所有爬取的数据将保存在项目根目录的 `data/artsy` 文件夹下：
-
-- `artsy_artists.csv`: 艺术家数据
-- `artsy_artworks.csv`: 艺术品数据
-- `images/`: 艺术品图片，按艺术家名称分类
-
-## 依赖安装
-
-如需手动安装依赖：
+#### Backend Setup
 
 ```bash
+cd backend
 pip install -r requirements.txt
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## 注意事项
+#### Frontend Setup
 
-1. 首次运行可能需要下载Chrome驱动程序
-2. 爬取大量数据时请确保网络稳定
-3. 爬取过程可能需要较长时间，请耐心等待
-4. 本工具仅供学术研究使用，请遵守数据源网站的使用条款
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## 使用方法
+## Accessing the Application
 
-1. **启动应用**：运行 `run_gui_scraper.bat`
-2. **选择模式**：在爬虫标签页选择简单模式或大规模模式
-3. **设置参数**：调整艺术家数量、作品数量等参数
-4. **开始爬取**：点击"开始爬取"按钮
-5. **查看日志**：在日志区域查看爬取进度
-6. **清理数据**：爬取完成后在数据清理标签页进行优化
-7. **查看统计**：在统计数据标签页查看结果 
+- Frontend UI: [http://localhost:5173](http://localhost:5173)
+- Backend API: [http://localhost:8000](http://localhost:8000)
+- API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Frontend Dependencies Installation Fails**:
+   - Make sure you have Node.js 16+ installed
+   - Try clearing npm cache with `npm cache clean --force`
+   - Increase Node.js memory limit with `set NODE_OPTIONS=--max_old_space_size=4096`
+   - Try running `npm install` manually in the frontend directory
+
+2. **Backend Dependencies Installation Fails**:
+   - Make sure you have Python 3.9+ installed
+   - Try installing dependencies manually with `pip install -r requirements.txt`
+
+3. **Port Conflicts**: If ports 8000 or 5173 are already in use, modify the port numbers in the startup commands.
+
+4. **Database Errors**: Check that SQLite is properly configured and the database file is accessible.
+
+5. **Startup Script Issues**:
+   - If the script doesn't work, try running it from a command prompt
+   - Make sure you have administrative privileges if needed
+
+### For More Help
+
+Refer to the documentation in the `docs` directory or contact the AIDA project team.
+
+## License
+
+This project is part of the AIDA platform and follows its licensing terms. 

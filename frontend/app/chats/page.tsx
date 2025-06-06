@@ -166,23 +166,23 @@ export default function ChatsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D]">
-      <div className="container mx-auto px-4 py-6 h-[calc(100vh-64px)]">
-        <h1 className="text-3xl font-bold text-white mb-6">My Chats</h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D]">
+      <div className="p-6">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">My Chats</h1>
         
-        <div className="flex h-[calc(100%-4rem)] rounded-lg overflow-hidden">
+        <div className="flex h-[calc(100vh-200px)] rounded-lg overflow-hidden">
           {/* 聊天列表 */}
-          <div className="w-1/3 bg-[#1A1A1A] border-r border-[#333] flex flex-col">
+          <div className="w-full sm:w-1/3 bg-white dark:bg-[#1A1A1A] border-r border-gray-200 dark:border-[#333] flex flex-col">
             {/* 搜索框 */}
-            <div className="p-4 border-b border-[#333]">
+            <div className="p-4 border-b border-gray-200 dark:border-[#333]">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8899A6] w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-[#8899A6] w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search chats..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-[#0D0D0D] border border-[#333] rounded-full py-2 pl-10 pr-4 text-white placeholder-[#8899A6] focus:outline-none focus:border-[#0066FF]"
+                  className="w-full bg-gray-100 dark:bg-[#0D0D0D] border border-gray-200 dark:border-[#333] rounded-full py-2 pl-10 pr-4 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-[#8899A6] focus:outline-none focus:border-blue-500 dark:focus:border-[#0066FF]"
                 />
               </div>
             </div>
@@ -242,7 +242,7 @@ export default function ChatsPage() {
           </div>
           
           {/* 聊天窗口 */}
-          <div className="w-2/3 bg-[#0D0D0D] flex flex-col">
+          <div className="hidden sm:flex sm:w-2/3 bg-[#0D0D0D] flex-col">
             {activeChat ? (
               <>
                 {/* 聊天头部 */}

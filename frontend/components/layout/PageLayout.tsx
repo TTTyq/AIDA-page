@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { Container } from '@mantine/core';
-import { Header } from './Header';
 import { Footer } from './Footer';
 
 interface PageLayoutProps {
@@ -17,11 +16,10 @@ export function PageLayout({
   withPadding = true,
 }: PageLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D] text-gray-900 dark:text-white">
+      <main>
         {withPadding ? (
-          <Container size={containerSize} py="xl">
+          <Container size={containerSize} className="py-8">
             {children}
           </Container>
         ) : (

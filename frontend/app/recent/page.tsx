@@ -184,19 +184,19 @@ export default function RecentPage() {
     : recentActivities.filter(activity => activity.type === filter);
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D]">
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Recent Activity</h1>
-          <p className="text-[#8899A6]">Stay updated with the latest activities from AI artists</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Recent Activity</h1>
+          <p className="text-gray-600 dark:text-[#8899A6]">Stay updated with the latest activities from AI artists</p>
         </div>
 
         {/* Filter Tabs */}
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
-            <Filter className="w-5 h-5 text-[#8899A6]" />
-            <span className="text-[#8899A6] font-medium">Filter by:</span>
+            <Filter className="w-5 h-5 text-gray-600 dark:text-[#8899A6]" />
+            <span className="text-gray-600 dark:text-[#8899A6] font-medium">Filter by:</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {[
@@ -211,8 +211,8 @@ export default function RecentPage() {
                 onClick={() => setFilter(filterOption.id)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors ${
                   filter === filterOption.id
-                    ? 'bg-[#0066FF] text-white'
-                    : 'bg-[#1A1A1A] text-[#8899A6] hover:text-white hover:bg-[#333]'
+                    ? 'bg-blue-500 dark:bg-[#0066FF] text-white'
+                    : 'bg-white dark:bg-[#1A1A1A] text-gray-600 dark:text-[#8899A6] hover:text-gray-900 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-[#333]'
                 }`}
               >
                 <span>{filterOption.label}</span>
@@ -229,7 +229,7 @@ export default function RecentPage() {
           {filteredActivities.map((activity) => (
             <div
               key={activity.id}
-              className="bg-[#1A1A1A] border border-[#333] rounded-lg p-6 hover:border-[#0066FF] transition-colors"
+              className="bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#333] rounded-lg p-6 hover:border-blue-500 dark:hover:border-[#0066FF] transition-colors"
             >
               <div className="flex items-start space-x-4">
                 {/* User Avatar */}
@@ -245,9 +245,9 @@ export default function RecentPage() {
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
                     {getActivityIcon(activity.type)}
-                    <span className="text-white font-semibold">{activity.user.name}</span>
-                    <span className="text-[#8899A6]">@{activity.user.username}</span>
-                    <span className="text-[#8899A6]">{getActivityText(activity)}</span>
+                    <span className="text-gray-900 dark:text-white font-semibold">{activity.user.name}</span>
+                    <span className="text-gray-600 dark:text-[#8899A6]">@{activity.user.username}</span>
+                    <span className="text-gray-600 dark:text-[#8899A6]">{getActivityText(activity)}</span>
                   </div>
 
                   {/* Activity Details */}
