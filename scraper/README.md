@@ -1,68 +1,104 @@
-# AIDA 艺术数据爬虫模块
+# AIDA 爬虫工具
 
-这个目录包含了AIDA项目的艺术数据爬虫组件，用于从Artsy网站采集艺术家和艺术品数据。
-
-## 快速启动
-
-使用以下命令启动图形界面爬虫：
-
-```
-run_gui_scraper.bat    # Windows
-```
-
-或直接运行Python脚本：
-
-```
-python aida_art_scraper.py
-```
+这是一个轻量级的爬虫工具，用于AIDA项目数据采集。
 
 ## 功能特点
 
-- **现代化图形界面**：直观易用的操作界面
-- **多种爬取模式**：
-  - 简单模式：快速获取少量数据
-  - 大规模模式：长时间运行，获取大量数据
-- **分类爬取**：按艺术家分类抓取相关数据
-- **数据清理**：清理低质量和重复图片，优化数据结构
-- **数据统计**：展示采集数据的统计分析
-- **断点续传**：支持中断恢复，避免数据丢失
+- 简单易用的Web界面
+- 支持HTML和JavaScript渲染页面的爬取
+- 支持分页爬取
+- 数据预览和导出
+- 任务管理和监控
 
-## 主要文件
+## 技术栈
 
-- `aida_art_scraper.py`: 主GUI应用程序
-- `run_gui_scraper.bat`: Windows启动脚本
-- `artsy_scraper.py`: 核心爬虫类
-- `artsy_scraper_optimizer.py`: 数据优化工具
+### 后端
+- FastAPI
+- SQLite
+- Beautiful Soup 4
+- Playwright
 
-## 输出数据
+### 前端
+- Vue.js 3
+- Element Plus
+- Vuex
+- Vue Router
 
-所有爬取的数据将保存在项目根目录的 `data/artsy` 文件夹下：
+## 快速开始
 
-- `artsy_artists.csv`: 艺术家数据
-- `artsy_artworks.csv`: 艺术品数据
-- `images/`: 艺术品图片，按艺术家名称分类
+### 安装依赖
 
-## 依赖安装
-
-如需手动安装依赖：
+#### 后端
 
 ```bash
+cd backend
 pip install -r requirements.txt
 ```
 
-## 注意事项
+#### 前端
 
-1. 首次运行可能需要下载Chrome驱动程序
-2. 爬取大量数据时请确保网络稳定
-3. 爬取过程可能需要较长时间，请耐心等待
-4. 本工具仅供学术研究使用，请遵守数据源网站的使用条款
+```bash
+cd frontend
+npm install
+```
 
-## 使用方法
+### 启动服务
 
-1. **启动应用**：运行 `run_gui_scraper.bat`
-2. **选择模式**：在爬虫标签页选择简单模式或大规模模式
-3. **设置参数**：调整艺术家数量、作品数量等参数
-4. **开始爬取**：点击"开始爬取"按钮
-5. **查看日志**：在日志区域查看爬取进度
-6. **清理数据**：爬取完成后在数据清理标签页进行优化
-7. **查看统计**：在统计数据标签页查看结果 
+#### 后端
+
+```bash
+cd backend
+python main.py
+```
+
+后端服务将在 http://localhost:8000 上运行。
+
+#### 前端
+
+```bash
+cd frontend
+npm run dev
+```
+
+前端服务将在 http://localhost:3000 上运行。
+
+## 使用说明
+
+1. 访问 http://localhost:3000
+2. 创建新的爬虫任务
+3. 配置爬虫参数
+4. 运行爬虫任务
+5. 查看和导出数据
+
+## API文档
+
+启动后端服务后，可以访问 http://localhost:8000/docs 查看API文档。
+
+## 目录结构
+
+```
+scraper/
+├── backend/           # 后端API服务
+│   ├── app/
+│   │   ├── api/       # API路由和端点
+│   │   ├── core/      # 核心配置
+│   │   ├── db/        # 数据库连接
+│   │   ├── models/    # 数据模型
+│   │   ├── scrapers/  # 爬虫实现
+│   │   └── utils/     # 工具函数
+│   ├── main.py        # 应用入口
+│   └── requirements.txt # 依赖列表
+└── frontend/          # 前端Web界面
+    ├── public/        # 静态资源
+    ├── src/
+    │   ├── assets/    # 资源文件
+    │   ├── components/ # Vue组件
+    │   ├── views/     # 页面视图
+    │   ├── router/    # 路由配置
+    │   ├── store/     # 状态管理
+    │   ├── App.vue    # 根组件
+    │   └── main.js    # 入口文件
+    ├── index.html     # HTML模板
+    ├── package.json   # 依赖配置
+    └── vite.config.js # Vite配置
+``` 
