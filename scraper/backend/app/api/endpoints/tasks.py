@@ -2,6 +2,10 @@ from fastapi import APIRouter, HTTPException, Depends, Path
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.database import get_db
+from app.services import TaskService
 
 router = APIRouter()
 
@@ -15,6 +19,13 @@ class TaskBase(BaseModel):
 class TaskCreate(TaskBase):
     pass
 
+class TaskUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    url: Optional[str] = None
+    config: Optional[dict] = None
+    status: Optional[str] = None
+
 class Task(TaskBase):
     id: int
     status: str
@@ -24,59 +35,61 @@ class Task(TaskBase):
     class Config:
         orm_mode = True
 
-# 模拟数据存储
-tasks_db = [
-    {
-        "id": 1,
-        "name": "测试任务",
-        "description": "这是一个测试任务",
-        "url": "https://example.com",
-        "config": {"selector": "div.content", "use_browser": False},
-        "status": "completed",
-        "created_at": datetime.now(),
-        "updated_at": None
-    }
-]
-
 @router.get("/", response_model=List[Task])
-async def list_tasks():
+async def list_tasks(db: AsyncSession = Depends(get_db)):
     """
     获取所有任务
     """
-    return tasks_db
+    return await TaskService.get_all_tasks(db)
 
 @router.post("/", response_model=Task)
-async def create_task(task: TaskCreate):
+async def create_task(task: TaskCreate, db: AsyncSession = Depends(get_db)):
     """
     创建新任务
     """
-    new_task = task.dict()
-    new_task.update({
-        "id": len(tasks_db) + 1,
-        "status": "pending",
-        "created_at": datetime.now(),
-        "updated_at": None
-    })
-    tasks_db.append(new_task)
-    return new_task
+    return await TaskService.create_task(db, task.dict())
 
 @router.get("/{task_id}", response_model=Task)
-async def get_task(task_id: int = Path(..., gt=0)):
+async def get_task(task_id: int = Path(..., gt=0), db: AsyncSession = Depends(get_db)):
     """
     获取特定任务
     """
-    for task in tasks_db:
-        if task["id"] == task_id:
-            return task
-    raise HTTPException(status_code=404, detail="Task not found")
+    task = await TaskService.get_task_by_id(db, task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+@router.put("/{task_id}", response_model=Task)
+async def update_task(
+    task_update: TaskUpdate, 
+    task_id: int = Path(..., gt=0), 
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    更新任务
+    """
+    task = await TaskService.get_task_by_id(db, task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    update_data = task_update.dict(exclude_unset=True)
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields to update")
+    
+    updated_task = await TaskService.update_task(db, task_id, update_data)
+    return updated_task
 
 @router.delete("/{task_id}")
-async def delete_task(task_id: int = Path(..., gt=0)):
+async def delete_task(task_id: int = Path(..., gt=0), db: AsyncSession = Depends(get_db)):
     """
     删除任务
     """
-    for i, task in enumerate(tasks_db):
-        if task["id"] == task_id:
-            del tasks_db[i]
-            return {"message": f"Task {task_id} deleted"}
-    raise HTTPException(status_code=404, detail="Task not found") 
+    task = await TaskService.get_task_by_id(db, task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    deleted = await TaskService.delete_task(db, task_id)
+    if deleted:
+        return {"message": f"Task {task_id} deleted"}
+    else:
+        raise HTTPException(status_code=500, detail="Failed to delete task") 

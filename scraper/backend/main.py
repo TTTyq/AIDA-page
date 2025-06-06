@@ -1,9 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import logging
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 # 导入路由
 from app.api.router import api_router
+from app.db.database import init_db
 
 # 创建FastAPI应用
 app = FastAPI(
@@ -28,6 +36,13 @@ app.include_router(api_router)
 @app.get("/")
 async def root():
     return {"message": "AIDA Scraper API"}
+
+# 启动事件
+@app.on_event("startup")
+async def startup_event():
+    logging.info("初始化数据库...")
+    await init_db()
+    logging.info("数据库初始化完成")
 
 # 启动服务器
 if __name__ == "__main__":

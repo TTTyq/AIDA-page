@@ -7,15 +7,19 @@
     >
       <el-menu-item index="/">
         <el-icon><i class="el-icon-house"></i></el-icon>
-        <span>首页</span>
+        <span>Home</span>
+      </el-menu-item>
+      <el-menu-item index="/websites">
+        <el-icon><i class="el-icon-monitor"></i></el-icon>
+        <span>Websites</span>
       </el-menu-item>
       <el-menu-item index="/tasks">
         <el-icon><i class="el-icon-list"></i></el-icon>
-        <span>任务列表</span>
+        <span>Tasks</span>
       </el-menu-item>
       <el-menu-item index="/tasks/new">
         <el-icon><i class="el-icon-plus"></i></el-icon>
-        <span>新建任务</span>
+        <span>New Task</span>
       </el-menu-item>
     </el-menu>
   </div>

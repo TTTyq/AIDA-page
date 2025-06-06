@@ -6,6 +6,7 @@ const NewTask = () => import('@/views/NewTask.vue')
 const TaskList = () => import('@/views/TaskList.vue')
 const TaskDetail = () => import('@/views/TaskDetail.vue')
 const DataPreview = () => import('@/views/DataPreview.vue')
+const WebsiteList = () => import('@/views/WebsiteList.vue')
 
 // 路由配置
 const routes = [
@@ -35,6 +36,11 @@ const routes = [
     name: 'DataPreview',
     component: DataPreview,
     props: true
+  },
+  {
+    path: '/websites',
+    name: 'WebsiteList',
+    component: WebsiteList
   }
 ]
 

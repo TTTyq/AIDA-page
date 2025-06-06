@@ -1,104 +1,82 @@
-# AIDA 爬虫工具
+# AIDA Scraper Tool
 
-这是一个轻量级的爬虫工具，用于AIDA项目数据采集。
+A lightweight web scraper tool for AIDA project data collection.
 
-## 功能特点
+## Features
 
-- 简单易用的Web界面
-- 支持HTML和JavaScript渲染页面的爬取
-- 支持分页爬取
-- 数据预览和导出
-- 任务管理和监控
+- Web scraping with configurable settings
+- Support for both static HTML and JavaScript-rendered pages
+- Data export in various formats
+- User-friendly web interface
+- RESTful API
 
-## 技术栈
+## Quick Start
 
-### 后端
-- FastAPI
-- SQLite
-- Beautiful Soup 4
-- Playwright
+### Using the Management Script
 
-### 前端
-- Vue.js 3
-- Element Plus
-- Vuex
-- Vue Router
+We provide a comprehensive script `run_scraper.bat` that integrates all functionality in a single file:
 
-## 快速开始
+```
+run_scraper.bat           # Start the scraper tool (default)
+run_scraper.bat install   # Install dependencies only
+run_scraper.bat stop      # Stop running services
+run_scraper.bat help      # Show help information
+```
 
-### 安装依赖
+This script automatically checks the environment, installs dependencies only when necessary, and checks if services are already running to avoid duplicate starts.
 
-#### 后端
+### Manual Setup
+
+If you prefer to start the services manually:
+
+#### Backend Setup
 
 ```bash
 cd backend
 pip install -r requirements.txt
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-#### 前端
+#### Frontend Setup
 
 ```bash
 cd frontend
 npm install
-```
-
-### 启动服务
-
-#### 后端
-
-```bash
-cd backend
-python main.py
-```
-
-后端服务将在 http://localhost:8000 上运行。
-
-#### 前端
-
-```bash
-cd frontend
 npm run dev
 ```
 
-前端服务将在 http://localhost:3000 上运行。
+## Accessing the Application
 
-## 使用说明
+- Frontend UI: [http://localhost:5173](http://localhost:5173)
+- Backend API: [http://localhost:8000](http://localhost:8000)
+- API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-1. 访问 http://localhost:3000
-2. 创建新的爬虫任务
-3. 配置爬虫参数
-4. 运行爬虫任务
-5. 查看和导出数据
+## Troubleshooting
 
-## API文档
+### Common Issues
 
-启动后端服务后，可以访问 http://localhost:8000/docs 查看API文档。
+1. **Frontend Dependencies Installation Fails**:
+   - Make sure you have Node.js 16+ installed
+   - Try clearing npm cache with `npm cache clean --force`
+   - Increase Node.js memory limit with `set NODE_OPTIONS=--max_old_space_size=4096`
+   - Try running `npm install` manually in the frontend directory
 
-## 目录结构
+2. **Backend Dependencies Installation Fails**:
+   - Make sure you have Python 3.9+ installed
+   - Try installing dependencies manually with `pip install -r requirements.txt`
 
-```
-scraper/
-├── backend/           # 后端API服务
-│   ├── app/
-│   │   ├── api/       # API路由和端点
-│   │   ├── core/      # 核心配置
-│   │   ├── db/        # 数据库连接
-│   │   ├── models/    # 数据模型
-│   │   ├── scrapers/  # 爬虫实现
-│   │   └── utils/     # 工具函数
-│   ├── main.py        # 应用入口
-│   └── requirements.txt # 依赖列表
-└── frontend/          # 前端Web界面
-    ├── public/        # 静态资源
-    ├── src/
-    │   ├── assets/    # 资源文件
-    │   ├── components/ # Vue组件
-    │   ├── views/     # 页面视图
-    │   ├── router/    # 路由配置
-    │   ├── store/     # 状态管理
-    │   ├── App.vue    # 根组件
-    │   └── main.js    # 入口文件
-    ├── index.html     # HTML模板
-    ├── package.json   # 依赖配置
-    └── vite.config.js # Vite配置
-``` 
+3. **Port Conflicts**: If ports 8000 or 5173 are already in use, modify the port numbers in the startup commands.
+
+4. **Database Errors**: Check that SQLite is properly configured and the database file is accessible.
+
+5. **Startup Script Issues**:
+   - If the script doesn't work, try running it from a command prompt
+   - Make sure you have administrative privileges if needed
+
+### For More Help
+
+Refer to the documentation in the `docs` directory or contact the AIDA project team.
+
+## License
+
+This project is part of the AIDA platform and follows its licensing terms. 
