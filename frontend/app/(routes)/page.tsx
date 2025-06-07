@@ -1,173 +1,105 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
-import { 
-  Title, 
-  Box, 
-  TextInput, 
-  Button, 
-  Grid, 
-  Card, 
-  Text,
-  Loader,
-  Paper,
-  Textarea,
-  Group,
-  Stack
-} from '@mantine/core';
-import { PageLayout } from '@/components/layout/PageLayout';
-import { artistService } from '@/services/endpoints/artistService';
 
 export default function Home() {
-  const [message, setMessage] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    try {
-      // In production, replace with actual API call
-      // const response = await artistService.interactWithAI(message);
-      
-      // Mock response for now
-      const mockResponse = {
-        response: `AI Leonardo da Vinci: Thank you for your message: "${message}". Art is the queen of all sciences communicating knowledge to all the generations of the world.`,
-        artist_name: "AI Leonardo da Vinci"
-      };
-      
-      setTimeout(() => {
-        setAiResponse(mockResponse.response);
-        setLoading(false);
-      }, 1000);
-      
-    } catch (error) {
-      console.error('Error:', error);
-      setAiResponse('Sorry, there was an error communicating with the AI artist.');
-      setLoading(false);
-    }
-  };
-
   return (
-    <PageLayout>
-      <Box ta="center" mb="xl">
-        <Title order={1} mb="sm">
-          AI Artist Database
-        </Title>
-        <Text size="lg" c="dimmed">
-          Explore artists from throughout history and interact with AI-powered virtual artists
-        </Text>
-      </Box>
-      
-      <Paper shadow="sm" p="xl" mb="xl" withBorder>
-        <Title order={2} mb="lg">
-          Interact with AI Artists
-        </Title>
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0D0D0D] text-gray-900 dark:text-white">
+      <main className="max-w-6xl mx-auto py-8 px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">
+            AI Artist Database
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400">
+            Explore artists from throughout history and interact with AI-powered virtual artists
+          </p>
+        </div>
         
-        <form onSubmit={handleSubmit}>
-          <Stack className="gap-4 mb-6">
-            <Textarea
-              label="Send a message to AI Leonardo da Vinci"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              minRows={4}
-              placeholder="Ask about art, history, or creative process..."
-              required
-            />
-            <Group className="justify-start">
-              <Button
-                type="submit"
-                disabled={loading}
-                size="md"
-              >
-                {loading ? <Loader size="sm" /> : 'Send Message'}
-              </Button>
-            </Group>
-          </Stack>
-        </form>
+        <div className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-sm border border-gray-200 dark:border-[#333] p-8 mb-12">
+          <h2 className="text-2xl font-semibold mb-6">
+            Welcome to AIDA
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            The Artificial Intelligence Artist Database is a comprehensive platform for exploring art history 
+            and interacting with AI-powered virtual artists. Discover masterpieces, learn about artistic movements, 
+            and engage with AI recreations of history's greatest artists.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link 
+              href="/artists" 
+              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Browse Artists
+            </Link>
+            <Link 
+              href="/test" 
+              className="inline-block px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+            >
+              Test API
+            </Link>
+          </div>
+        </div>
         
-        {aiResponse && (
-          <Paper shadow="xs" p="md" withBorder className="fade-in">
-            <Text>{aiResponse}</Text>
-          </Paper>
-        )}
-      </Paper>
-      
-      <Grid>
-        <Grid.Col span={3}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
-            <Stack className="gap-4 justify-between h-full">
-              <div>
-                <Title order={4} className="mb-2">
-                  Artist Database
-                </Title>
-                <Text size="sm" className="mb-6">
-                  Explore our comprehensive database of artists from throughout history.
-                </Text>
-              </div>
-              <Button component={Link} href="/artists" variant="outline">
-                Browse Artists
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={3}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
-            <Stack className="gap-4 justify-between h-full">
-              <div>
-                <Title order={4} className="mb-2">
-                  Artist Forum
-                </Title>
-                <Text size="sm" className="mb-6">
-                  Join discussions with other art enthusiasts and AI artists.
-                </Text>
-              </div>
-              <Button component={Link} href="/forum" variant="outline">
-                Visit Forum
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={3}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
-            <Stack className="gap-4 justify-between h-full">
-              <div>
-                <Title order={4} className="mb-2">
-                  API Test Page
-                </Title>
-                <Text size="sm" className="mb-6">
-                  Test the backend API endpoints with GET and POST requests.
-                </Text>
-              </div>
-              <Button component={Link} href="/test" variant="outline">
-                Test API
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        
-        <Grid.Col span={3}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
-            <Stack className="gap-4 justify-between h-full">
-              <div>
-                <Title order={4} className="mb-2">
-                  数据表格
-                </Title>
-                <Text size="sm" className="mb-6">
-                  查看艺术家数据表格，以表格形式展示MongoDB中的数据。
-                </Text>
-              </div>
-              <Button component={Link} href="/table" variant="outline">
-                查看表格
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-      </Grid>
-    </PageLayout>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-sm border border-gray-200 dark:border-[#333] p-6">
+            <h3 className="text-lg font-semibold mb-3">
+              Artist Database
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Explore our comprehensive database of artists from throughout history.
+            </p>
+            <Link 
+              href="/artists" 
+              className="inline-block px-4 py-2 border border-gray-300 dark:border-[#444] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2A2A2A] transition-colors"
+            >
+              Browse Artists
+            </Link>
+          </div>
+          
+          <div className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-sm border border-gray-200 dark:border-[#333] p-6">
+            <h3 className="text-lg font-semibold mb-3">
+              Artist Forum
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Join discussions with other art enthusiasts and AI artists.
+            </p>
+            <Link 
+              href="/forum" 
+              className="inline-block px-4 py-2 border border-gray-300 dark:border-[#444] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2A2A2A] transition-colors"
+            >
+              Visit Forum
+            </Link>
+          </div>
+          
+          <div className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-sm border border-gray-200 dark:border-[#333] p-6">
+            <h3 className="text-lg font-semibold mb-3">
+              API Testing
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Test the backend API endpoints with GET and POST requests.
+            </p>
+            <Link 
+              href="/test" 
+              className="inline-block px-4 py-2 border border-gray-300 dark:border-[#444] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2A2A2A] transition-colors"
+            >
+              Test API
+            </Link>
+          </div>
+          
+          <div className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-sm border border-gray-200 dark:border-[#333] p-6">
+            <h3 className="text-lg font-semibold mb-3">
+              Data Tables
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              View artist data in table format, displaying MongoDB collections.
+            </p>
+            <Link 
+              href="/table" 
+              className="inline-block px-4 py-2 border border-gray-300 dark:border-[#444] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2A2A2A] transition-colors"
+            >
+              View Tables
+            </Link>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 } 
