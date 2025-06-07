@@ -1,5 +1,5 @@
 import pymongo
-from app.core.config import MONGODB_URI
+from app.core.config import MONGODB_URI, DATABASE_NAME
 
 # MongoDB 客户端单例
 _client = None
@@ -17,7 +17,7 @@ def get_database():
     """
     获取数据库实例
     """
-    return get_client().get_database()
+    return get_client().get_database(DATABASE_NAME)
 
 def get_collection(collection_name):
     """

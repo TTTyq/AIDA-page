@@ -37,6 +37,11 @@ BASE_URL = f"http://{'localhost' if HOST == '0.0.0.0' else HOST}:{PORT}"
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/aida")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "aida")
 
+# 集合名称常量
+ARTISTS_COLLECTION = "artists"
+ARTWORKS_COLLECTION = "artworks"
+ART_MOVEMENTS_COLLECTION = "art_movements"
+
 # 安全配置
 SECRET_KEY = os.getenv("JWT_SECRET", "your-secret-key-for-jwt")
 ALGORITHM = "HS256"
