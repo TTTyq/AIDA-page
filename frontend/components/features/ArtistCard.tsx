@@ -75,7 +75,7 @@ export function ArtistCard({ artist, onSelect }: ArtistCardProps) {
           </Card.Section>
         )}
         
-        <Group justify="space-between" mt="md" mb="xs">
+        <Group position="apart" mt="md" mb="xs">
           <Text className="font-bold text-lg">{artist.name}</Text>
           {artist.nationality && (
             <Badge color="blue" variant="light">

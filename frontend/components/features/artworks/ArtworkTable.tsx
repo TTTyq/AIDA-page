@@ -27,22 +27,22 @@ export function ArtworkTable({ artworks, loading = false }: ArtworkTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table striped highlightOnHover>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>ID</Table.Th>
-            <Table.Th>Title</Table.Th>
-            <Table.Th>Artist ID</Table.Th>
-            <Table.Th>Year</Table.Th>
-            <Table.Th>Medium</Table.Th>
-            <Table.Th>Dimensions</Table.Th>
-            <Table.Th>Location</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist ID</th>
+            <th>Year</th>
+            <th>Medium</th>
+            <th>Dimensions</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
           {artworks.map((artwork) => (
-            <Table.Tr key={artwork.id}>
-              <Table.Td>{artwork.id}</Table.Td>
-              <Table.Td>
+            <tr key={artwork.id}>
+              <td>{artwork.id}</td>
+              <td>
                 <Group>
                   {artwork.image_url && (
                     <Image
@@ -55,15 +55,15 @@ export function ArtworkTable({ artworks, loading = false }: ArtworkTableProps) {
                   )}
                   <Text fw={500}>{artwork.title}</Text>
                 </Group>
-              </Table.Td>
-              <Table.Td>{artwork.artist_id}</Table.Td>
-              <Table.Td>{artwork.year || 'Unknown'}</Table.Td>
-              <Table.Td>{artwork.medium || 'Unknown'}</Table.Td>
-              <Table.Td>{artwork.dimensions || 'Unknown'}</Table.Td>
-              <Table.Td>{artwork.location || 'Unknown'}</Table.Td>
-            </Table.Tr>
+              </td>
+              <td>{artwork.artist_id}</td>
+              <td>{artwork.year || 'Unknown'}</td>
+              <td>{artwork.medium || 'Unknown'}</td>
+              <td>{artwork.dimensions || 'Unknown'}</td>
+              <td>{artwork.location || 'Unknown'}</td>
+            </tr>
           ))}
-        </Table.Tbody>
+        </tbody>
       </Table>
     </div>
   );

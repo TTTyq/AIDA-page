@@ -100,7 +100,7 @@ export default function TestPage() {
         
         <form onSubmit={handleSubmit}>
           <Grid mb="md">
-            <Grid.Col span={{ base: 12, sm: 6 }}>
+            <Grid.Col span={6}>
               <TextInput
                 label="Artist Name"
                 name="name"
@@ -108,7 +108,7 @@ export default function TestPage() {
                 onChange={(e) => handleChange('name', e.target.value)}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, sm: 6 }}>
+            <Grid.Col span={6}>
               <TextInput
                 label="Nationality"
                 name="nationality"
@@ -116,7 +116,7 @@ export default function TestPage() {
                 onChange={(e) => handleChange('nationality', e.target.value)}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, sm: 4 }}>
+            <Grid.Col span={4}>
               <TextInput
                 label="Art Style"
                 name="style"
@@ -124,7 +124,7 @@ export default function TestPage() {
                 onChange={(e) => handleChange('style', e.target.value)}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, sm: 4 }}>
+            <Grid.Col span={4}>
               <NumberInput
                 label="Min Birth Year"
                 name="min_year"
@@ -132,7 +132,7 @@ export default function TestPage() {
                 onChange={(value) => handleChange('min_year', value)}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, sm: 4 }}>
+            <Grid.Col span={4}>
               <NumberInput
                 label="Max Birth Year"
                 name="max_year"

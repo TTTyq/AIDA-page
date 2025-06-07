@@ -27,9 +27,14 @@ export function ArtistGrid({ artists, loading = false }: ArtistGridProps) {
   return (
     <Container size="xl" className="py-8">
       <SimpleGrid
-        cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 4 }}
-        spacing={{ base: 'md', sm: 'lg' }}
-        verticalSpacing={{ base: 'md', sm: 'lg' }}
+        cols={4}
+        spacing="lg"
+        verticalSpacing="lg"
+        breakpoints={[
+          { maxWidth: 'lg', cols: 3 },
+          { maxWidth: 'md', cols: 2 },
+          { maxWidth: 'sm', cols: 1 },
+        ]}
       >
         {artists.map((artist) => (
           <ArtistCard key={artist.id} artist={artist} />

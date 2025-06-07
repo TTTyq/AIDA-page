@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import L from 'leaflet';
 
 // 动态导入地图组件以避免SSR问题
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -28,6 +27,11 @@ interface User {
 
 // 创建自定义头像图标
 const createAvatarIcon = (avatarUrl: string, isOnline: boolean) => {
+  // 动态导入 Leaflet 以避免 SSR 问题
+  if (typeof window === 'undefined') return null;
+  
+  const L = require('leaflet');
+  
   const iconHtml = `
     <div style="
       width: 40px;
@@ -178,12 +182,16 @@ export default function WorldMapPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             
-            {users.map((user) => (
-              <Marker
-                key={user.id}
-                position={[user.location.lat, user.location.lng]}
-                icon={createAvatarIcon(user.avatar, user.isOnline)}
-              >
+            {users.map((user) => {
+              const icon = createAvatarIcon(user.avatar, user.isOnline);
+              if (!icon) return null;
+              
+              return (
+                <Marker
+                  key={user.id}
+                  position={[user.location.lat, user.location.lng]}
+                  icon={icon}
+                >
                 <Popup>
                   <div className="user-popup p-4 bg-white rounded-lg">
                     <div className="flex items-center space-x-3 mb-3">
@@ -232,8 +240,9 @@ export default function WorldMapPage() {
                     </button>
                   </div>
                 </Popup>
-              </Marker>
-            ))}
+                </Marker>
+              );
+            })}
           </MapContainer>
         </div>
         

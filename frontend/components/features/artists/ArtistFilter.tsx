@@ -77,28 +77,27 @@ export function ArtistFilter({ onFilter, loading = false }: ArtistFilterProps) {
   return (
     <Paper shadow="xs" p="md" withBorder className="mb-8">
       <form onSubmit={handleSubmit}>
-        <Group justify="space-between" mb="xs">
+        <Group position="apart" mb="xs">
           <TextInput
             placeholder="Search artists..."
-            leftSection={<IconSearch size={16} />}
             value={filters.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="flex-grow"
+            className="flex-1 mr-4"
             disabled={loading}
           />
           <Button 
-            onClick={toggle} 
-            variant="subtle" 
-            leftSection={<IconFilter size={16} />}
+            onClick={toggle}
+            variant="subtle"
+            leftIcon={<IconFilter size={16} />}
             disabled={loading}
           >
-            Advanced Filters
+            {opened ? 'Hide Filters' : 'More Filters'}
           </Button>
         </Group>
 
         <Collapse in={opened}>
           <Box className="pt-4 pb-2">
-            <Group justify="space-between" mb="md">
+            <Group position="apart" mb="md">
               <Text fw={500}>Advanced Filters</Text>
               <ActionIcon onClick={handleReset} disabled={loading}>
                 <IconX size={16} />
@@ -152,7 +151,7 @@ export function ArtistFilter({ onFilter, loading = false }: ArtistFilterProps) {
           </Box>
         </Collapse>
 
-        <Group justify="flex-end" mt="md">
+        <Group position="right" mt="md">
           <Button 
             type="submit" 
             color="indigo" 

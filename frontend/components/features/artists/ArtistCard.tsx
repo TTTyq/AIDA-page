@@ -49,21 +49,21 @@ export function ArtistCard({ artist }: ArtistCardProps) {
         <Group className="mb-3">
           {artist.nationality && (
             <Tooltip label="Nationality">
-              <Badge leftSection={<IconFlag size={14} />} color="blue" variant="light">
-                {artist.nationality}
-              </Badge>
+                          <Badge color="blue" variant="light">
+              {artist.nationality}
+            </Badge>
             </Tooltip>
           )}
           
           <Tooltip label="Years">
-            <Badge leftSection={<IconCalendar size={14} />} color="gray" variant="light">
+            <Badge color="gray" variant="light">
               {yearsText}
             </Badge>
           </Tooltip>
           
           {artist.art_movement && (
             <Tooltip label="Art Movement">
-              <Badge leftSection={<IconPalette size={14} />} color="violet" variant="light">
+              <Badge color="violet" variant="light">
                 {artist.art_movement}
               </Badge>
             </Tooltip>

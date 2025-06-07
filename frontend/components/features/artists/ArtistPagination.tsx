@@ -22,7 +22,7 @@ export function ArtistPagination({
   const end = Math.min(start + pageSize - 1, total);
 
   return (
-    <Group justify="space-between" className="mt-8 mb-4">
+    <Group position="apart" className="mt-8 mb-4">
       <Text size="sm" c="dimmed">
         Showing {total > 0 ? start : 0}-{end} of {total} artists
       </Text>

@@ -133,7 +133,7 @@ export default function AIArtistsPage() {
           const artistDescription = artist.bio || artist.description;
           
           return (
-            <Grid.Col key={artistId} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
+            <Grid.Col key={artistId} span={3}>
               <Card 
                 shadow="md" 
                 padding="lg" 
@@ -152,9 +152,9 @@ export default function AIArtistsPage() {
                   </Card.Section>
                 )}
 
-                <Group justify="space-between" mt="md" mb="xs">
+                <Group position="apart" mt="md" mb="xs">
                   <Text className="font-bold text-lg">{artist.name}</Text>
-                  <Badge color="violet" variant="light" leftSection={<IconRobot size={12} />}>
+                  <Badge color="violet" variant="light">
                     AI
                   </Badge>
                 </Group>
@@ -185,7 +185,7 @@ export default function AIArtistsPage() {
 
                 <Button
                   fullWidth
-                  leftSection={<IconMessageCircle size={16} />}
+                  leftIcon={<IconMessageCircle size={16} />}
                   color="indigo"
                   variant="light"
                   loading={interacting === artistId}
