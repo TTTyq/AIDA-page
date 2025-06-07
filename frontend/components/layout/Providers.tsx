@@ -163,45 +163,46 @@ export function useToast() {
   };
 }
 
-export default function Providers({ children }: { children: ReactNode }) {
-  // 使用 useEffect 在客户端挂载后渲染内容，避免水合错误
+// 内部 Mantine 提供者组件，在主题上下文内使用
+function MantineWrapper({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
-  const { theme } = useTheme();
+  const { theme } = useTheme(); // 现在可以安全地使用 useTheme 钩子
   
   useEffect(() => {
     setIsMounted(true);
   }, []);
   
   return (
+    <MantineProvider
+      theme={{
+        colorScheme: theme === 'dark' ? 'dark' : 'light',
+        primaryColor: 'blue',
+      }}
+      withNormalizeCSS
+      withGlobalStyles
+    >
+      {isMounted ? children : 
+        // 提供一个简单的服务端骨架，避免复杂的嵌套结构
+        <div className="bg-gray-50 dark:bg-[#0D0D0D] text-gray-900 dark:text-white min-h-screen antialiased">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Loading...</p>
+            </div>
+          </div>
+        </div>
+      }
+    </MantineProvider>
+  );
+}
+
+export default function Providers({ children }: { children: ReactNode }) {
+  return (
     <CustomThemeProvider>
       <ToastProvider>
-        <MantineProvider
-          theme={{
-            colorScheme: theme === 'dark' ? 'dark' : 'light',
-            primaryColor: 'blue',
-          }}
-          withNormalizeCSS
-          withGlobalStyles
-        >
-          {isMounted ? children : 
-            // 提供一个与客户端渲染结构一致的服务端骨架
-            <div className="bg-gray-50 dark:bg-[#0D0D0D] text-gray-900 dark:text-white min-h-screen antialiased">
-              <div className="flex min-h-screen">
-                <div className="fixed lg:sticky top-0 left-0 h-screen z-40 w-60 bg-gray-50 dark:bg-[#0D0D0D] border-r border-gray-100 dark:border-[#1A1A1A]"></div>
-                <div className="flex-1 flex flex-col lg:ml-0">
-                  <div className="fixed top-0 left-0 right-0 z-10 h-16 bg-gray-50 dark:bg-[#0D0D0D] border-b border-gray-100 dark:border-[#1A1A1A] flex items-center">
-                    <div className="flex items-center overflow-hidden lg:ml-[calc(240px+1rem)] ml-8 w-auto md:w-1/4 lg:w-1/3"></div>
-                    <div className="flex-1 flex justify-center px-2 md:px-4">
-                      <div className="relative w-full max-w-4xl"></div>
-                    </div>
-                    <div className="flex items-center space-x-1 sm:space-x-2 md:w-1/4 lg:w-1/5 justify-end pr-6"></div>
-                  </div>
-                  <main className="flex-1 overflow-y-auto pt-16"></main>
-                </div>
-              </div>
-            </div>
-          }
-        </MantineProvider>
+        <MantineWrapper>
+          {children}
+        </MantineWrapper>
       </ToastProvider>
     </CustomThemeProvider>
   );
