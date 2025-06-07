@@ -1,0 +1,92 @@
+{
+  "scrape_info": {
+    "timestamp": 1749248849.212693,
+    "type": "both",
+    "total_items": 5,
+    "artists_count": 5,
+    "artworks_count": 0
+  },
+  "artists": [
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/hortensia-mi-kafchin-hortensia-mi-kafchin-spring-in-cernobyl-2019-oil-on-canvas-191-x-295-cm-c-courtesy-of-zenoviu-haiduc-collection-cluj-napoca",
+          "source": "artsy.net",
+          "title": "Hortensia Mi Kafchin,Hortensia Mi Kafchin, Spring in Cernobyl, 2019, oil on canvas, 191 x 295 cm  © courtesy of Zenoviu Haiduc Collection, Cluj-Napoca;, 2019",
+          "artist": "Hortensia Mi Kafchin",
+          "artist_url": "https://www.artsy.net/artist/hortensia-mi-kafchin"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/hortensia-mi-kafchin-hortensia-mi-kafchin-spring-in-cernobyl-2019-oil-on-canvas-191-x-295-cm-c-courtesy-of-zenoviu-haiduc-collection-cluj-napoca",
+          "source": "artsy.net",
+          "title": "Hortensia Mi Kafchin,Hortensia Mi Kafchin, Spring in Cernobyl, 2019, oil on canvas, 191 x 295 cm  © courtesy of Zenoviu Haiduc Collection, Cluj-Napoca;, 2019",
+          "artist": "Hortensia Mi Kafchin",
+          "artist_url": "https://www.artsy.net/artist/hortensia-mi-kafchin"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "name": "Anthony Peyton Young",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/anthony-peyton-young-my-father-the-titan-parting-water-for-my-creation",
+          "source": "artsy.net",
+          "title": "Anthony Peyton Young,My Father the Titan Parting Water for My Creation, 2023",
+          "artist": "Anthony Peyton Young",
+          "artist_url": "https://www.artsy.net/artist/anthony-peyton-young"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "name": "Anthony Peyton Young",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/anthony-peyton-young-my-father-the-titan-parting-water-for-my-creation",
+          "source": "artsy.net",
+          "title": "Anthony Peyton Young,My Father the Titan Parting Water for My Creation, 2023",
+          "artist": "Anthony Peyton Young",
+          "artist_url": "https://www.artsy.net/artist/anthony-peyton-young"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/wynnie-mynerva",
+      "source": "artsy.net",
+      "name": "Wynnie Mynerva",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/wynnie-mynerva-two-bodies-touch-on-the-same-shore-i",
+          "source": "artsy.net",
+          "title": "Wynnie Mynerva,Two Bodies Touch on the Same Shore I, 2023",
+          "artist": "Wynnie Mynerva",
+          "artist_url": "https://www.artsy.net/artist/wynnie-mynerva"
+        }
+      ]
+    }
+  ],
+  "artworks": []
+}

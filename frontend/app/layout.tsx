@@ -10,8 +10,6 @@ export const metadata = {
   // You can add more metadata here, like description, icons, etc.
 };
 
-export { metadata };
-
 export default function RootLayout({
   children,
 }: {

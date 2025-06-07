@@ -1,0 +1,52 @@
+{
+  "scrape_info": {
+    "timestamp": 1749249516.0158248,
+    "type": "artists",
+    "total_items": 5,
+    "artists_count": 5,
+    "artworks_count": 0
+  },
+  "artists": [
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "artist_id": "mi-kafchin",
+      "name": "Hortensia Mi Kafchin",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=1200"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "artist_id": "anthony-peyton-young",
+      "name": "Anthony Peyton Young",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=1200"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/wynnie-mynerva",
+      "source": "artsy.net",
+      "artist_id": "wynnie-mynerva",
+      "name": "Wynnie Mynerva",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FlFs-fbCILKodZqCJRW-jdQ%2Flarge.jpg&width=1200"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/zoe-walsh",
+      "source": "artsy.net",
+      "artist_id": "zoe-walsh",
+      "name": "Zoe Walsh",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FlFHjS22VbNWO_0iYMk3gAg%2Flarge.jpg&width=1200"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/elaine-de-kooning",
+      "source": "artsy.net",
+      "artist_id": "elaine-de-kooning",
+      "name": "Elaine de Kooning",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FNLuUTrJ0m2XuJEsBlHXuJw%2Flarge.jpg&width=1200"
+    }
+  ],
+  "artworks": []
+}

@@ -67,7 +67,7 @@ export default function Home() {
         </Title>
         
         <form onSubmit={handleSubmit}>
-          <Stack gap="md" mb="lg">
+          <Stack className="gap-4 mb-6">
             <Textarea
               label="Send a message to AI Leonardo da Vinci"
               value={message}
@@ -76,7 +76,7 @@ export default function Home() {
               placeholder="Ask about art, history, or creative process..."
               required
             />
-            <Group justify="flex-start">
+            <Group className="justify-start">
               <Button
                 type="submit"
                 disabled={loading}
@@ -96,14 +96,14 @@ export default function Home() {
       </Paper>
       
       <Grid>
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
+        <Grid.Col span={3}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
+            <Stack className="gap-4 justify-between h-full">
               <div>
-                <Title order={4} mb="xs">
+                <Title order={4} className="mb-2">
                   Artist Database
                 </Title>
-                <Text size="sm" mb="lg">
+                <Text size="sm" className="mb-6">
                   Explore our comprehensive database of artists from throughout history.
                 </Text>
               </div>
@@ -114,14 +114,14 @@ export default function Home() {
           </Card>
         </Grid.Col>
         
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
+        <Grid.Col span={3}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
+            <Stack className="gap-4 justify-between h-full">
               <div>
-                <Title order={4} mb="xs">
+                <Title order={4} className="mb-2">
                   Artist Forum
                 </Title>
-                <Text size="sm" mb="lg">
+                <Text size="sm" className="mb-6">
                   Join discussions with other art enthusiasts and AI artists.
                 </Text>
               </div>
@@ -132,14 +132,14 @@ export default function Home() {
           </Card>
         </Grid.Col>
         
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
+        <Grid.Col span={3}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
+            <Stack className="gap-4 justify-between h-full">
               <div>
-                <Title order={4} mb="xs">
+                <Title order={4} className="mb-2">
                   API Test Page
                 </Title>
-                <Text size="sm" mb="lg">
+                <Text size="sm" className="mb-6">
                   Test the backend API endpoints with GET and POST requests.
                 </Text>
               </div>
@@ -150,14 +150,14 @@ export default function Home() {
           </Card>
         </Grid.Col>
         
-        <Grid.Col span={{ base: 12, md: 3 }}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-            <Stack gap="md" justify="space-between" h="100%">
+        <Grid.Col span={3}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder className="h-full">
+            <Stack className="gap-4 justify-between h-full">
               <div>
-                <Title order={4} mb="xs">
+                <Title order={4} className="mb-2">
                   数据表格
                 </Title>
-                <Text size="sm" mb="lg">
+                <Text size="sm" className="mb-6">
                   查看艺术家数据表格，以表格形式展示MongoDB中的数据。
                 </Text>
               </div>

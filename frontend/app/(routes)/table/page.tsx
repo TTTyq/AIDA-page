@@ -62,10 +62,10 @@ export default function TablePage() {
   
   return (
     <Container size="lg" py="xl">
-      <Stack gap="md">
+      <Stack className="gap-4">
         <Title order={1}>艺术家数据表格</Title>
         
-        <Group justify="flex-end" mb="md">
+        <Group className="justify-end mb-4">
           <Button 
             onClick={fetchData}
             disabled={loading}

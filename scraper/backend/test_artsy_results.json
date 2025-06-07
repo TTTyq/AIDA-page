@@ -1,0 +1,30 @@
+{
+  "scrape_info": {
+    "timestamp": 1749248200.747689,
+    "type": "artists",
+    "total_items": 3,
+    "artists_count": 3,
+    "artworks_count": 0
+  },
+  "artists": [
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "name": "Anthony Peyton Young"
+    }
+  ],
+  "artworks": []
+}

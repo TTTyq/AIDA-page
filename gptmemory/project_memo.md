@@ -13,3 +13,4 @@
 - Git工作流：1)分支命名：feature/short-description、fix/short-description、docs/short-description；2)提交格式：<emoji><type>(<scope>): <subject>，类型包括🚀feat/🔧fix/📚docs/💎style/🔨refactor/⚡perf/🧪test/🔧chore。
 - 关键功能：1)艺术家数据库：基本信息、流派风格、代表作品、历史背景；2)AI艺术家：基于真实资料的AI人格、多轮对话、知识问答、虚拟互动；3)社区功能：个人主页、讨论论坛、作品分享、社交连接。
 - 开发阶段：1)当前：基础架构搭建；2)下一步：核心功能开发；3)未来：AI模型训练、社区功能、多语言支持。
+- Vercel部署404修复：1)已创建frontend/app/not-found.tsx自定义404页面；2)已创建frontend/app/[...not-found]/page.tsx作为catch-all路由捕获未匹配路径；3)已更新next.config.js添加output:'standalone'和路由优化配置；4)已更新vercel.json和frontend/vercel.json配置正确处理Next.js App Router；5)已创建error.tsx和global-error.tsx提供完整错误处理。解决了Next.js App Router在Vercel部署时404页面不显示的已知问题。

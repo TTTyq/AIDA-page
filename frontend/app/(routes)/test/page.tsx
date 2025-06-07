@@ -91,7 +91,7 @@ export default function TestPage() {
           Test Backend API Endpoints
         </Title>
         
-        <Tabs value={activeTab} onChange={setActiveTab} mb="lg">
+        <Tabs value={activeTab} onTabChange={setActiveTab} className="mb-6">
           <Tabs.List>
             <Tabs.Tab value="get">GET Request</Tabs.Tab>
             <Tabs.Tab value="post">POST Request</Tabs.Tab>

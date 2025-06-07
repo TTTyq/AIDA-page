@@ -1,0 +1,72 @@
+{
+  "scrape_info": {
+    "timestamp": 1749248822.5463328,
+    "type": "artists",
+    "total_items": 10,
+    "artists_count": 10,
+    "artworks_count": 0
+  },
+  "artists": [
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "name": "Hortensia Mi Kafchin"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "name": "Anthony Peyton Young"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "name": "Anthony Peyton Young"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/wynnie-mynerva",
+      "source": "artsy.net",
+      "name": "Wynnie Mynerva"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/wynnie-mynerva",
+      "source": "artsy.net",
+      "name": "Wynnie Mynerva"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/zoe-walsh",
+      "source": "artsy.net",
+      "name": "Zoe Walsh"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/zoe-walsh",
+      "source": "artsy.net",
+      "name": "Zoe Walsh"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/elaine-de-kooning",
+      "source": "artsy.net",
+      "name": "Elaine de Kooning"
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/helen-frankenthaler",
+      "source": "artsy.net",
+      "name": "Helen Frankenthaler"
+    }
+  ],
+  "artworks": []
+}

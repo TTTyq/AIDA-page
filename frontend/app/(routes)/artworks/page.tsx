@@ -80,14 +80,14 @@ export default function ArtworksPage() {
   return (
     <Container size="xl" className="py-8">
       <Box className="mb-8">
-        <Group justify="space-between" align="center">
+        <Group className="justify-between items-center">
           <Title order={1} className="text-3xl font-bold">Artworks</Title>
           <Button 
-            leftSection={<IconDownload size={16} />} 
             onClick={importTestData}
             loading={loading}
             color="indigo"
           >
+            <IconDownload size={16} className="mr-2" />
             Import Test Data
           </Button>
         </Group>

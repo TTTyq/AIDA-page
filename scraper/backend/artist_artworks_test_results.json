@@ -1,0 +1,85 @@
+{
+  "scrape_info": {
+    "timestamp": 1749250024.8784041,
+    "type": "both",
+    "total_items": 4,
+    "artists_count": 2,
+    "artworks_count": 2
+  },
+  "artists": [
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/mi-kafchin",
+      "source": "artsy.net",
+      "artist_id": "mi-kafchin",
+      "name": "Hortensia Mi Kafchin",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=1200",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/hortensia-mi-kafchin-hortensia-mi-kafchin-spring-in-cernobyl-2019-oil-on-canvas-191-x-295-cm-c-courtesy-of-zenoviu-haiduc-collection-cluj-napoca",
+          "source": "artsy.net",
+          "title": "Hortensia Mi Kafchin,Hortensia Mi Kafchin, Spring in Cernobyl, 2019, oil on canvas, 191 x 295 cm  © courtesy of Zenoviu Haiduc Collection, Cluj-Napoca;, 2019",
+          "artist": "Hortensia Mi Kafchin",
+          "artist_url": "https://www.artsy.net/artist/hortensia-mi-kafchin",
+          "artist_id": "mi-kafchin",
+          "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=420&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=640",
+          "image_url_large": "https://d7hftxdivxxvm.cloudfront.net?height=420&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=640",
+          "artist_name": "Hortensia Mi Kafchin",
+          "artist_page_url": "https://www.artsy.net/artist/mi-kafchin"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "source": "artsy.net",
+      "artist_id": "anthony-peyton-young",
+      "name": "Anthony Peyton Young",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=1200",
+      "artworks": [
+        {
+          "type": "artwork",
+          "url": "https://www.artsy.net/artwork/anthony-peyton-young-my-father-the-titan-parting-water-for-my-creation",
+          "source": "artsy.net",
+          "title": "Anthony Peyton Young,My Father the Titan Parting Water for My Creation, 2023",
+          "artist": "Anthony Peyton Young",
+          "artist_url": "https://www.artsy.net/artist/anthony-peyton-young",
+          "artist_id": "anthony-peyton-young",
+          "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=640&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=504",
+          "image_url_large": "https://d7hftxdivxxvm.cloudfront.net?height=640&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=504",
+          "artist_name": "Anthony Peyton Young",
+          "artist_page_url": "https://www.artsy.net/artist/anthony-peyton-young"
+        }
+      ]
+    }
+  ],
+  "artworks": [
+    {
+      "type": "artwork",
+      "url": "https://www.artsy.net/artwork/hortensia-mi-kafchin-hortensia-mi-kafchin-spring-in-cernobyl-2019-oil-on-canvas-191-x-295-cm-c-courtesy-of-zenoviu-haiduc-collection-cluj-napoca",
+      "source": "artsy.net",
+      "title": "Hortensia Mi Kafchin,Hortensia Mi Kafchin, Spring in Cernobyl, 2019, oil on canvas, 191 x 295 cm  © courtesy of Zenoviu Haiduc Collection, Cluj-Napoca;, 2019",
+      "artist": "Hortensia Mi Kafchin",
+      "artist_url": "https://www.artsy.net/artist/hortensia-mi-kafchin",
+      "artist_id": "mi-kafchin",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=420&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=640",
+      "image_url_large": "https://d7hftxdivxxvm.cloudfront.net?height=420&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F67IisraSFDGkPKVDGrw6ZQ%2Flarge.jpg&width=640",
+      "artist_name": "Hortensia Mi Kafchin",
+      "artist_page_url": "https://www.artsy.net/artist/mi-kafchin"
+    },
+    {
+      "type": "artwork",
+      "url": "https://www.artsy.net/artwork/anthony-peyton-young-my-father-the-titan-parting-water-for-my-creation",
+      "source": "artsy.net",
+      "title": "Anthony Peyton Young,My Father the Titan Parting Water for My Creation, 2023",
+      "artist": "Anthony Peyton Young",
+      "artist_url": "https://www.artsy.net/artist/anthony-peyton-young",
+      "artist_id": "anthony-peyton-young",
+      "image_url": "https://d7hftxdivxxvm.cloudfront.net?height=640&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=504",
+      "image_url_large": "https://d7hftxdivxxvm.cloudfront.net?height=640&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHr2x2IJDJEGHenRVlU24Qw%2Flarge.jpg&width=504",
+      "artist_name": "Anthony Peyton Young",
+      "artist_page_url": "https://www.artsy.net/artist/anthony-peyton-young"
+    }
+  ]
+}

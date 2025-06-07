@@ -6,6 +6,8 @@ const nextConfig = {
   images: {
     domains: ['picsum.photos', 'images.unsplash.com'],
   },
+  // 确保生产环境中的路由处理
+  trailingSlash: false,
 };
 
 module.exports = nextConfig;

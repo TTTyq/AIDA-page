@@ -103,18 +103,18 @@ export default function ArtistDetailPage() {
       <Container size="xl" className="py-10">
         <Button 
           variant="subtle" 
-          leftSection={<IconArrowLeft size={16} />} 
           onClick={handleBack}
           className="mb-6"
         >
+          <IconArrowLeft size={16} className="mr-2" />
           Back to Artists
         </Button>
         
         <Grid>
-          <Grid.Col span={{ base: 12, md: 4 }}>
+          <Grid.Col span={4}>
             <Skeleton height={400} radius="md" />
           </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 8 }}>
+          <Grid.Col span={8}>
             <Skeleton height={50} width="70%" radius="md" className="mb-4" />
             <Skeleton height={30} width="40%" radius="md" className="mb-4" />
             <Skeleton height={20} radius="md" className="mb-2" />
@@ -132,10 +132,10 @@ export default function ArtistDetailPage() {
       <Container size="xl" className="py-10">
         <Button 
           variant="subtle" 
-          leftSection={<IconArrowLeft size={16} />} 
           onClick={handleBack}
           className="mb-6"
         >
+          <IconArrowLeft size={16} className="mr-2" />
           Back to Artists
         </Button>
         
@@ -154,15 +154,15 @@ export default function ArtistDetailPage() {
     <Container size="xl" className="py-10">
       <Button 
         variant="subtle" 
-        leftSection={<IconArrowLeft size={16} />} 
         onClick={handleBack}
         className="mb-6"
       >
+        <IconArrowLeft size={16} className="mr-2" />
         Back to Artists
       </Button>
       
       <Grid gutter="xl">
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={4}>
           <Paper shadow="md" p="xs" radius="md" withBorder>
             <Image
               src={imageUrl}
@@ -204,7 +204,7 @@ export default function ArtistDetailPage() {
           </Paper>
         </Grid.Col>
         
-        <Grid.Col span={{ base: 12, md: 8 }}>
+        <Grid.Col span={8}>
           <Title order={1} className="mb-2">{artist.name}</Title>
           
           <Group className="mb-4">
@@ -221,16 +221,20 @@ export default function ArtistDetailPage() {
           
           <Tabs defaultValue="bio">
             <Tabs.List>
-              <Tabs.Tab value="bio" leftSection={<IconInfoCircle size={16} />}>
+              <Tabs.Tab value="bio">
+                <IconInfoCircle size={16} className="mr-2" />
                 Biography
               </Tabs.Tab>
-              <Tabs.Tab value="works" leftSection={<IconPhoto size={16} />}>
+              <Tabs.Tab value="works">
+                <IconPhoto size={16} className="mr-2" />
                 Notable Works
               </Tabs.Tab>
-              <Tabs.Tab value="history" leftSection={<IconHistory size={16} />}>
+              <Tabs.Tab value="history">
+                <IconHistory size={16} className="mr-2" />
                 Historical Context
               </Tabs.Tab>
-              <Tabs.Tab value="ai" leftSection={<IconMessageCircle size={16} />}>
+              <Tabs.Tab value="ai">
+                <IconMessageCircle size={16} className="mr-2" />
                 AI Interaction
               </Tabs.Tab>
             </Tabs.List>
