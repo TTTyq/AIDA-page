@@ -5,208 +5,226 @@ import json
 import os
 from pymongo.collection import Collection
 
-from app.db.mongodb import get_database
+from app.db.mongodb import get_collection
 from app.models.artwork import Artwork
+from app.core.config import ARTWORKS_COLLECTION
+from .base_service import BaseService
 
-class ArtworkService:
+class ArtworkService(BaseService):
     """
     艺术品服务
-    
+
     提供艺术品数据的CRUD操作
     """
-    
-    COLLECTION_NAME = "artworks"
-    
-    @classmethod
-    def get_collection(cls) -> Collection:
-        """
-        获取艺术品集合
-        
-        Returns:
-            Collection: MongoDB 集合对象
-        """
-        db = get_database()
-        return db[cls.COLLECTION_NAME]
+
+    COLLECTION_NAME = ARTWORKS_COLLECTION
+    MODEL_CLASS = Artwork
     
     @classmethod
-    def get_all_artworks(cls) -> List[Dict[str, Any]]:
+    def get_artworks_by_artist(cls, artist_id: str) -> List[Dict[str, Any]]:
         """
-        获取所有艺术品
-        
-        Returns:
-            List[Dict[str, Any]]: 艺术品列表
-        """
-        collection = cls.get_collection()
-        artworks = list(collection.find())
-        
-        # 将 MongoDB 的 _id 转换为字符串
-        for artwork in artworks:
-            if '_id' in artwork:
-                artwork['_id'] = str(artwork['_id'])
-                
-        return artworks
-    
-    @classmethod
-    def get_artwork_by_id(cls, artwork_id: int) -> Optional[Dict[str, Any]]:
-        """
-        根据 ID 获取艺术品
-        
+        根据艺术家ID获取作品
+
         Args:
-            artwork_id: 艺术品 ID
-            
+            artist_id: 艺术家ID
+
         Returns:
-            Optional[Dict[str, Any]]: 艺术品数据，如果不存在则返回 None
+            List[Dict[str, Any]]: 作品列表
         """
-        collection = cls.get_collection()
-        artwork = collection.find_one({"id": artwork_id})
-        
-        if artwork and '_id' in artwork:
-            artwork['_id'] = str(artwork['_id'])
-            
-        return artwork
-    
-    @classmethod
-    def get_artworks_by_artist_id(cls, artist_id: int) -> List[Dict[str, Any]]:
-        """
-        根据艺术家 ID 获取艺术品
-        
-        Args:
-            artist_id: 艺术家 ID
-            
-        Returns:
-            List[Dict[str, Any]]: 艺术品列表
-        """
-        collection = cls.get_collection()
+        collection = get_collection(cls.COLLECTION_NAME)
         artworks = list(collection.find({"artist_id": artist_id}))
-        
-        # 将 MongoDB 的 _id 转换为字符串
+
+        processed_artworks = []
         for artwork in artworks:
-            if '_id' in artwork:
-                artwork['_id'] = str(artwork['_id'])
-                
-        return artworks
+            processed_artwork = cls._process_record(artwork)
+            processed_artworks.append(processed_artwork)
+
+        return processed_artworks
     
     @classmethod
-    def create_artwork(cls, artwork_data: Dict[str, Any]) -> Dict[str, Any]:
+    def get_artworks_by_movement(cls, movement_id: str) -> List[Dict[str, Any]]:
         """
-        创建艺术品
-        
+        根据艺术运动ID获取作品
+
         Args:
-            artwork_data: 艺术品数据
-            
+            movement_id: 艺术运动ID
+
         Returns:
-            Dict[str, Any]: 创建的艺术品数据
+            List[Dict[str, Any]]: 作品列表
         """
-        collection = cls.get_collection()
-        
-        # 验证数据
-        artwork = Artwork.from_dict(artwork_data)
-        
-        # 插入数据
-        result = collection.insert_one(artwork.to_dict())
-        
-        # 获取插入的数据
-        inserted_artwork = cls.get_artwork_by_id(artwork.id)
-        
-        return inserted_artwork
+        collection = get_collection(cls.COLLECTION_NAME)
+        artworks = list(collection.find({"movement_ids": movement_id}))
+
+        processed_artworks = []
+        for artwork in artworks:
+            processed_artwork = cls._process_record(artwork)
+            processed_artworks.append(processed_artwork)
+
+        return processed_artworks
     
     @classmethod
-    def update_artwork(cls, artwork_id: int, artwork_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    def get_similar_artworks(cls, artwork_id: str, threshold: float = 0.8, limit: int = 10) -> List[Dict[str, Any]]:
         """
-        更新艺术品
-        
+        根据风格向量获取相似作品
+
         Args:
-            artwork_id: 艺术品 ID
-            artwork_data: 艺术品数据
-            
+            artwork_id: 作品ID
+            threshold: 相似度阈值
+            limit: 结果限制数量
+
         Returns:
-            Optional[Dict[str, Any]]: 更新后的艺术品数据，如果不存在则返回 None
+            List[Dict[str, Any]]: 相似作品列表
         """
-        collection = cls.get_collection()
-        
-        # 检查艺术品是否存在
-        existing_artwork = cls.get_artwork_by_id(artwork_id)
-        if not existing_artwork:
-            return None
-        
-        # 更新数据
-        collection.update_one(
-            {"id": artwork_id},
-            {"$set": artwork_data}
-        )
-        
-        # 获取更新后的数据
-        updated_artwork = cls.get_artwork_by_id(artwork_id)
-        
-        return updated_artwork
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        # 获取目标作品
+        target_artwork = collection.find_one({"id": artwork_id})
+        if not target_artwork or not target_artwork.get("style_vector"):
+            return []
+
+        target_vector = target_artwork["style_vector"]
+
+        # 获取所有有风格向量的作品
+        artworks_with_vectors = list(collection.find({
+            "style_vector": {"$exists": True, "$ne": []},
+            "id": {"$ne": artwork_id}
+        }))
+
+        # 计算相似度并筛选
+        similar_artworks = []
+        for artwork in artworks_with_vectors:
+            if artwork.get("style_vector"):
+                similarity = Artwork.calculate_style_similarity(target_vector, artwork["style_vector"])
+                if similarity >= threshold:
+                    artwork["similarity_score"] = similarity
+                    similar_artworks.append(artwork)
+
+        # 按相似度排序
+        similar_artworks.sort(key=lambda x: x["similarity_score"], reverse=True)
+
+        # 处理结果
+        processed_artworks = []
+        for artwork in similar_artworks[:limit]:
+            processed_artwork = cls._process_record(artwork)
+            processed_artworks.append(processed_artwork)
+
+        return processed_artworks
     
     @classmethod
-    def delete_artwork(cls, artwork_id: int) -> bool:
+    def search_artworks_by_style(cls, style_tags: List[str], limit: int = 10) -> List[Dict[str, Any]]:
         """
-        删除艺术品
-        
+        根据风格标签搜索作品
+
         Args:
-            artwork_id: 艺术品 ID
-            
+            style_tags: 风格标签列表
+            limit: 结果限制数量
+
         Returns:
-            bool: 是否成功删除
+            List[Dict[str, Any]]: 搜索结果
         """
-        collection = cls.get_collection()
-        
-        # 检查艺术品是否存在
-        existing_artwork = cls.get_artwork_by_id(artwork_id)
-        if not existing_artwork:
-            return False
-        
-        # 删除数据
-        result = collection.delete_one({"id": artwork_id})
-        
-        return result.deleted_count > 0
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        # 构建查询条件
+        filter_dict = {"tags": {"$in": style_tags}}
+
+        artworks = list(collection.find(filter_dict).limit(limit))
+
+        processed_artworks = []
+        for artwork in artworks:
+            processed_artwork = cls._process_record(artwork)
+            processed_artworks.append(processed_artwork)
+
+        return processed_artworks
     
     @classmethod
-    def import_from_csv(cls, csv_path: str) -> Dict[str, Any]:
+    def get_artworks_by_year_range(cls, start_year: int, end_year: int) -> List[Dict[str, Any]]:
         """
-        从 CSV 文件导入艺术品数据
-        
+        根据年份范围获取作品
+
         Args:
-            csv_path: CSV 文件路径
-            
+            start_year: 起始年份
+            end_year: 结束年份
+
         Returns:
-            Dict[str, Any]: 导入结果
+            List[Dict[str, Any]]: 作品列表
         """
-        try:
-            # 读取 CSV 文件
-            df = pd.read_csv(csv_path)
-            
-            # 验证数据
-            errors = Artwork.validate_csv_data(df)
-            if errors:
-                return {
-                    "status": "error",
-                    "errors": errors
-                }
-            
-            # 转换为字典列表
-            records = df.to_dict(orient="records")
-            
-            # 清空集合
-            collection = cls.get_collection()
-            collection.delete_many({})
-            
-            # 插入数据
-            artwork_objects = [Artwork.from_dict(record).to_dict() for record in records]
-            collection.insert_many(artwork_objects)
-            
-            # 获取样本记录
-            sample_records = cls.get_all_artworks()[:3]
-            
-            return {
-                "status": "success",
-                "rows_processed": len(records),
-                "sample_records": sample_records
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        filter_dict = {
+            "year": {
+                "$gte": start_year,
+                "$lte": end_year
             }
-        except Exception as e:
-            return {
-                "status": "error",
-                "errors": [str(e)]
-            } 
+        }
+
+        artworks = list(collection.find(filter_dict))
+
+        processed_artworks = []
+        for artwork in artworks:
+            processed_artwork = cls._process_record(artwork)
+            processed_artworks.append(processed_artwork)
+
+        return processed_artworks
+    
+    @classmethod
+    def add_artwork_to_movement(cls, artwork_id: str, movement_id: str) -> bool:
+        """
+        将作品添加到艺术运动
+
+        Args:
+            artwork_id: 作品ID
+            movement_id: 艺术运动ID
+
+        Returns:
+            bool: 是否成功添加
+        """
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        result = collection.update_one(
+            {"id": artwork_id},
+            {"$addToSet": {"movement_ids": movement_id}}
+        )
+
+        return result.modified_count > 0
+    
+    @classmethod
+    def remove_artwork_from_movement(cls, artwork_id: str, movement_id: str) -> bool:
+        """
+        从艺术运动中移除作品
+
+        Args:
+            artwork_id: 作品ID
+            movement_id: 艺术运动ID
+
+        Returns:
+            bool: 是否成功移除
+        """
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        result = collection.update_one(
+            {"id": artwork_id},
+            {"$pull": {"movement_ids": movement_id}}
+        )
+
+        return result.modified_count > 0
+
+    @classmethod
+    def update_style_vector(cls, artwork_id: str, style_vector: List[float]) -> bool:
+        """
+        更新作品的风格向量
+
+        Args:
+            artwork_id: 作品ID
+            style_vector: 新的风格向量
+
+        Returns:
+            bool: 是否成功更新
+        """
+        collection = get_collection(cls.COLLECTION_NAME)
+
+        result = collection.update_one(
+            {"id": artwork_id},
+            {"$set": {"style_vector": style_vector}}
+        )
+
+        return result.modified_count > 0
